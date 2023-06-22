@@ -8,7 +8,7 @@ export default function Navigation() {
         <div className="flex items-center justify-between">
           <div className="flex flex-row gap-5 items-center">
             <Link to={"/"} className="text-white text-lg font-bold h-16">
-              <img src={logoImage} className="w-full h-full" />
+              <img src={logoImage} className="max-h-full" />
             </Link>
             <h1 className="font-sans text-2xl font-bold">RecruITer</h1>
           </div>
