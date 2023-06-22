@@ -6,8 +6,6 @@ import NotFound from "./components/other/NotFound";
 import JobOfferList from "./components/job-offers/JobOffersList";
 
 function App() {
-  // const [count, setCount] = useState(0);
-
   return (
     <>
       <Navigation />
