@@ -3,7 +3,7 @@ import logoImage from "../../assets/logo.png";
 
 export default function Navigation() {
   return (
-    <nav className="bg-gray-800 m-6">
+    <nav className="bg-gray-700 m-6 rounded-lg">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between">
           <div className="flex flex-row gap-5 items-center">
