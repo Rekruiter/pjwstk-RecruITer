@@ -1,5 +1,5 @@
-import React, { FormEvent, useState } from "react";
-import { redirect, useNavigate } from "react-router-dom";
+import { FormEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface QuestionForm {
   question: string;
