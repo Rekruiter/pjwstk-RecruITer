@@ -18,15 +18,21 @@
   -webkit-text-size-adjust: 100%;
 }
 
+html {
+  background-color: #200b0b1b;
+}
+
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  background-color: #200b0b1b;
 }
 
 body {
   min-width: 320px;
   min-height: 100vh;
+  background-color: #200b0b1b;
 }
 
 h1 {
