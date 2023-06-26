@@ -37,7 +37,7 @@ export default function JobOfferForm() {
             IdCompany: "1",
             Salary: values.salary,
             Description: values.jobName,
-            Requirments: values.requirements,
+            Requirements: values.requirements,
             DateExpires: "2023-07-25T10:00:00",
           }),
         }
