@@ -1,13 +1,13 @@
-import { Link } from "react-router-dom";
-import logoImage from "../../assets/logo.png";
+import { Link } from 'react-router-dom';
+import logoImage from '../../../assets/logo.png';
 
 export default function Navigation() {
   return (
-    <nav className="bg-gray-700 m-6 rounded-lg">
+    <nav className="bg-gray-700 m-6 rounded-lg fixed top-0 z-10">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between">
           <div className="flex flex-row gap-5 items-center">
-            <Link to={"/"} className="text-white text-lg font-bold h-16">
+            <Link to={'/'} className="text-white text-lg font-bold h-16">
               <img src={logoImage} className="max-h-full" />
             </Link>
             <h1 className="font-sans text-2xl font-bold">RecruITer</h1>

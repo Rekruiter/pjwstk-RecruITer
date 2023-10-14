@@ -1,5 +1,5 @@
-import { useNavigate } from "react-router-dom";
-import useFetchList from "../../hooks/useFetchList";
+import { useNavigate } from 'react-router-dom';
+import useFetchList from '../../../hooks/useFetchList';
 
 // type jobOfferItem = {
 //   id: string;
@@ -36,16 +36,14 @@ interface JobOfferPreview {
   description: string;
 }
 
-const headers = ["Position", "Location", "Salary"];
+const headers = ['Position', 'Location', 'Salary'];
 
 export default function JobOfferList() {
   const {
     list: offers,
     error,
     isLoading,
-  } = useFetchList<JobOfferPreview>(
-    "https://recruiter-endpoints.azurewebsites.net/api/jobOffers"
-  );
+  } = useFetchList<JobOfferPreview>(`${import.meta.env.VITE_BACKEND_URL}/jobOffers`);
 
   let content;
 
@@ -64,14 +62,10 @@ export default function JobOfferList() {
       <div className="bg-gray-700 rounded-lg flex flex-col">
         <div className="m-5 bg-blue-950 rounded-lg flex flex-col">
           <div className="m-5 bg-teal-600 p-5 rounded-lg flex flex-col gap-5 pr-44">
-            <h2 className="text-xl font-bold text-black text-">
-              User's company name
-            </h2>
+            <h2 className="text-xl font-bold text-black text-">User's company name</h2>
             <div className="flex flex-row justify-evenly">
               {headers.map((header, index) => (
-                <p
-                  key={index}
-                  className="text-lg font-semibold text-black text-center w-56">
+                <p key={index} className="text-lg font-semibold text-black text-center w-56">
                   {header}
                 </p>
               ))}
@@ -87,9 +81,7 @@ export default function JobOfferList() {
                 <p className="text-lg font-semibold text-black w-56 text-start">
                   {jobOffer.description}
                 </p>
-                <p className="text-lg font-semibold text-black w-56 text-center">
-                  Warsaw
-                </p>
+                <p className="text-lg font-semibold text-black w-56 text-center">Warsaw</p>
                 <p className="text-lg font-semibold text-black w-56 text-center">
                   {jobOffer.salary}
                 </p>
@@ -100,11 +92,11 @@ export default function JobOfferList() {
                     await fetch(
                       `https://recruiter-endpoints.azurewebsites.net/api/jobOffers/${jobOffer.id}`,
                       {
-                        method: "DELETE",
+                        method: 'DELETE',
                         headers: {
-                          "Content-Type": "application/json",
+                          'Content-Type': 'application/json',
                         },
-                      }
+                      },
                     );
                     navigate(0);
                   }}>
@@ -117,7 +109,7 @@ export default function JobOfferList() {
           <div className="m-5 flex flex-row justify-end">
             <button
               className="w-52 mt-5 bg-teal-600 hover:bg-teal-300 text-white hover:text-gray-900"
-              onClick={() => navigate("/job-offers/new")}>
+              onClick={() => navigate('/job-offers/new')}>
               ADD NEW JOB OFFER
             </button>
           </div>
