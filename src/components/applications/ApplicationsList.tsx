@@ -1,5 +1,3 @@
-
-
 export default function ApplicationsList() {
   return (
     <div className="mx-5 flex-1 flex flex-col">

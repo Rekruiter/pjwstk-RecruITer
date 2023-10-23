@@ -1,22 +1,52 @@
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, RouteObject, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import Layout from './components/Layout/Layout';
+import NotFound from './components/other/NotFound';
+import JobOfferForm from './components/fragments/job-offers/JobOfferForm';
+import JobOfferPreview from './components/fragments/job-offers/JobOfferPreview';
+import JobOfferList from './components/fragments/job-offers/JobOffersList';
+
+const PrivateRoute = (element: JSX.Element, requiredRole?: string) => {
+  // const auth = useAuth();
+
+  return <Navigate to={'/?authorization'} />;
+};
 
 function App() {
-  return (
-    <>
-      <Layout>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          {/* <Route path="/applications" element={<NotFound />} />
-        <Route path="/job-offers" element={<JobOfferList />} />
-        <Route path="/job-offers/new" element={<JobOfferForm />} />
-        <Route path="/job-offers/:id" element={<JobOfferPreview />} />
-        <Route path="/recruitments" element={<NotFound />} /> */}
-        </Routes>
-      </Layout>
-    </>
+  const wrapInLayout = (element: JSX.Element, withoutMargin?: boolean) => (
+    <Layout withoutMargin={withoutMargin}>{element}</Layout>
   );
+
+  const routesConfig: RouteObject[] = [
+    {
+      path: '/',
+      element: wrapInLayout(<HomePage />, true),
+    },
+    {
+      path: '/applications',
+      element: PrivateRoute(wrapInLayout(<NotFound />)),
+    },
+    {
+      path: '*',
+      element: wrapInLayout(<NotFound />),
+    },
+    {
+      path: '/job-offers',
+      element: wrapInLayout(<JobOfferList />),
+    },
+    {
+      path: '/job-offers/new',
+      element: wrapInLayout(<JobOfferForm />),
+    },
+    {
+      path: '/job-offers/:id',
+      element: wrapInLayout(<JobOfferPreview />),
+    },
+  ];
+
+  const router = createBrowserRouter(routesConfig);
+
+  return <RouterProvider router={router} />;
 }
 
 export default App;

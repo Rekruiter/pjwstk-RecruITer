@@ -1,58 +1,50 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useFormik } from "formik";
-import * as Yup from "yup";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 
 interface QuestionForm {
   question: string;
 }
 
 const validationSchema = Yup.object().shape({
-  jobName: Yup.string().required("Job Name is required"),
-  requirements: Yup.string().required("Requirements are required"),
-  salary: Yup.number().required("Salary is required"),
+  jobName: Yup.string().required('Job Name is required'),
+  requirements: Yup.string().required('Requirements are required'),
+  salary: Yup.number().required('Salary is required'),
 });
 
 export default function JobOfferForm() {
   const navigate = useNavigate();
-  const [error, setError] = useState<string>("");
+  const [error, setError] = useState<string>('');
   const [questions, setQuestions] = useState<QuestionForm[]>([]);
 
   const formik = useFormik({
     initialValues: {
-      jobName: "",
-      requirements: "",
-      salary: "",
+      jobName: '',
+      requirements: '',
+      salary: '',
     },
     validationSchema: validationSchema,
     onSubmit: async (values, { resetForm }) => {
-      const response = await fetch(
-        "https://recruiter-endpoints.azurewebsites.net/api/jobOffers",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            IdCompany: "1",
-            Salary: values.salary,
-            Description: values.jobName,
-            Requirments: values.requirements,
-            DateExpires: "2023-07-25T10:00:00",
-          }),
-        }
-      );
+      const response = await fetch('https://recruiter-endpoints.azurewebsites.net/api/jobOffers', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          IdCompany: '1',
+          Salary: values.salary,
+          Description: values.jobName,
+          Requirments: values.requirements,
+          DateExpires: '2023-07-25T10:00:00',
+        }),
+      });
 
       if (response.status === 201) {
         resetForm();
-        navigate("/job-offers");
+        navigate('/job-offers');
       } else {
-        setError(
-          "Something went wrong : " +
-            response.status +
-            " " +
-            response.statusText
-        );
+        setError('Something went wrong : ' + response.status + ' ' + response.statusText);
       }
     },
   });
@@ -64,7 +56,7 @@ export default function JobOfferForm() {
   };
 
   const handleAddQuestion = () => {
-    setQuestions([...questions, { question: "" }]);
+    setQuestions([...questions, { question: '' }]);
   };
 
   const handleRemoveQuestion = (index: number) => {
@@ -77,9 +69,7 @@ export default function JobOfferForm() {
     <div className="mx-5 flex-1">
       <div className="bg-gray-700 rounded-lg flex flex-col">
         <div className="m-5 bg-blue-950 rounded-lg flex flex-col justify-center items-center">
-          <form
-            onSubmit={formik.handleSubmit}
-            className="bg-teal-800 rounded-lg m-5">
+          <form onSubmit={formik.handleSubmit} className="bg-teal-800 rounded-lg m-5">
             <div>
               <div className="m-5 flex justify-between gap-5">
                 <label htmlFor="jobName">Job Offer Name:</label>
@@ -92,9 +82,7 @@ export default function JobOfferForm() {
                 />
               </div>
               {formik.errors.jobName && formik.touched.jobName && (
-                <div className="text-center text-red-600 font-bold">
-                  {formik.errors.jobName}
-                </div>
+                <div className="text-center text-red-600 font-bold">{formik.errors.jobName}</div>
               )}
             </div>
 
@@ -128,9 +116,7 @@ export default function JobOfferForm() {
                 />
               </div>
               {formik.errors.salary && formik.touched.salary && (
-                <div className="text-center text-red-600 font-bold">
-                  {formik.errors.salary}
-                </div>
+                <div className="text-center text-red-600 font-bold">{formik.errors.salary}</div>
               )}
             </div>
 
@@ -143,9 +129,7 @@ export default function JobOfferForm() {
                     type="text"
                     id={`question-${index}`}
                     value={question.question}
-                    onChange={(e) =>
-                      handleQuestionChange(index, e.target.value)
-                    }
+                    onChange={(e) => handleQuestionChange(index, e.target.value)}
                   />
                   <button
                     type="button"
@@ -161,9 +145,7 @@ export default function JobOfferForm() {
             </div>
             {error}
             <div className="text-center">
-              <button
-                className="rounded-lg shadow-lg bg-teal-300 m-5 text-black"
-                type="submit">
+              <button className="rounded-lg shadow-lg bg-teal-300 m-5 text-black" type="submit">
                 Submit
               </button>
             </div>
