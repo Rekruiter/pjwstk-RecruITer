@@ -6,7 +6,8 @@ import JobOfferForm from './components/fragments/job-offers/JobOfferForm';
 import JobOfferPreview from './components/fragments/job-offers/JobOfferPreview';
 import JobOfferList from './components/fragments/job-offers/JobOffersList';
 
-const PrivateRoute = (element: JSX.Element, requiredRole?: string) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const PrivateRoute = (_element: JSX.Element, _requiredRole?: string) => {
   // const auth = useAuth();
 
   return <Navigate to={'/?authorization'} />;
