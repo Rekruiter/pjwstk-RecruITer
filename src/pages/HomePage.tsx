@@ -1,8 +1,14 @@
+import KeyboardImage from '../assets/keyboard.png';
+
 const HomePage = () => {
   return (
-    <div className="bg-gray-800 w-full flex-1 flex justify-center items-center px-5">
-      There is going to be the best recruitment site in the world, just wait...
-    </div>
+    <section
+      className="w-full flex flex-col justify-center items-center "
+      style={{
+        background: `linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.25)), url(${KeyboardImage})`,
+        backgroundSize: 'cover',
+        backdropFilter: 'blur(10px)',
+      }}></section>
   );
 };
 

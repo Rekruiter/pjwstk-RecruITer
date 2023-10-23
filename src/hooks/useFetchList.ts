@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from 'react';
 
 interface FetchListResponse<T> {
   list: T[];
@@ -17,17 +17,17 @@ const useFetchPlayers = <T>(url: string): FetchListResponse<T> => {
 
     try {
       const response = await fetch(url, {
-        method: "GET",
+        method: 'GET',
         headers: {
-          "Content-Type": "application/json",
-          charset: "utf-8",
+          'Content-Type': 'application/json',
+          charset: 'utf-8',
         },
       });
 
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error("Something went wrongaaaa");
+        throw new Error('Something went wrongaaaa');
       }
 
       setList(data);
@@ -35,7 +35,7 @@ const useFetchPlayers = <T>(url: string): FetchListResponse<T> => {
       if (err instanceof Error) {
         setError(err.message);
       } else {
-        setError("An error occurred");
+        setError('An error occurred');
       }
     }
 

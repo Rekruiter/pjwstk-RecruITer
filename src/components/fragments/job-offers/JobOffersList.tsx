@@ -58,7 +58,7 @@ export default function JobOfferList() {
   const navigate = useNavigate();
 
   return (
-    <div className="mx-5 flex-1">
+    <div className="mx-5 flex-1 mt-36">
       <div className="bg-gray-700 rounded-lg flex flex-col">
         <div className="m-5 bg-blue-950 rounded-lg flex flex-col">
           <div className="m-5 bg-teal-600 p-5 rounded-lg flex flex-col gap-5 pr-44">
