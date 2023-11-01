@@ -17,6 +17,7 @@ module.exports = {
       },
       minWidth: {
         mobile: '320px',
+        loginButton: '8rem',
       },
     },
   },

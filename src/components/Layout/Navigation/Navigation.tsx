@@ -1,7 +1,9 @@
 import { Link, NavLink } from 'react-router-dom';
 import logoImage from '../../../assets/logo.png';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import LoginNavbar from '../../LoginNavbar/LoginNavbar';
+import AuthContext from '../../../context/auth-context';
+import Button from '../../UI/Button';
 
 interface NavigationsProps {
   className: string;
@@ -9,7 +11,7 @@ interface NavigationsProps {
 
 const Navigation = ({ className }: NavigationsProps) => {
   const [isOpened, setIsOpened] = useState(false);
-  const isLoggedIn = false; // TODO: Fetch this from redux store
+  const authCtx = useContext(AuthContext);
 
   const toggleNavigation = () => {
     setIsOpened((prevState) => !prevState);
@@ -68,7 +70,7 @@ const Navigation = ({ className }: NavigationsProps) => {
               to="/recruitments">
               Recruitments
             </NavLink>
-            {!isLoggedIn ? <LoginNavbar /> : <div>logged in user logo</div>}
+            {<LoginNavbar />}
           </div>
         </div>
       </nav>
