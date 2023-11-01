@@ -8,7 +8,6 @@ export const AuthorizationObjectSchema = z.object({
     z.literal('tech-recruiter'),
     z.literal('recruiter'),
     z.literal('admin'),
-    z.literal('guest'),
   ]),
 });
 
