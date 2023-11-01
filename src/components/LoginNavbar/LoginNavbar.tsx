@@ -63,6 +63,21 @@ const LoginNavbar = () => {
     authCtx.logout();
   };
 
+  const handleLoginButton = (
+    role: 'user' | 'candidate' | 'tech-recruiter' | 'recruiter' | 'admin',
+  ) => {
+    setIsLoading(true);
+    setTimeout(() => {
+      authCtx.login({
+        role: role,
+        token: 'testtoken1',
+      });
+      setIsLoggingIn(false);
+      setSearchParams(() => new URLSearchParams());
+      setIsLoading(false);
+    }, 2000);
+  };
+
   return (
     <>
       {authCtx.isLoggedIn ? (
@@ -87,10 +102,48 @@ const LoginNavbar = () => {
                 <input placeholder="E-mail" className="rounded" />
                 <input placeholder="Password" className="rounded" />
               </div>
-              <div>
-                <Button className="shadow-md min-w-loginButton" type="submit" disabled={isLoading}>
-                  {isLoading ? <Spinner /> : 'Log in'}
+              <div className="flex flex-row">
+                <Button
+                  className="shadow-md min-w-loginButton"
+                  type="button"
+                  onClick={() => handleLoginButton('tech-recruiter')}
+                  disabled={isLoading}>
+                  {isLoading ? <Spinner /> : 'Tech Recruiter'}
                 </Button>
+                <Button
+                  className="shadow-md min-w-loginButton"
+                  type="button"
+                  onClick={() => handleLoginButton('recruiter')}
+                  disabled={isLoading}>
+                  {isLoading ? <Spinner /> : 'Recruiter'}
+                </Button>
+                <Button
+                  className="shadow-md min-w-loginButton"
+                  type="button"
+                  onClick={() => handleLoginButton('user')}
+                  disabled={isLoading}>
+                  {isLoading ? <Spinner /> : 'user'}
+                </Button>
+                <Button
+                  className="shadow-md min-w-loginButton"
+                  type="button"
+                  onClick={() => handleLoginButton('candidate')}
+                  disabled={isLoading}>
+                  {isLoading ? <Spinner /> : 'candidate'}
+                </Button>
+                <Button
+                  className="shadow-md min-w-loginButton"
+                  type="button"
+                  onClick={() => handleLoginButton('admin')}
+                  disabled={isLoading}>
+                  {isLoading ? <Spinner /> : 'admin'}
+                </Button>
+                {/* <Button
+                  className="shadow-md min-w-loginButton"
+                  type="submit"
+                  disabled={isLoading}>
+                  {isLoading ? <Spinner /> : 'Log in'}
+                </Button> */}
               </div>
             </form>
           </div>

@@ -45,7 +45,6 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
 
   const loginHandler = (authorization: IAuthorizationObject) => {
     localStorage.setItem('authorization', JSON.stringify(authorization));
-    console.log('tutaj jesgtem');
     setAuthorization(authorization);
   };
 
