@@ -1,6 +1,5 @@
 import { Navigate, RouteObject, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import HomePage from './pages/HomePage';
-import Layout from './components/Layout/Layout';
 import NotFound from './components/other/NotFound';
 import JobOfferForm from './components/fragments/job-offers/JobOfferForm';
 import JobOfferPreview from './components/fragments/job-offers/JobOfferPreview';
@@ -13,16 +12,7 @@ import AdminPanel from './pages/AdminPanel';
 import { Paths } from './constants/paths';
 import { IAuthorizationObject } from './types/authorizationTypes';
 import PermissionDenied from './pages/PermissionDenied';
-
-const wrapInLayout = (element: JSX.Element, withoutMargin?: boolean) => (
-  <Layout withoutMargin={withoutMargin}>{element}</Layout>
-);
-
-const wrapInPanelLayout = (element: JSX.Element, withoutMargin?: boolean) => (
-  <Layout withoutMargin={withoutMargin} panel>
-    {element}
-  </Layout>
-);
+import { wrapInLayout, wrapInPanelLayout } from './helpers';
 
 function App() {
   const { role, isLoggedIn } = useContext(AuthContext);
@@ -53,26 +43,11 @@ function App() {
   };
 
   const routesConfig: RouteObject[] = [
-    {
-      path: Paths.home.path,
-      element: getDefaultHomeRoute(),
-    },
-    {
-      path: Paths.notFound.path,
-      element: wrapInLayout(<NotFound />),
-    },
-    {
-      path: Paths.jobOffers.path,
-      element: wrapInLayout(<JobOfferList />),
-    },
-    {
-      path: Paths.newJobOffer.path,
-      element: PrivateRoute(<JobOfferForm />, Paths.newJobOffer.requiredRoles),
-    },
-    {
-      path: Paths.jobOfferPreview.path,
-      element: wrapInLayout(<JobOfferPreview />),
-    },
+    { path: Paths.home.path, element: getDefaultHomeRoute() },
+    { path: Paths.notFound.path, element: wrapInLayout(<NotFound />) },
+    { path: Paths.jobOffers.path, element: wrapInLayout(<JobOfferList />) },
+    { path: Paths.newJobOffer.path, element: PrivateRoute(<JobOfferForm />, Paths.newJobOffer.requiredRoles) },
+    { path: Paths.jobOfferPreview.path, element: wrapInLayout(<JobOfferPreview />) },
   ];
 
   const router = createBrowserRouter(routesConfig);
