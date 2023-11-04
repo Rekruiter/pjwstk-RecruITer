@@ -77,5 +77,3 @@ export const headerDefaultRoles: HeaderPathType[] = Object.values(Paths).filter(
   (value): value is HeaderPathType =>
     value.headerSignature !== undefined && value.requiredRoles === undefined,
 );
-
-console.log(headerDefaultRoles);

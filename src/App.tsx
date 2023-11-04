@@ -14,48 +14,48 @@ import { Paths } from './constants/paths';
 import { IAuthorizationObject } from './types/authorizationTypes';
 import PermissionDenied from './pages/PermissionDenied';
 
+const wrapInLayout = (element: JSX.Element, withoutMargin?: boolean) => (
+  <Layout withoutMargin={withoutMargin}>{element}</Layout>
+);
+
+const wrapInPanelLayout = (element: JSX.Element, withoutMargin?: boolean) => (
+  <Layout withoutMargin={withoutMargin} panel>
+    {element}
+  </Layout>
+);
+
 function App() {
-  const authCtx = useContext(AuthContext);
+  const { role, isLoggedIn } = useContext(AuthContext);
 
   const PrivateRoute = (element: JSX.Element, requiredRoles?: IAuthorizationObject['role'][]) => {
-    // requiredRoles should not be undefined in privateRoute
-    if (!authCtx.isLoggedIn) {
+    if (!isLoggedIn) {
       return <Navigate to={'/?authorization=login'} />;
     }
-
-    // authCtx.role can't be undefined because isLoggedIn is true
-    if (requiredRoles && !requiredRoles.includes(authCtx.role!)) {
+    if (requiredRoles && !requiredRoles.includes(role!)) {
       return wrapInPanelLayout(<PermissionDenied />);
     }
-
     return wrapInPanelLayout(element);
   };
 
-  const DefaultHomeRoute = () => {
-    if (authCtx.role === 'candidate' || authCtx.role === 'user') {
-      return wrapInPanelLayout(<CandidatePanel />);
-    } else if (authCtx.role === 'recruiter' || authCtx.role === 'techRecruiter') {
-      return wrapInPanelLayout(<RecruiterPanel />);
-    } else if (authCtx.role === 'admin') {
-      return wrapInPanelLayout(<AdminPanel />);
+  const getDefaultHomeRoute = () => {
+    switch (role) {
+      case 'candidate':
+      case 'user':
+        return wrapInPanelLayout(<CandidatePanel />);
+      case 'recruiter':
+      case 'techRecruiter':
+        return wrapInPanelLayout(<RecruiterPanel />);
+      case 'admin':
+        return wrapInPanelLayout(<AdminPanel />);
+      default:
+        return wrapInLayout(<HomePage />, true);
     }
-    return wrapInLayout(<HomePage />, true);
   };
-
-  const wrapInLayout = (element: JSX.Element, withoutMargin?: boolean) => (
-    <Layout withoutMargin={withoutMargin}>{element}</Layout>
-  );
-
-  const wrapInPanelLayout = (element: JSX.Element, withoutMargin?: boolean) => (
-    <Layout withoutMargin={withoutMargin} panel>
-      {element}
-    </Layout>
-  );
 
   const routesConfig: RouteObject[] = [
     {
       path: Paths.home.path,
-      element: DefaultHomeRoute(),
+      element: getDefaultHomeRoute(),
     },
     {
       path: Paths.notFound.path,
