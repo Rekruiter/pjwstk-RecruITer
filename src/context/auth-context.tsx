@@ -13,20 +13,29 @@ const AuthContext = React.createContext<AuthContextProps>({
   isLoggedIn: false,
   login: () => {},
   logout: () => {},
-  token: '',
 });
+
+const safeJSONParse = (data: string) => {
+  try {
+    return JSON.parse(data);
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
 
 const retrieveStoredAuthorization = (): IAuthorizationObject | null => {
   const storedAuthorization = localStorage.getItem('authorization');
 
   if (!storedAuthorization) return null;
 
-  const parsedAuthorization = AuthorizationObjectSchema.safeParse(JSON.parse(storedAuthorization));
+  const parsedAuthorization = AuthorizationObjectSchema.safeParse(
+    safeJSONParse(storedAuthorization),
+  );
 
   if (parsedAuthorization.success) {
     return parsedAuthorization.data;
   }
-  console.error(parsedAuthorization.error);
   localStorage.removeItem('authorization');
   return null;
 };

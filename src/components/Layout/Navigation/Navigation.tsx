@@ -1,13 +1,33 @@
 import { Link, NavLink } from 'react-router-dom';
 import logoImage from '../../../assets/logo.png';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import LoginNavbar from '../../LoginNavbar/LoginNavbar';
+import AuthContext from '../../../context/auth-context';
+import { IAuthorizationObject } from '../../../types/authorizationTypes';
+import { headerDefaultRoles, headerPathsByRole } from '../../../constants/paths';
 
 interface NavigationsProps {
   className: string;
 }
+const getNavLinks = (role?: IAuthorizationObject['role']) => {
+  const headerLinks = role ? headerPathsByRole[role] : headerDefaultRoles;
+  return (
+    <>
+      {headerLinks.map((link) => (
+        <NavLink
+          key={link.path}
+          className="text-gray-300 hover:text-white rounded-md text-base font-medium"
+          to={link.path}>
+          {link.headerSignature}
+        </NavLink>
+      ))}
+    </>
+  );
+};
 
 const Navigation = ({ className }: NavigationsProps) => {
+  const authCtx = useContext(AuthContext);
+
   const [isOpened, setIsOpened] = useState(false);
 
   const toggleNavigation = () => {
@@ -47,26 +67,7 @@ const Navigation = ({ className }: NavigationsProps) => {
             className={`w-full ${
               isOpened ? 'flex flex-col' : 'hidden'
             } md:flex md:flex-row md:w-auto gap-4 xl:gap-14 items-center`}>
-            <NavLink
-              className="text-gray-300 hover:text-white rounded-md text-base font-medium"
-              to="/">
-              Home
-            </NavLink>
-            <NavLink
-              className="text-gray-300 hover:text-white rounded-md ext-base font-medium"
-              to="/applications">
-              Applications
-            </NavLink>
-            <NavLink
-              className="text-gray-300 hover:text-white rounded-md ext-base font-medium"
-              to="/job-offers">
-              Job offers
-            </NavLink>
-            <NavLink
-              className="text-gray-300 hover:text-white rounded-md ext-base font-medium"
-              to="/recruitments">
-              Recruitments
-            </NavLink>
+            {getNavLinks(authCtx.role)}
             {<LoginNavbar />}
           </div>
         </div>
