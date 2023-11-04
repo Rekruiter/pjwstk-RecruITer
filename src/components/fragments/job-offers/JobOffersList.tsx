@@ -1,34 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import useFetchList from '../../../hooks/useFetchList';
 
-// type jobOfferItem = {
-//   id: string;
-//   position: string;
-//   location: string;
-//   salary: string;
-// };
-
-// const mockedJobOffers: jobOfferItem[] = [
-//   {
-//     id: "1",
-//     position: "Junior Frontend Developer",
-//     location: "Warsaw",
-//     salary: "5000 PLN",
-//   },
-//   {
-//     id: "2",
-//     position: "Mid C# Developer",
-//     location: "Remote",
-//     salary: "8900 PLN",
-//   },
-//   {
-//     id: "3",
-//     position: "Senior Java Developer",
-//     location: "Cracow",
-//     salary: "11200 PLN",
-//   },
-// ];
-
 interface JobOfferPreview {
   id: number;
   idCompany: number;
