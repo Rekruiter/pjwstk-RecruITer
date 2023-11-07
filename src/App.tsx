@@ -1,27 +1,27 @@
 import { Navigate, RouteObject, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import HomePage from './pages/HomePage';
-import NotFound from './components/other/NotFound';
+import NotFound from './pages/RouteNotFound';
 import JobOfferForm from './components/fragments/job-offers/JobOfferForm';
 import JobOfferPreview from './components/fragments/job-offers/JobOfferPreview';
-import JobOfferList from './components/fragments/job-offers/JobOffersList';
 import { useContext } from 'react';
 import AuthContext from './context/auth-context';
-import CandidatePanel from './pages/CandidatePanel';
-import RecruiterPanel from './pages/RecruiterPanel';
-import AdminPanel from './pages/AdminPanel';
-import { Paths } from './constants/paths';
+import CandidatePanel from './pages/panels/CandidatePanel';
+import RecruiterPanel from './pages/panels/RecruiterPanel';
+import AdminPanel from './pages/panels/AdminPanel';
+import { Paths, getRequiredRoles } from './constants/paths';
 import { IAuthorizationObject } from './types/authorizationTypes';
 import PermissionDenied from './pages/PermissionDenied';
 import { wrapInLayout, wrapInPanelLayout } from './helpers';
+import JobOfferPage from './pages/JobOfferPage';
 
 function App() {
   const { role, isLoggedIn } = useContext(AuthContext);
 
-  const PrivateRoute = (element: JSX.Element, requiredRoles?: IAuthorizationObject['role'][]) => {
+  const PrivateRoute = (element: JSX.Element, requiredRoles: Partial<IAuthorizationObject>['role'][]) => {
     if (!isLoggedIn) {
       return <Navigate to={'/?authorization=login'} />;
     }
-    if (requiredRoles && !requiredRoles.includes(role!)) {
+    if (requiredRoles.length !== 0 && !requiredRoles.includes(role!)) {
       return wrapInPanelLayout(<PermissionDenied />);
     }
     return wrapInPanelLayout(element);
@@ -45,8 +45,8 @@ function App() {
   const routesConfig: RouteObject[] = [
     { path: Paths.home.path, element: getDefaultHomeRoute() },
     { path: Paths.notFound.path, element: wrapInLayout(<NotFound />) },
-    { path: Paths.jobOffers.path, element: wrapInLayout(<JobOfferList />) },
-    { path: Paths.newJobOffer.path, element: PrivateRoute(<JobOfferForm />, Paths.newJobOffer.requiredRoles) },
+    { path: Paths.jobOffers.path, element: wrapInLayout(<JobOfferPage />) },
+    { path: Paths.newJobOffer.path, element: PrivateRoute(<JobOfferForm />, getRequiredRoles('newJobOffer')) },
     { path: Paths.jobOfferPreview.path, element: wrapInLayout(<JobOfferPreview />) },
   ];
 

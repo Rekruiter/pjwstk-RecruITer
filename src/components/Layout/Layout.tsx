@@ -8,7 +8,6 @@ interface LayoutProps {
 
 const Layout = ({ children, withoutMargin = false, panel }: PropsWithChildren<LayoutProps>) => {
   const [navbarBackground, setNavbarBackground] = useState('bg-transparent');
-
   useEffect(() => {
     if (!withoutMargin) {
       return;
@@ -26,13 +25,13 @@ const Layout = ({ children, withoutMargin = false, panel }: PropsWithChildren<La
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [withoutMargin]);
 
   return (
     <div className="flex flex-col min-h-screen min-w-mobile">
       <Navigation className={withoutMargin ? navbarBackground : 'bg-dark_blue'} />
-      <div className={`flex flex-grow ${!withoutMargin ? 'mt-36' : ''}`}>{children}</div>
-      {!panel && <div className="h-12 basis-24">footer</div>}
+      <div className={`flex flex-col flex-grow ${!withoutMargin && 'mt-32'}`}>{children}</div>
+      {!panel && <div className="container">footer</div>}
     </div>
   );
 };

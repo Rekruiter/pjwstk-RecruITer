@@ -3,6 +3,9 @@
 module.exports = {
   content: ['./src/components/**/*.{js,ts,jsx,tsx,mdx}', './src/pages/**/*.{js,ts,jsx,tsx,mdx}'],
   theme: {
+    container: {
+      center: true,
+    },
     extend: {
       colors: {
         dark: '#495867',
@@ -12,6 +15,7 @@ module.exports = {
         orange: '#FE5F55',
       },
       spacing: {
+        0.25: '0.0625rem',
         22.5: '5.625rem',
         7.5: '1.875rem',
       },

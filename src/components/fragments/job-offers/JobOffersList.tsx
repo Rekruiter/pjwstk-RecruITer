@@ -50,26 +50,19 @@ export default function JobOfferList() {
                 className="bg-teal-500 flex flex-row justify-evenly rounded-lg px-5"
                 onClick={() => navigate(`/job-offers/${jobOffer.id}`)}
                 key={jobOffer.id}>
-                <p className="text-lg font-semibold text-black w-56 text-start">
-                  {jobOffer.description}
-                </p>
+                <p className="text-lg font-semibold text-black w-56 text-start">{jobOffer.description}</p>
                 <p className="text-lg font-semibold text-black w-56 text-center">Warsaw</p>
-                <p className="text-lg font-semibold text-black w-56 text-center">
-                  {jobOffer.salary}
-                </p>
+                <p className="text-lg font-semibold text-black w-56 text-center">{jobOffer.salary}</p>
                 <button
                   className="text-sm bg-teal-700"
                   onClick={async (event) => {
                     event.stopPropagation();
-                    await fetch(
-                      `https://recruiter-endpoints.azurewebsites.net/api/jobOffers/${jobOffer.id}`,
-                      {
-                        method: 'DELETE',
-                        headers: {
-                          'Content-Type': 'application/json',
-                        },
+                    await fetch(`https://recruiter-endpoints.azurewebsites.net/api/jobOffers/${jobOffer.id}`, {
+                      method: 'DELETE',
+                      headers: {
+                        'Content-Type': 'application/json',
                       },
-                    );
+                    });
                     navigate(0);
                   }}>
                   delete
