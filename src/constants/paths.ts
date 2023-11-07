@@ -3,22 +3,23 @@ import { IAuthorizationObject } from '../types/authorizationTypes';
 export type PathType = {
   path: string;
   requiredRoles?: IAuthorizationObject['role'][];
-} & (
-  | { getPath?: (...args: any[]) => string; headerSignature?: never }
-  | { getPath?: never; headerSignature?: string }
-);
+  headerSignature?: string;
+};
 
 type HeaderPathType = {
   path: PathType['path'];
   headerSignature: string;
 };
 
-// [] - empty requiredRoles array means that this path is available for all roles
-// undefined requiredRoles mean that this path is availble for all users
-
 // When creating new path make sure to assign element in BrowserRouter in App.tsx
 
-export const Paths: Record<string, PathType> = {
+const allPaths = ['home', 'notFound', 'jobOffers', 'newJobOffer', 'jobOfferPreview'] as const;
+
+export const GetPathsLinks = {
+  getJobOfferPreview: (id: string) => `/job-offers/${id}`,
+};
+
+export const Paths: Record<(typeof allPaths)[number], PathType> = {
   home: {
     path: '/',
     headerSignature: 'Home',
@@ -36,14 +37,15 @@ export const Paths: Record<string, PathType> = {
   },
   jobOfferPreview: {
     path: '/job-offers/:id',
-    getPath: (id: string) => `/job-offers/${id}`,
   },
 };
 
+export const getRequiredRoles = (path: (typeof allPaths)[number]): IAuthorizationObject['role'][] => {
+  return Paths[path].requiredRoles ?? [];
+};
+
 const getRoleToPath = (role: IAuthorizationObject['role']) => {
-  return Object.values(Paths).filter(
-    (value) => !value.requiredRoles || value.requiredRoles.includes(role),
-  );
+  return Object.values(Paths).filter((value) => !value.requiredRoles || value.requiredRoles.includes(role));
 };
 
 const getHeaderPath = (allPathsByRole: PathType[]) => {
@@ -74,6 +76,5 @@ export const headerPathsByRole: Record<IAuthorizationObject['role'], HeaderPathT
 };
 
 export const headerDefaultRoles: HeaderPathType[] = Object.values(Paths).filter(
-  (value): value is HeaderPathType =>
-    value.headerSignature !== undefined && value.requiredRoles === undefined,
+  (value): value is HeaderPathType => value.headerSignature !== undefined && value.requiredRoles === undefined,
 );

@@ -29,9 +29,7 @@ const retrieveStoredAuthorization = (): IAuthorizationObject | null => {
 
   if (!storedAuthorization) return null;
 
-  const parsedAuthorization = AuthorizationObjectSchema.safeParse(
-    safeJSONParse(storedAuthorization),
-  );
+  const parsedAuthorization = AuthorizationObjectSchema.safeParse(safeJSONParse(storedAuthorization));
 
   if (parsedAuthorization.success) {
     return parsedAuthorization.data;
@@ -41,9 +39,7 @@ const retrieveStoredAuthorization = (): IAuthorizationObject | null => {
 };
 
 export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
-  const [authorization, setAuthorization] = useState<IAuthorizationObject | null>(
-    retrieveStoredAuthorization(),
-  );
+  const [authorization, setAuthorization] = useState<IAuthorizationObject | null>(retrieveStoredAuthorization());
 
   const userIsLoggedIn = !!authorization;
 

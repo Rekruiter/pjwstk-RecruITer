@@ -7,13 +7,7 @@ interface ButtonProps {
   disabled?: boolean;
 }
 
-const Button = ({
-  className,
-  children,
-  onClick,
-  type,
-  disabled,
-}: PropsWithChildren<ButtonProps>) => {
+const Button = ({ className, children, onClick, type, disabled }: PropsWithChildren<ButtonProps>) => {
   return (
     <button
       onClick={onClick}

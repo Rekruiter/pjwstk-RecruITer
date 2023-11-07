@@ -16,7 +16,11 @@ const getNavLinks = (role?: IAuthorizationObject['role']) => {
       {headerLinks.map((link) => (
         <NavLink
           key={link.path}
-          className="text-gray-300 hover:text-white rounded-md text-base font-medium"
+          className={({ isActive }) =>
+            `hover:text-white rounded-md text-base font-medium ${
+              isActive ? 'text-light underline underline-offset-8 decoration-orange' : 'text-gray-300'
+            }`
+          }
           to={link.path}>
           {link.headerSignature}
         </NavLink>
@@ -37,16 +41,13 @@ const Navigation = ({ className }: NavigationsProps) => {
   return (
     <>
       <nav className={`${className} w-full fixed top-0 z-10`}>
-        <div className="container my-2 md:my-6 mx-auto px-10 md:px-24 flex flex-col md:flex-row md:items-center justify-between">
+        <div className="container py-2 md:py-6 px-10 md:px-24 flex flex-col md:flex-row md:items-center justify-between">
           <div className="flex justify-between">
-            <Link to={'/'} className="text-white text-lg font-bold h-24">
+            <Link to={'/'} className="text-white text-lg font-bold h-20">
               <img src={logoImage} className="max-h-full" />
             </Link>
             <button className="md:hidden" onClick={toggleNavigation}>
-              <svg
-                className="h-6 w-6 fill-white"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24">
+              <svg className="h-6 w-6 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 {isOpened ? (
                   <path
                     fillRule="evenodd"

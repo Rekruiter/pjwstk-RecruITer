@@ -63,9 +63,7 @@ const LoginNavbar = () => {
     authCtx.logout();
   };
 
-  const handleLoginButton = (
-    role: 'user' | 'candidate' | 'techRecruiter' | 'recruiter' | 'admin',
-  ) => {
+  const handleLoginButton = (role: 'user' | 'candidate' | 'techRecruiter' | 'recruiter' | 'admin') => {
     setIsLoading(true);
     setTimeout(() => {
       authCtx.login({
