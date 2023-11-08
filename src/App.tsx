@@ -3,7 +3,7 @@ import HomePage from './pages/HomePage';
 import NotFound from './pages/RouteNotFound';
 import JobOfferForm from './components/fragments/job-offers/JobOfferForm';
 import JobOfferPreview from './components/fragments/job-offers/JobOfferPreview';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import AuthContext from './context/auth-context';
 import CandidatePanel from './pages/panels/CandidatePanel';
 import RecruiterPanel from './pages/panels/RecruiterPanel';
@@ -13,9 +13,26 @@ import { IAuthorizationObject } from './types/authorizationTypes';
 import PermissionDenied from './pages/PermissionDenied';
 import { wrapInLayout, wrapInPanelLayout } from './helpers';
 import JobOfferPage from './pages/JobOfferPage';
+import instance from './api/axios/axios';
 
 function App() {
-  const { role, isLoggedIn } = useContext(AuthContext);
+  const { role, isLoggedIn, token } = useContext(AuthContext);
+
+  useEffect(() => {
+    if (!token) return;
+    const requestInterceptor = instance.interceptors.request.use(
+      (config) => {
+        config.headers['Authorization'] = `Bearer ${token}`;
+        return config;
+      },
+      (error) => {
+        return Promise.reject(error);
+      },
+    );
+    return () => {
+      instance.interceptors.request.eject(requestInterceptor);
+    };
+  }, [token]);
 
   const PrivateRoute = (element: JSX.Element, requiredRoles: Partial<IAuthorizationObject>['role'][]) => {
     if (!isLoggedIn) {

@@ -6,6 +6,7 @@ import { useContext, useEffect, useState } from 'react';
 import AuthContext from '../../context/auth-context';
 import Spinner from '../UI/Spinner/Spinner';
 import _debounce from 'lodash.debounce';
+import LoginDropdownMenu from './LoginDropdownMenu/LoginDropdownMenu';
 
 const LoginNavbar = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -78,9 +79,7 @@ const LoginNavbar = () => {
   return (
     <>
       {authCtx.isLoggedIn ? (
-        <Button className="shadow-md" onClick={handleLogout}>
-          Log out
-        </Button>
+        <LoginDropdownMenu onLogout={handleLogout} />
       ) : (
         <Button className="shadow-md" onClick={handleOpenModal}>
           Log in

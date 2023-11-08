@@ -31,7 +31,7 @@ const Layout = ({ children, withoutMargin = false, panel }: PropsWithChildren<La
     <div className="flex flex-col min-h-screen min-w-mobile">
       <Navigation className={withoutMargin ? navbarBackground : 'bg-dark_blue'} />
       <div className={`flex flex-col flex-grow ${!withoutMargin && 'mt-32'}`}>{children}</div>
-      {!panel && <div className="container">footer</div>}
+      {!panel && <div className="container bg-light_blue">footer</div>}
     </div>
   );
 };

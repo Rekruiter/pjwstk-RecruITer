@@ -6,3 +6,12 @@ body {
   @apply min-h-full bg-white leading-normal;
   font-family: 'Inter', sans-serif;
 }
+
+@layer utilities {
+  .bg-darken:hover {
+    filter: brightness(0.9); /* Adjust the brightness value as needed */
+  }
+}
+button:hover {
+  @apply hover:bg-darken;
+}
