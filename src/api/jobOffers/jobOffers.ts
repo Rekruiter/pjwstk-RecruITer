@@ -15,13 +15,13 @@ export type JobOffer = {
 };
 
 export const fetchJobOffers = async (): Promise<JobOffer[]> => {
+  console.log('fetch job offers');
   const { data } = await axios.get(`${BASE_URL}/jobOffers`);
   return data;
 };
 
 export const fetchJobOffer = async (id: string): Promise<JobOffer> => {
-  const { data } = await axios.get(`${BASE_URL}/jobOffers/${id}`, {
-    params: { id },
-  });
+  console.log('fetch job offer');
+  const { data } = await axios.get(`${BASE_URL}/jobOffers/${id}`);
   return data;
 };

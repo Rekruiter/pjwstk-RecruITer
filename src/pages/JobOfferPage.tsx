@@ -7,8 +7,8 @@ import { GetPathsLinks } from '../constants/paths';
 const jobOfferHeader = ['Position', 'Location', 'Salary'] as const;
 
 const JobOfferPage = () => {
-  const { data, isLoading, error } = useQuery<JobOffer[], Error>('jobOffers', fetchJobOffers);
   const navigate = useNavigate();
+  const { data, isLoading, error } = useQuery<JobOffer[], Error>('jobOffers', fetchJobOffers);
 
   if (isLoading) {
     return <Spinner />;

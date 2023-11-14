@@ -1,12 +1,10 @@
 import Button from '../UI/Button';
-import Modal from '../UI/Modal/Modal';
-import ExitIcon from '../../assets/exit_icon.svg';
 import { useSearchParams } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import AuthContext from '../../context/auth-context';
-import Spinner from '../UI/Spinner/Spinner';
 import _debounce from 'lodash.debounce';
 import LoginDropdownMenu from './LoginDropdownMenu/LoginDropdownMenu';
+import LoginModal from './LoginModal';
 
 const LoginNavbar = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -86,64 +84,13 @@ const LoginNavbar = () => {
         </Button>
       )}
       {isLoggingIn && (
-        <Modal onClose={handleCloseModal} hiding={isHiding}>
-          <div className="flex-grow rounded-xl bg-dark_blue p-4 grid">
-            <div className="w-full text-end ">
-              <button onClick={handleCloseModal}>
-                <img src={ExitIcon} alt="X" className="max-h-full" />
-              </button>
-            </div>
-            <form onSubmit={handleLogin} className="flex flex-col items-center justify-between">
-              <div className="flex flex-col gap-2">
-                <input placeholder="E-mail" className="rounded" />
-                <input placeholder="Password" className="rounded" />
-              </div>
-              <div className="flex flex-row">
-                <Button
-                  className="shadow-md min-w-loginButton"
-                  type="button"
-                  onClick={() => handleLoginButton('techRecruiter')}
-                  disabled={isLoading}>
-                  {isLoading ? <Spinner /> : 'Tech Recruiter'}
-                </Button>
-                <Button
-                  className="shadow-md min-w-loginButton"
-                  type="button"
-                  onClick={() => handleLoginButton('recruiter')}
-                  disabled={isLoading}>
-                  {isLoading ? <Spinner /> : 'Recruiter'}
-                </Button>
-                <Button
-                  className="shadow-md min-w-loginButton"
-                  type="button"
-                  onClick={() => handleLoginButton('user')}
-                  disabled={isLoading}>
-                  {isLoading ? <Spinner /> : 'user'}
-                </Button>
-                <Button
-                  className="shadow-md min-w-loginButton"
-                  type="button"
-                  onClick={() => handleLoginButton('candidate')}
-                  disabled={isLoading}>
-                  {isLoading ? <Spinner /> : 'candidate'}
-                </Button>
-                <Button
-                  className="shadow-md min-w-loginButton"
-                  type="button"
-                  onClick={() => handleLoginButton('admin')}
-                  disabled={isLoading}>
-                  {isLoading ? <Spinner /> : 'admin'}
-                </Button>
-                {/* <Button
-                  className="shadow-md min-w-loginButton"
-                  type="submit"
-                  disabled={isLoading}>
-                  {isLoading ? <Spinner /> : 'Log in'}
-                </Button> */}
-              </div>
-            </form>
-          </div>
-        </Modal>
+        <LoginModal
+          handleCloseModal={handleCloseModal}
+          handleLogin={handleLogin}
+          handleLoginButton={handleLoginButton}
+          isHiding={isHiding}
+          isLoading={isLoading}
+        />
       )}
     </>
   );

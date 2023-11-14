@@ -17,6 +17,7 @@ const allPaths = ['home', 'notFound', 'jobOffers', 'newJobOffer', 'jobOfferPrevi
 
 export const GetPathsLinks = {
   getJobOfferPreview: (id: string) => `/job-offers/${id}`,
+  getJobOffersWithFilters: (idCompany?: string) => `/job-offers${idCompany ? `?idCompany=${idCompany}` : ''}`,
 };
 
 export const Paths: Record<(typeof allPaths)[number], PathType> = {

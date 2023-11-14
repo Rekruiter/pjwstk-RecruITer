@@ -8,6 +8,7 @@ interface LoginDropdownMenuProps {
 }
 
 const LoginDropdownMenu = ({ onLogout }: LoginDropdownMenuProps) => {
+  console.log(onLogout);
   return (
     <Menu as="div" className="relative inline-block text-left">
       <Menu.Button
