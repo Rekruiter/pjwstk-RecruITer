@@ -31,7 +31,6 @@ const getNavLinks = (role?: IAuthorizationObject['role']) => {
 
 const Navigation = ({ className }: NavigationsProps) => {
   const authCtx = useContext(AuthContext);
-
   const [isOpened, setIsOpened] = useState(false);
 
   const toggleNavigation = () => {

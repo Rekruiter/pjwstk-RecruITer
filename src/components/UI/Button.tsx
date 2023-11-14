@@ -8,11 +8,9 @@ interface ButtonProps {
   disabled?: boolean;
 }
 
-const test = 'bg-orange rounded-xl px-7.5 py-2 text-base text-white';
-
 const Button = ({ className, children, onClick, type, disabled }: PropsWithChildren<ButtonProps>) => {
   return (
-    <button onClick={onClick} className={test} type={type} disabled={disabled}>
+    <button onClick={onClick} className={`${defaultStyles.orangeButton} ${className}`} type={type} disabled={disabled}>
       {children}
     </button>
   );

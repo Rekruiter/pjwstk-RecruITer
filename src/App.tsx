@@ -2,7 +2,6 @@ import { Navigate, RouteObject, RouterProvider, createBrowserRouter } from 'reac
 import HomePage from './pages/HomePage';
 import NotFound from './pages/RouteNotFound';
 import JobOfferForm from './components/fragments/job-offers/JobOfferForm';
-import JobOfferPreview from './components/fragments/job-offers/JobOfferPreview';
 import { useContext, useEffect } from 'react';
 import AuthContext from './context/auth-context';
 import CandidatePanel from './pages/panels/CandidatePanel';
@@ -14,6 +13,7 @@ import PermissionDenied from './pages/PermissionDenied';
 import { wrapInLayout, wrapInPanelLayout } from './helpers';
 import JobOfferPage from './pages/JobOfferPage';
 import instance from './api/axios/axios';
+import JobOfferPreviewPage from './pages/JobOfferPreviewPage';
 
 function App() {
   const { role, isLoggedIn, token } = useContext(AuthContext);
@@ -64,7 +64,7 @@ function App() {
     { path: Paths.notFound.path, element: wrapInLayout(<NotFound />) },
     { path: Paths.jobOffers.path, element: wrapInLayout(<JobOfferPage />) },
     { path: Paths.newJobOffer.path, element: PrivateRoute(<JobOfferForm />, getRequiredRoles('newJobOffer')) },
-    { path: Paths.jobOfferPreview.path, element: wrapInLayout(<JobOfferPreview />) },
+    { path: Paths.jobOfferPreview.path, element: wrapInLayout(<JobOfferPreviewPage />) },
   ];
 
   const router = createBrowserRouter(routesConfig);

@@ -1,7 +1,11 @@
 /*eslint-env node*/
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./src/components/**/*.{js,ts,jsx,tsx,mdx}', './src/pages/**/*.{js,ts,jsx,tsx,mdx}'],
+  content: [
+    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/constants/*.{js,ts,jsx,tsx,mdx}',
+  ],
   theme: {
     container: {
       center: true,
@@ -23,6 +27,25 @@ module.exports = {
       minWidth: {
         mobile: '320px',
         loginButton: '8rem',
+        2: '2rem',
+        3: '3rem',
+        4.25: '4.25rem',
+        7.5: '7.5rem',
+      },
+      minHeight: {
+        6: '6rem',
+      },
+      maxWidth: {
+        2: '2rem',
+        5: '5rem',
+      },
+      fontSize: {
+        title_bold: [
+          '2rem',
+          {
+            fontWeight: '800',
+          },
+        ],
       },
     },
   },
