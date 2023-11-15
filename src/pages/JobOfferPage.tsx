@@ -24,7 +24,9 @@ const JobOfferPage = () => {
 
   return (
     <div className="container p-6 md:px-12 lg:px-16 flex flex-col rounded-xl overflow-hidden">
-      <div className="w-full bg-light_blue h-16 text-center px-2 rounded-t-xl"> panel do wyszkuwania/filtrowania</div>
+      <div className="w-full bg-dark_blue h-16 text-center px-2 rounded-t-xl text-light">
+        panel do wyszkuwania/filtrowania //TODO: Make it fixed on site
+      </div>
       <div className="flex bg-dark_blue text-light px-5">
         <p className="basis-3/5 text-center min-w-7.5">{jobOfferHeader[0]}</p>
         <p className="basis-1/5 text-center min-w-4.25">{jobOfferHeader[1]}</p>
@@ -32,17 +34,17 @@ const JobOfferPage = () => {
       </div>
       {data?.map((jobOffer, index) => (
         <div
-          className={`flex border max-w-full bg-light py-2 px-5 cursor-pointer hover:bg-light_blue group ${
+          className={`flex border max-w-full bg-light py-2 px-5 cursor-pointer hover:bg-orange group ${
             index === data.length - 1 ? 'rounded-b-xl' : ''
           }`}
           onClick={() => handleOpenJobOffer(jobOffer.id)}
           key={jobOffer.id}>
-          <div className="basis-3/5 min-w-7.5 gap-2 break-all">
-            <p className="group-hover:scale-105 w-fit">{jobOffer.title}</p>
-            <p>{jobOffer.description}</p>
+          <div className="basis-3/5 min-w-7.5 gap-2 break-all group-hover:text-light">
+            <p className="group-hover:scale-110 group-hover:underline w-fit">{jobOffer.title}</p>
+            <p className="text-xs">{jobOffer.companyName}</p>
           </div>
-          <p className="basis-1/5 text-center min-w-4.25">{jobOffer.title}</p>
-          <p className="basis-1/5 text-center min-w-3">{jobOffer.salary}</p>
+          <p className="basis-1/5 text-center group-hover:text-light min-w-4.25">{jobOffer.title}</p>
+          <p className="basis-1/5 text-center group-hover:text-light min-w-3">{jobOffer.salary}</p>
         </div>
       ))}
       {!data && <div className="mx-auto py-10">No results found</div>}

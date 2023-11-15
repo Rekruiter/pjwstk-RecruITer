@@ -1,14 +1,10 @@
+import { ILoginFormInput } from '../../types/authFormTypes';
 import axios, { BASE_URL } from '../axios/axios';
 
 export interface ReigsterInput {
   email: string;
   password: string;
   name: string;
-}
-
-export interface Logininput {
-  email: string;
-  password: string;
 }
 
 export const registerPost = async (inputData: ReigsterInput): Promise<any[]> => {
@@ -18,7 +14,7 @@ export const registerPost = async (inputData: ReigsterInput): Promise<any[]> => 
   return data;
 };
 
-export const loginPost = async (inputData: Logininput): Promise<any[]> => {
+export const loginPost = async (inputData: ILoginFormInput): Promise<any[]> => {
   const { data } = await axios.post(`${BASE_URL}/authenticate`, {
     data: inputData,
   });

@@ -4,21 +4,25 @@ import ExitIcon from '../../assets/exit_icon.svg';
 import Button from '../UI/Button';
 import Spinner from '../UI/Spinner/Spinner';
 import { useForm } from 'react-hook-form';
-import { ILoginForm, LoginFormSchema } from '../../types/authFormTypes';
+import { ILoginFormInput, LoginFormInputSchema } from '../../types/authFormTypes';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { IoMdEye, IoMdEyeOff } from 'react-icons/io';
 import { Link } from 'react-router-dom';
+import { IAuthorizationObject } from '../../types/authorizationTypes';
 
 interface LoginModalInterface {
   handleCloseModal: () => void;
+  loginHandler: (token: IAuthorizationObject) => void;
   isHiding: boolean;
-  handleLogin: (event: React.FormEvent<HTMLFormElement>) => Promise<void>;
-  isLoading: boolean;
 }
 
-const LoginModal = ({ handleCloseModal, isHiding, handleLogin, isLoading }: LoginModalInterface) => {
-  const { control, getValues, setValue, formState, register, handleSubmit } = useForm<ILoginForm>({
-    resolver: zodResolver(LoginFormSchema),
+const LoginModal = ({ handleCloseModal, isHiding, loginHandler }: LoginModalInterface) => {
+  const {
+    formState: { errors },
+    register,
+    handleSubmit,
+  } = useForm<ILoginFormInput>({
+    resolver: zodResolver(LoginFormInputSchema),
   });
 
   const [showPassword, setShowPassword] = React.useState(false);
@@ -28,6 +32,7 @@ const LoginModal = ({ handleCloseModal, isHiding, handleLogin, isLoading }: Logi
     handleSubmit(
       async (data) => {
         console.log(data);
+        console.log(loginHandler);
       },
       (e) => {
         console.log(e);
@@ -35,7 +40,7 @@ const LoginModal = ({ handleCloseModal, isHiding, handleLogin, isLoading }: Logi
     )();
   };
 
-  const { errors } = formState;
+  const isLoading = false;
 
   return (
     <Modal onClose={handleCloseModal} hiding={isHiding}>

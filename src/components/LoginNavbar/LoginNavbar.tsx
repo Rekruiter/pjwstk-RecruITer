@@ -10,7 +10,6 @@ const LoginNavbar = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const authCtx = useContext(AuthContext);
   const [isHiding, setIsHiding] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
 
   const isLoggingIn = searchParams.get('authorization') === 'login' && !authCtx.isLoggedIn;
 
@@ -22,7 +21,7 @@ const LoginNavbar = () => {
   };
 
   useEffect(() => {
-    if (searchParams.get('authorization') === 'login' && authCtx.isLoggedIn) {
+    if (searchParams.get('authorization') && authCtx.isLoggedIn) {
       handleRemoveAuthorization();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -45,33 +44,8 @@ const LoginNavbar = () => {
     });
   };
 
-  const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setIsLoading(true);
-    setTimeout(() => {
-      authCtx.login({
-        role: 'admin',
-        token: 'testtoken1',
-      });
-      setSearchParams(() => new URLSearchParams(), { replace: true });
-      setIsLoading(false);
-    }, 2000);
-  };
-
   const handleLogout = () => {
     authCtx.logout();
-  };
-
-  const handleLoginButton = (role: 'user' | 'candidate' | 'techRecruiter' | 'recruiter' | 'admin') => {
-    setIsLoading(true);
-    setTimeout(() => {
-      authCtx.login({
-        role: role,
-        token: 'testtoken1',
-      });
-      setSearchParams(() => new URLSearchParams(), { replace: true });
-      setIsLoading(false);
-    }, 2000);
   };
 
   return (
@@ -84,13 +58,7 @@ const LoginNavbar = () => {
         </Button>
       )}
       {isLoggingIn && (
-        <LoginModal
-          handleCloseModal={handleCloseModal}
-          handleLogin={handleLogin}
-          handleLoginButton={handleLoginButton}
-          isHiding={isHiding}
-          isLoading={isLoading}
-        />
+        <LoginModal loginHandler={authCtx.login} handleCloseModal={handleCloseModal} isHiding={isHiding} />
       )}
     </>
   );

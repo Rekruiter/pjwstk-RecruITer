@@ -15,7 +15,7 @@ const Layout = ({ children, withoutMargin = false, panel }: PropsWithChildren<La
 
     const handleScroll = () => {
       if (window.scrollY > 100) {
-        setNavbarBackground('bg-dark_blue');
+        setNavbarBackground('bg-dark_blue/80');
       } else {
         setNavbarBackground('bg-transparent');
       }
@@ -30,9 +30,9 @@ const Layout = ({ children, withoutMargin = false, panel }: PropsWithChildren<La
   return (
     <div className="flex flex-col min-h-screen min-w-mobile">
       <Navigation className={withoutMargin ? navbarBackground : 'bg-dark_blue'} />
-      <div className={`flex flex-col flex-grow ${!withoutMargin && 'mt-32'}`}>{children}</div>
+      <div className={`flex flex-col flex-grow ${!withoutMargin && 'mt-24'}`}>{children}</div>
       {!panel && (
-        <div className="w-full bg-light_blue min-h-6">
+        <div className="w-full bg-dark_blue text-light min-h-6">
           <div className="container px-10 md:px-24">footer</div>
         </div>
       )}
