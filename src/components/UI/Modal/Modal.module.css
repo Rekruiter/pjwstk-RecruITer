@@ -1,9 +1,11 @@
 .modal {
-  height: 50vh;
-  top: 20vh;
-  left: 25vw;
-  width: 50vw;
+  top: 50%;
+  left: 50%;
+  width: 50%;
+  height: 50%;
   animation: slide-down 300ms ease-out forwards;
+  min-width: 320px;
+  max-width: 768px;
 }
 
 .modalHide {
@@ -13,21 +15,21 @@
 @keyframes slide-down {
   from {
     opacity: 0;
-    transform: translateY(-3rem);
+    transform: translate(-50%, -5rem);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate(-50%, -50%);
   }
 }
 
 @keyframes slide-up {
   from {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate(-50%, -50%);
   }
   to {
     opacity: 0;
-    transform: translateY(-3rem);
+    transform: translate(-50%, -5rem);
   }
 }

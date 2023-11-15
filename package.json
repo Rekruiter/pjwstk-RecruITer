@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.7.17",
+    "@hookform/resolvers": "^3.3.2",
     "axios": "^1.6.0",
     "lodash.debounce": "^4.0.8",
     "postcss": "^8.4.30",
