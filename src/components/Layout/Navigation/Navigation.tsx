@@ -1,7 +1,7 @@
 import { Link, NavLink } from 'react-router-dom';
 import logoImage from '../../../assets/logo.png';
 import { useContext, useState } from 'react';
-import LoginNavbar from '../../LoginNavbar/LoginNavbar';
+import AuthNavbar from '../../AuthNavbar/AuthNavbar';
 import AuthContext from '../../../context/auth-context';
 import { IAuthorizationObject } from '../../../types/authorizationTypes';
 import { headerDefaultRoles, headerPathsByRole } from '../../../constants/paths';
@@ -68,7 +68,7 @@ const Navigation = ({ className }: NavigationsProps) => {
               !isOpened ? 'hidden' : ''
             } md:flex md:flex-row md:w-auto gap-4 xl:gap-14 items-center`}>
             {getNavLinks(authCtx.role)}
-            {<LoginNavbar />}
+            {<AuthNavbar />}
           </div>
         </div>
       </nav>

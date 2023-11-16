@@ -3,11 +3,11 @@ import { Fragment } from 'react';
 import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md';
 import { defaultStyles } from '../../../constants/defaultStyles';
 
-interface LoginDropdownMenuProps {
+interface AuthorizedDropdownMenuProps {
   onLogout: () => void;
 }
 
-const LoginDropdownMenu = ({ onLogout }: LoginDropdownMenuProps) => {
+const AuthorizedDropdownMenu = ({ onLogout }: AuthorizedDropdownMenuProps) => {
   return (
     <Menu as="div" className="relative inline-block">
       <Menu.Button className={defaultStyles.orangeButton} onClick={() => {}}>
@@ -71,4 +71,4 @@ const LoginDropdownMenu = ({ onLogout }: LoginDropdownMenuProps) => {
   );
 };
 
-export default LoginDropdownMenu;
+export default AuthorizedDropdownMenu;

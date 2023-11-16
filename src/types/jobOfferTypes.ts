@@ -1,5 +1,7 @@
 import * as z from 'zod';
 
+const RequirementsParsingSchema = z.record(z.number().min(1).max(5));
+
 export const JobOfferSchema = z.object({
   id: z.number(),
   idCompany: z.number(),
@@ -26,7 +28,10 @@ export const JobOfferSchema = z.object({
       message: 'Invalid date format',
     },
   ),
-  requirements: z.string(),
+  requirements: z.string().transform((jsonString) => {
+    const parsedObject = JSON.parse(jsonString);
+    return RequirementsParsingSchema.parse(parsedObject);
+  }),
   title: z.string(),
 });
 

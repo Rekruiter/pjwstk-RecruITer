@@ -3,15 +3,16 @@ import { useSearchParams } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import AuthContext from '../../context/auth-context';
 import _debounce from 'lodash.debounce';
-import LoginDropdownMenu from './LoginDropdownMenu/LoginDropdownMenu';
-import LoginModal from './LoginModal';
+import LoginDropdownMenu from './AuthorizedDropdownMenu/AuthorizedDropdownMenu';
+import AuthModal from './AuthModal';
+import { AuthMethodType, getAuthMethod } from '../../helpers/getAuthMethod';
 
-const LoginNavbar = () => {
+const AuthNavbar = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const authCtx = useContext(AuthContext);
   const [isHiding, setIsHiding] = useState(false);
 
-  const isLoggingIn = searchParams.get('authorization') === 'login' && !authCtx.isLoggedIn;
+  const authMethod = getAuthMethod(searchParams.get('authorization'));
 
   const handleRemoveAuthorization = () => {
     setSearchParams((prevParams) => {
@@ -37,10 +38,9 @@ const LoginNavbar = () => {
     debounceHideLogin();
   };
 
-  const handleOpenModal = () => {
+  const handleOpenLoginModal = () => {
     setSearchParams((prevParams) => {
-      prevParams.set('authorization', 'login');
-      return prevParams;
+      return new URLSearchParams({ ...prevParams, authorization: 'login' });
     });
   };
 
@@ -48,20 +48,31 @@ const LoginNavbar = () => {
     authCtx.logout();
   };
 
+  const changeAuthMethod = (method: AuthMethodType) => {
+    setSearchParams((prevParams) => new URLSearchParams({ ...prevParams, authorization: method }));
+  };
+
   return (
     <>
       {authCtx.isLoggedIn ? (
         <LoginDropdownMenu onLogout={handleLogout} />
       ) : (
-        <Button className="shadow-md" onClick={handleOpenModal}>
-          Log in
-        </Button>
-      )}
-      {isLoggingIn && (
-        <LoginModal loginHandler={authCtx.login} handleCloseModal={handleCloseModal} isHiding={isHiding} />
+        <>
+          <Button className="shadow-md" onClick={handleOpenLoginModal}>
+            Log in
+          </Button>
+          {authMethod && (
+            <AuthModal
+              handleCloseModal={handleCloseModal}
+              isHiding={isHiding}
+              authMethod={authMethod}
+              changeAuthMethod={changeAuthMethod}
+            />
+          )}
+        </>
       )}
     </>
   );
 };
 
-export default LoginNavbar;
+export default AuthNavbar;

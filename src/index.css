@@ -5,6 +5,8 @@
 body {
   @apply min-h-full bg-light leading-normal;
   font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -webkit-font-smoothing: subpixel-antialiased;
 }
 
 @layer utilities {

@@ -4,15 +4,15 @@ import { getJobOffer } from '../api/jobOffers/jobOffers';
 import Spinner from '../components/UI/Spinner/Spinner';
 import Button from '../components/UI/Button';
 import { GetPathsLinks } from '../constants/paths';
-import { IJobOffer } from '../types/jobOffer';
+import { FaStar } from 'react-icons/fa';
 
 const JobOfferPreviewPage = () => {
   const { id } = useParams() as { id: string };
 
-  const { data, error, isLoading } = useQuery<IJobOffer, Error>(['jobOffer', id], () => getJobOffer(id), {});
+  const { data, error, isLoading } = useQuery(['jobOffer', id], () => getJobOffer(id), {});
 
   if (error) {
-    return <div className="m-auto">Error {error?.message}</div>;
+    return <div className="m-auto">An error ocurred</div>;
   }
 
   if (!data || isLoading) {
@@ -29,14 +29,31 @@ const JobOfferPreviewPage = () => {
       <Link className="cursor-pointer hover:text-orange" to={GetPathsLinks.getJobOffersWithFilters(data.idCompany)}>
         {data.companyName}
       </Link>
-      <p>Salary: {data.minSalary} [currency]</p>
+      <p>
+        Salary: {data.minSalary}
+        {data.maxSalary !== null && `-${data.maxSalary}`} {data.currency}
+      </p>
       <p>Description: {data.description}</p>
-      <p>Requirements: {data.requirements}</p>
+      <p>Requirements:</p>
+      <div className="flex gap-2 flex-wrap">
+        {Object.keys(data.requirements).map((key) => (
+          <div className="flex p-1 gap-2 border border-dark items-center">
+            <p>{key}</p>
+            <div className="inline-flex text-orange">
+              {Array(data.requirements[key])
+                .fill(0)
+                .map(() => (
+                  <FaStar />
+                ))}
+            </div>
+          </div>
+        ))}
+      </div>
       <p>This job ofer expires in {daysLeft} days</p>
       <p>
         Available since: {dateAdded.getDate()}-{dateAdded.getMonth()}-{dateAdded.getFullYear()}
       </p>
-      <Button className=""> Apply</Button>
+      <Button className="w-fit"> Apply</Button>
     </div>
   );
 };
