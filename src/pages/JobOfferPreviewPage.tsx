@@ -1,14 +1,15 @@
 import { useQuery } from 'react-query';
 import { Link, useParams } from 'react-router-dom';
-import { JobOffer, fetchJobOffer } from '../api/jobOffers/jobOffers';
+import { getJobOffer } from '../api/jobOffers/jobOffers';
 import Spinner from '../components/UI/Spinner/Spinner';
 import Button from '../components/UI/Button';
 import { GetPathsLinks } from '../constants/paths';
+import { IJobOffer } from '../types/jobOffer';
 
 const JobOfferPreviewPage = () => {
   const { id } = useParams() as { id: string };
 
-  const { data, error, isLoading } = useQuery<JobOffer, Error>(['jobOffer', id], () => fetchJobOffer(id), {});
+  const { data, error, isLoading } = useQuery<IJobOffer, Error>(['jobOffer', id], () => getJobOffer(id), {});
 
   if (error) {
     return <div className="m-auto">Error {error?.message}</div>;
@@ -28,7 +29,7 @@ const JobOfferPreviewPage = () => {
       <Link className="cursor-pointer hover:text-orange" to={GetPathsLinks.getJobOffersWithFilters(data.idCompany)}>
         {data.companyName}
       </Link>
-      <p>Salary: {data.salary} [currency]</p>
+      <p>Salary: {data.minSalary} [currency]</p>
       <p>Description: {data.description}</p>
       <p>Requirements: {data.requirements}</p>
       <p>This job ofer expires in {daysLeft} days</p>

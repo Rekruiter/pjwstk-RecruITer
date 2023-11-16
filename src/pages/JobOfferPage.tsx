@@ -1,14 +1,15 @@
 import { useQuery } from 'react-query';
-import { JobOffer, fetchJobOffers } from '../api/jobOffers/jobOffers';
+import { getJobOfferList } from '../api/jobOffers/jobOffers';
 import Spinner from '../components/UI/Spinner/Spinner';
 import { useNavigate } from 'react-router-dom';
 import { GetPathsLinks } from '../constants/paths';
+import { IJobOffer } from '../types/jobOffer';
 
 const jobOfferHeader = ['Position', 'Location', 'Salary'] as const;
 
 const JobOfferPage = () => {
   const navigate = useNavigate();
-  const { data, isLoading, error } = useQuery<JobOffer[], Error>('jobOffers', fetchJobOffers);
+  const { data, isLoading, error } = useQuery<IJobOffer[], Error>('jobOffers', getJobOfferList);
 
   if (isLoading) {
     return <Spinner />;
@@ -18,7 +19,7 @@ const JobOfferPage = () => {
     return <div>Error {error?.message}</div>;
   }
 
-  const handleOpenJobOffer = (id: string) => {
+  const handleOpenJobOffer = (id: number) => {
     navigate(GetPathsLinks.getJobOfferPreview(id));
   };
 
@@ -44,7 +45,7 @@ const JobOfferPage = () => {
             <p className="text-xs">{jobOffer.companyName}</p>
           </div>
           <p className="basis-1/5 text-center group-hover:text-light min-w-4.25">{jobOffer.title}</p>
-          <p className="basis-1/5 text-center group-hover:text-light min-w-3">{jobOffer.salary}</p>
+          <p className="basis-1/5 text-center group-hover:text-light min-w-3">{jobOffer.minSalary}</p>
         </div>
       ))}
       {!data && <div className="mx-auto py-10">No results found</div>}
