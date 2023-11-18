@@ -5,6 +5,8 @@ import axios from '../axios/axios';
 export const registerPost = async (inputData: IRegisterFormInput) => {
   const { data } = await axios.post('/register', inputData);
   return data;
+
+  console.log('tesrt');
 };
 
 export const loginPost = async (inputData: ILoginFormInput) => {
