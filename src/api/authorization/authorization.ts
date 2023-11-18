@@ -7,6 +7,7 @@ export const registerPost = async (inputData: IRegisterFormInput) => {
   return data;
 
   console.log('tesrt');
+  console.log('test2');
 };
 
 export const loginPost = async (inputData: ILoginFormInput) => {
