@@ -3,15 +3,13 @@
 @tailwind utilities;
 
 body {
-  @apply min-h-full bg-white leading-normal;
+  @apply min-h-full bg-light leading-normal;
   font-family: 'Inter', sans-serif;
+  box-sizing: border-box;
 }
 
 @layer utilities {
   .bg-darken:hover {
-    filter: brightness(0.9); /* Adjust the brightness value as needed */
+    filter: brightness(0.9);
   }
-}
-button:hover {
-  @apply hover:bg-darken;
 }

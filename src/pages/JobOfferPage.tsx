@@ -1,47 +1,43 @@
 import { useQuery } from 'react-query';
-import { JobOffer, fetchJobOffers } from '../api/jobOffers/jobOffers';
+import { getJobOfferList } from '../api/jobOffers/jobOffers';
 import Spinner from '../components/UI/Spinner/Spinner';
 import { useNavigate } from 'react-router-dom';
 import { GetPathsLinks } from '../constants/paths';
-
-const jobOfferHeader = ['Position', 'Location', 'Salary'] as const;
+import JobOfferListElement from '../components/JobOfferContent/JobOfferListElement';
 
 const JobOfferPage = () => {
-  const { data, isLoading, error } = useQuery<JobOffer[], Error>('joOffers', fetchJobOffers);
   const navigate = useNavigate();
+  const { data, isLoading, isError } = useQuery('jobOffers', getJobOfferList);
 
   if (isLoading) {
     return <Spinner />;
   }
-  if (error) {
-    return <div>Error {error?.message}</div>;
+
+  if (isError) {
+    return <div className="m-auto">An error occured</div>;
   }
 
-  const handleOpenJobOffer = (id: string) => {
+  const handleOpenJobOffer = (id: number) => {
     navigate(GetPathsLinks.getJobOfferPreview(id));
   };
 
   return (
-    <div className="container flex-1 p-6 md:px-12 lg:px-16 flex flex-col rounded-xl overflow-hidden min-w-fit">
-      <div className="w-full bg-light_blue h-16 text-center px-2"> panel do wyszkuwania/filtrowania</div>
-      <div className="flex bg-dark_blue text-light px-5">
-        <p className="basis-3/5 text-center">{jobOfferHeader[0]}</p>
-        <p className="basis-1/5 text-center">{jobOfferHeader[1]}</p>
-        <p className="basis-1/5 text-center">{jobOfferHeader[2]}</p>
-      </div>
-      {data?.map((jobOffer) => (
-        <div
-          className="flex border bg-light py-2 px-5"
-          onClick={() => handleOpenJobOffer(jobOffer.id)}
-          key={jobOffer.id}>
-          <div className="basis-3/5">
-            <p className="text-base">{jobOffer.title}</p>
-            <p>{jobOffer.companyName}</p>
-          </div>
-          <p className="basis-1/5 text-center">{jobOffer.title}</p>
-          <p className="basis-1/5 text-center">{jobOffer.salary}</p>
+    <div className="flex flex-col">
+      <div className="w-full sticky top-24 bg-dark_blue text-center text-light shadow-xl">
+        <h4 className="text-xl mt-4">Search for job offers</h4>
+        <div className="flex justify-between container p-6 md:px-20 lg:px-32 mb-2">
+          <p>Technology</p>
+          <p>Salary</p>
+          <p>Location</p>
+          <p>Seniority</p>
         </div>
-      ))}
+      </div>
+      <div className="container p-8 md:px-12 lg:px-16 rounded-b-xl">
+        {data?.map((jobOffer) => (
+          <JobOfferListElement handleOpenJobOffer={handleOpenJobOffer} jobOfferData={jobOffer} key={jobOffer.id} />
+        ))}
+        {!data && <p className="mx-auto w-fit py-10">No results found</p>}
+      </div>
     </div>
   );
 };
