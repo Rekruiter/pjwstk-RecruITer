@@ -7,7 +7,7 @@ interface LayoutProps {
 }
 
 const Layout = ({ children, withoutMargin = false, panel }: PropsWithChildren<LayoutProps>) => {
-  const [navbarBackground, setNavbarBackground] = useState('bg-transparent');
+  const [navbarBackground, setNavbarBackground] = useState('bg-transparent fixed');
   useEffect(() => {
     if (!withoutMargin) {
       return;
@@ -15,9 +15,9 @@ const Layout = ({ children, withoutMargin = false, panel }: PropsWithChildren<La
 
     const handleScroll = () => {
       if (window.scrollY > 100) {
-        setNavbarBackground('bg-dark_blue');
+        setNavbarBackground('bg-dark_blue/80 fixed');
       } else {
-        setNavbarBackground('bg-transparent');
+        setNavbarBackground('bg-transparent fixed');
       }
     };
     window.addEventListener('scroll', handleScroll);
@@ -29,9 +29,13 @@ const Layout = ({ children, withoutMargin = false, panel }: PropsWithChildren<La
 
   return (
     <div className="flex flex-col min-h-screen min-w-mobile">
-      <Navigation className={withoutMargin ? navbarBackground : 'bg-dark_blue'} />
-      <div className={`flex flex-col flex-grow ${!withoutMargin && 'mt-32'}`}>{children}</div>
-      {!panel && <div className="container bg-light_blue">footer</div>}
+      <Navigation className={withoutMargin ? navbarBackground : 'bg-dark_blue sticky'} />
+      <div className={`flex flex-col flex-grow`}>{children}</div>
+      {!panel && (
+        <div className="w-full bg-dark_blue text-light min-h-6">
+          <div className="container px-10 md:px-24">footer</div>
+        </div>
+      )}
     </div>
   );
 };

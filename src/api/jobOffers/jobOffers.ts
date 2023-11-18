@@ -1,21 +1,12 @@
+import { JobOfferSchema, JobOffersListSchema } from '../../types/jobOfferTypes';
 import axios from '../axios/axios';
 
-const BASE_URL = import.meta.env.VITE_BACKEND_URL;
-
-export type JobOffer = {
-  id: string;
-  idCompany: string;
-  companyName: string;
-  salary: number;
-  description: string;
-  dateAdded: string;
-  dateExpires: string;
-  requirements: string;
-  title: string;
+export const getJobOfferList = async () => {
+  const { data } = await axios.get('/jobOffers');
+  return JobOffersListSchema.parse(data);
 };
 
-export const fetchJobOffers = async (): Promise<JobOffer[]> => {
-  const { data } = await axios.get(`${BASE_URL}/jobOffers`);
-
-  return data;
+export const getJobOffer = async (id: string) => {
+  const { data } = await axios.get(`/jobOffers/${id}`);
+  return JobOfferSchema.parse(data);
 };

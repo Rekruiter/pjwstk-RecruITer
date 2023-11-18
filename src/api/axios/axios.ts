@@ -1,7 +1,24 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
+
+const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
 const instance = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
+  baseURL: BASE_URL,
 });
+
+instance.interceptors.response.use(
+  (response) => {
+    if (response.status >= 200 && response.status < 300) {
+      return response;
+    } else {
+      throw new Error(response.data.message);
+    }
+  },
+  (error) => {
+    if (error instanceof AxiosError) {
+      throw new Error(error.response?.data.message);
+    }
+  },
+);
 
 export default instance;

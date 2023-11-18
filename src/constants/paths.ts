@@ -16,7 +16,8 @@ type HeaderPathType = {
 const allPaths = ['home', 'notFound', 'jobOffers', 'newJobOffer', 'jobOfferPreview'] as const;
 
 export const GetPathsLinks = {
-  getJobOfferPreview: (id: string) => `/job-offers/${id}`,
+  getJobOfferPreview: (id: number) => `/job-offers/${id}`,
+  getJobOffersWithFilters: (idCompany?: number) => `/job-offers${idCompany ? `?idCompany=${idCompany}` : ''}`,
 };
 
 export const Paths: Record<(typeof allPaths)[number], PathType> = {
