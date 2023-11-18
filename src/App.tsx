@@ -3,9 +3,7 @@ import HomePage from './pages/HomePage';
 import NotFound from './pages/RouteNotFound';
 import { useContext, useEffect } from 'react';
 import AuthContext from './context/auth-context';
-import CandidatePanel from './pages/panels/CandidatePanel';
-import RecruiterPanel from './pages/panels/RecruiterPanel';
-import AdminPanel from './pages/panels/AdminPanel';
+
 import { Paths, getRequiredRoles } from './constants/paths';
 import { IAuthorizationObject } from './types/authorizationTypes';
 import PermissionDenied from './pages/PermissionDenied';
@@ -13,6 +11,10 @@ import { wrapInLayout, wrapInPanelLayout } from './helpers';
 import JobOfferPage from './pages/JobOfferPage';
 import instance from './api/axios/axios';
 import JobOfferPreviewPage from './pages/JobOfferPreviewPage';
+import CandidatePanelPage from './pages/panels/CandidatePanelPage';
+import RecruiterPanelPage from './pages/panels/RecruiterPanelPage';
+import AdminPanelPage from './pages/panels/AdminPanelPage';
+import UserPanelPage from './pages/panels/UserPanelPage';
 
 function App() {
   const { role, isLoggedIn, token } = useContext(AuthContext);
@@ -45,14 +47,15 @@ function App() {
 
   const getDefaultHomeRoute = () => {
     switch (role) {
-      case 'candidate':
       case 'user':
-        return wrapInPanelLayout(<CandidatePanel />);
+        return wrapInPanelLayout(<UserPanelPage />);
+      case 'candidate':
+        return wrapInPanelLayout(<CandidatePanelPage />);
       case 'recruiter':
       case 'techRecruiter':
-        return wrapInPanelLayout(<RecruiterPanel />);
+        return wrapInPanelLayout(<RecruiterPanelPage />);
       case 'admin':
-        return wrapInPanelLayout(<AdminPanel />);
+        return wrapInPanelLayout(<AdminPanelPage />);
       default:
         return wrapInLayout(<HomePage />, true);
     }

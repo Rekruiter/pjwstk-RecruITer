@@ -8,7 +8,7 @@ interface AuthorizedDropdownMenuProps {
   name?: string;
 }
 
-const AuthorizedDropdownMenu = ({ onLogout, name = 'Your profile' }: AuthorizedDropdownMenuProps) => {
+const AuthorizedDropdownMenu = ({ onLogout, name }: AuthorizedDropdownMenuProps) => {
   return (
     <Menu as="div" className="relative inline-block">
       <Menu.Button className={`${defaultStyles.orangeButton} bg-darken`}>
