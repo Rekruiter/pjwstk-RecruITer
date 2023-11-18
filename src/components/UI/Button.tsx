@@ -10,7 +10,11 @@ interface ButtonProps {
 
 const Button = ({ className, children, onClick, type, disabled }: PropsWithChildren<ButtonProps>) => {
   return (
-    <button onClick={onClick} className={`${defaultStyles.orangeButton} ${className}`} type={type} disabled={disabled}>
+    <button
+      onClick={onClick}
+      className={`${defaultStyles.orangeButton} ${className}bg-darken`}
+      type={type}
+      disabled={disabled}>
       {children}
     </button>
   );

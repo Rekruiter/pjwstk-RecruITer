@@ -3,7 +3,6 @@ import axios from '../axios/axios';
 
 export const getJobOfferList = async () => {
   const { data } = await axios.get('/jobOffers');
-
   return JobOffersListSchema.parse(data);
 };
 

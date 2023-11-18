@@ -12,6 +12,7 @@ interface AuthModalInterface {
   isHiding: boolean;
   authMethod: AuthMethodType;
   changeAuthMethod: (method: AuthMethodType) => void;
+  name?: string;
 }
 
 const AuthModal = ({ handleCloseModal, isHiding, authMethod, changeAuthMethod }: AuthModalInterface) => {
@@ -33,7 +34,7 @@ const AuthModal = ({ handleCloseModal, isHiding, authMethod, changeAuthMethod }:
         <div className="overflow-y-auto">
           {authMethod === 'login' && <LoginForm changeAuthMethod={changeAuthMethod} />}
           {authMethod === 'register' && <RegisterForm changeAuthMethod={changeAuthMethod} />}
-          {authMethod === 'reset-password' && <ForgotPasswordForm changeAuthMethod={changeAuthMethod} />}
+          {authMethod === 'reset-password' && <ForgotPasswordForm />}
         </div>
       </div>
     </Modal>

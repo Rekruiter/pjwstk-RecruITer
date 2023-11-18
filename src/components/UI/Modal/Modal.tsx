@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren, ReactNode, useEffect } from 'react';
+import { FC, PropsWithChildren, ReactNode } from 'react';
 import ReactDOM from 'react-dom';
 import styles from './Modal.module.css';
 
@@ -31,32 +31,6 @@ const ModalOverlay = ({ children, hiding }: { children: ReactNode; hiding: boole
 const portalElement = document.getElementById('overlays');
 
 const Modal: FC<PropsWithChildren<ModalProps>> = ({ children, onClose, hiding }) => {
-  //Prevent blur effect on modal
-  const addSmoothBoundariesToModal = () => {
-    const backdropElement = document.getElementById('backdrop') as HTMLElement;
-    const overlaysRect = backdropElement.getBoundingClientRect();
-    const modalElement = document.getElementById('modal') as HTMLElement;
-    if (window.innerWidth > 1080) {
-      const newWidth =
-        Math.ceil(overlaysRect.width / 2) % 2 === 0
-          ? Math.ceil(overlaysRect.width / 2)
-          : Math.ceil(overlaysRect.width / 2) + 1;
-      modalElement['style'].width = newWidth.toString() + 'px';
-    } else {
-      const newWidth =
-        Math.ceil(overlaysRect.width) % 2 === 0 ? Math.ceil(overlaysRect.width) : Math.ceil(overlaysRect.width) + 1;
-      modalElement['style'].width = newWidth.toString() + 'px';
-    }
-  };
-
-  useEffect(() => {
-    addSmoothBoundariesToModal();
-    window.addEventListener('resize', addSmoothBoundariesToModal);
-    return () => {
-      window.removeEventListener('resize', addSmoothBoundariesToModal);
-    };
-  }, []);
-
   if (!portalElement) return null;
   return (
     <>

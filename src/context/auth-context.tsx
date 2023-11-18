@@ -2,6 +2,7 @@ import React, { ReactNode, useCallback, useState } from 'react';
 import { AuthorizationObjectSchema, IAuthorizationObject } from '../types/authorizationTypes';
 
 type AuthContextProps = {
+  name?: IAuthorizationObject['name'];
   token?: IAuthorizationObject['token'];
   role?: IAuthorizationObject['role'];
   isLoggedIn: boolean;
@@ -57,6 +58,7 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     isLoggedIn: userIsLoggedIn,
     token: authorization?.token,
     role: authorization?.role,
+    name: authorization?.name,
     login: loginHandler,
     logout: logoutHandler,
   };

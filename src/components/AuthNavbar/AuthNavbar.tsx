@@ -55,7 +55,7 @@ const AuthNavbar = () => {
   return (
     <>
       {authCtx.isLoggedIn ? (
-        <LoginDropdownMenu onLogout={handleLogout} />
+        <LoginDropdownMenu onLogout={handleLogout} name={authCtx.name} />
       ) : (
         <>
           <Button className="shadow-md" onClick={handleOpenLoginModal}>

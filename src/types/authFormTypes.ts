@@ -31,7 +31,7 @@ export const RegisterFormInputSchema = z
       .refine((password) => password.trim().length > 0, 'Password can not be empty'),
     confirmPassword: z.string(),
   })
-  .refine((data) => data.password !== data.confirmPassword, {
+  .refine((data) => data.password === data.confirmPassword, {
     message: 'Passwords do not match',
     path: ['confirmPassword'],
   });

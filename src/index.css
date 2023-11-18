@@ -5,15 +5,11 @@
 body {
   @apply min-h-full bg-light leading-normal;
   font-family: 'Inter', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -webkit-font-smoothing: subpixel-antialiased;
+  box-sizing: border-box;
 }
 
 @layer utilities {
   .bg-darken:hover {
-    filter: brightness(0.9); /* Adjust the brightness value as needed */
+    filter: brightness(0.9);
   }
-}
-button:hover {
-  @apply hover:bg-darken;
 }

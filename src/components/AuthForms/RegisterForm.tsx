@@ -5,12 +5,24 @@ import Button from '../UI/Button';
 import Spinner from '../UI/Spinner/Spinner';
 import FormFieldWrapper from './FormHelpers/FormFieldWrapper';
 import { AuthMethodType } from '../../helpers/getAuthMethod';
+import { useMutation } from 'react-query';
+import { registerPost } from '../../api/authorization/authorization';
 
 interface RegisterFormsProps {
   changeAuthMethod: (method: AuthMethodType) => void;
 }
 
 const RegisterForm = ({ changeAuthMethod }: RegisterFormsProps) => {
+  const { mutate, error } = useMutation('register', registerPost, {
+    onSuccess(data, variables, context) {
+      console.log(data);
+      console.log(variables);
+      console.log(context);
+    },
+  });
+
+  console.log(error);
+
   const {
     formState: { errors },
     register,
@@ -22,7 +34,9 @@ const RegisterForm = ({ changeAuthMethod }: RegisterFormsProps) => {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     handleSubmit(
-      async (data) => {},
+      async (data) => {
+        mutate(data);
+      },
       (e) => {
         console.log(e);
       },
@@ -34,26 +48,43 @@ const RegisterForm = ({ changeAuthMethod }: RegisterFormsProps) => {
   return (
     <form onSubmit={onSubmit} className="flex flex-col items-center justify-between">
       <div className="flex flex-col gap-2 w-2/3">
-        <FormFieldWrapper<IRegisterFormInput> field="name" register={register} error={errors.name} />
-        <FormFieldWrapper<IRegisterFormInput> field="surname" register={register} error={errors.surname} />
-        <FormFieldWrapper<IRegisterFormInput> field="email" register={register} error={errors.email} />
+        <FormFieldWrapper<IRegisterFormInput>
+          field="name"
+          register={register}
+          error={errors.name}
+          autocomplete="given-name"
+        />
+        <FormFieldWrapper<IRegisterFormInput>
+          field="surname"
+          register={register}
+          error={errors.surname}
+          autocomplete="family-name"
+        />
+        <FormFieldWrapper<IRegisterFormInput>
+          field="email"
+          register={register}
+          error={errors.email}
+          autocomplete="username"
+        />
         <FormFieldWrapper<IRegisterFormInput>
           field="phoneNumber"
           register={register}
           error={errors.phoneNumber}
-          type="number"
+          autocomplete="tel"
         />
         <FormFieldWrapper<IRegisterFormInput>
           field="password"
           register={register}
           error={errors.password}
           type="password"
+          autocomplete="new-password"
         />
         <FormFieldWrapper<IRegisterFormInput>
           field="confirmPassword"
           register={register}
           error={errors.confirmPassword}
           type="password"
+          autocomplete="new-password"
         />
       </div>
       <div className="flex flex-row my-3">

@@ -3,6 +3,7 @@ import { getJobOfferList } from '../api/jobOffers/jobOffers';
 import Spinner from '../components/UI/Spinner/Spinner';
 import { useNavigate } from 'react-router-dom';
 import { GetPathsLinks } from '../constants/paths';
+import JobOfferListElement from '../components/JobOfferContent/JobOfferListElement';
 
 const JobOfferPage = () => {
   const navigate = useNavigate();
@@ -21,39 +22,21 @@ const JobOfferPage = () => {
   };
 
   return (
-    <div className="flex flex-col overflow-hidden">
-      <div className="w-full bg-dark_blue h-16 text-center px-2 text-light">
-        panel do wyszkuwania/filtrowania //TODO: Make it fixed on site
+    <div className="flex flex-col">
+      <div className="w-full sticky top-24 bg-dark_blue text-center text-light shadow-xl">
+        <h4 className="text-xl mt-4">Search for job offers</h4>
+        <div className="flex justify-between container p-6 md:px-20 lg:px-32 mb-2">
+          <p>Technology</p>
+          <p>Salary</p>
+          <p>Location</p>
+          <p>Seniority</p>
+        </div>
       </div>
-      <div className="container p-6 md:px-12 lg:px-16">
-        {data?.map((jobOffer, index) => (
-          <div
-            className={`flex border max-w-full break-all bg-light text-dark py-2 px-5 cursor-pointer hover:bg-orange group ${
-              index === data.length - 1 ? 'rounded-b-xl' : ''
-            }`}
-            onClick={() => handleOpenJobOffer(jobOffer.id)}
-            key={jobOffer.id}>
-            <div className="basis-1/2 min-w-7.5 gap-2 group-hover:text-light">
-              <p className="group-hover:scale-110 group-hover:underline w-fit">{jobOffer.title}</p>
-              <p className="text-xs">{jobOffer.companyName}</p>
-            </div>
-            <div className="basis-1/6 min-w-3 flex flex-wrap gap-x-3 text-sm">
-              {Object.keys(jobOffer.requirements)
-                .slice(0, 2)
-                .map((key) => (
-                  <div className="group-hover:text-light border border-dark group-hover:border-light p-1 h-fit">
-                    {key}
-                  </div>
-                ))}
-            </div>
-            <p className="basis-1/6 text-center group-hover:text-light min-w-4.25">Warsaw/Remote</p>
-            <p className="basis-1/6 text-center group-hover:text-light min-w-3">
-              {jobOffer.minSalary}
-              {jobOffer.maxSalary !== null && `-${jobOffer.maxSalary}`} {jobOffer.currency}
-            </p>
-          </div>
+      <div className="container p-8 md:px-12 lg:px-16 rounded-b-xl">
+        {data?.map((jobOffer) => (
+          <JobOfferListElement handleOpenJobOffer={handleOpenJobOffer} jobOfferData={jobOffer} key={jobOffer.id} />
         ))}
-        {!data && <div className="mx-auto py-10">No results found</div>}
+        {!data && <p className="mx-auto w-fit py-10">No results found</p>}
       </div>
     </div>
   );

@@ -5,20 +5,21 @@ import { defaultStyles } from '../../../constants/defaultStyles';
 
 interface AuthorizedDropdownMenuProps {
   onLogout: () => void;
+  name?: string;
 }
 
-const AuthorizedDropdownMenu = ({ onLogout }: AuthorizedDropdownMenuProps) => {
+const AuthorizedDropdownMenu = ({ onLogout, name = 'Your profile' }: AuthorizedDropdownMenuProps) => {
   return (
     <Menu as="div" className="relative inline-block">
-      <Menu.Button className={defaultStyles.orangeButton} onClick={() => {}}>
+      <Menu.Button className={`${defaultStyles.orangeButton} bg-darken`}>
         {({ open }) =>
           open ? (
             <div className="flex gap-2 items-center">
-              Your name here <MdArrowDropUp />
+              {name} <MdArrowDropUp />
             </div>
           ) : (
             <div className="flex gap-2 items-center">
-              Your name here <MdArrowDropDown />
+              {name} <MdArrowDropDown />
             </div>
           )
         }
@@ -31,9 +32,9 @@ const AuthorizedDropdownMenu = ({ onLogout }: AuthorizedDropdownMenuProps) => {
         leave="transition ease-in duration-75"
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95">
-        <Menu.Items className="absolute mt-2 w-52 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none">
+        <Menu.Items className="absolute mt-2 w-[8.5rem] origin-top divide-y divide-gray-100 rounded-md bg-white ring-1 focus:outline-none">
           <div className="px-1 py-1 ">
-            <Menu.Item as={'div'} className="flex justify-center">
+            <Menu.Item as={'div'} className="flex justify-center ">
               {({ active }) => (
                 <button
                   className={`${

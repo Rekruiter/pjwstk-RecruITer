@@ -4,15 +4,35 @@ import { useForm } from 'react-hook-form';
 import { ILoginFormInput, LoginFormInputSchema } from '../../types/authFormTypes';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { IoMdEye, IoMdEyeOff } from 'react-icons/io';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import FormFieldWrapper from './FormHelpers/FormFieldWrapper';
 import { AuthMethodType } from '../../helpers/getAuthMethod';
+import { useMutation } from 'react-query';
+import { loginPost } from '../../api/authorization/authorization';
+import AuthContext from '../../context/auth-context';
+import { ITemporaryAuthorizationObject } from '../../types/authorizationTypes';
 
-interface LoginFormProps {
+export interface LoginFormProps {
   changeAuthMethod: (method: AuthMethodType) => void;
 }
 
 const LoginForm = ({ changeAuthMethod }: LoginFormProps) => {
+  const { login } = useContext(AuthContext);
+
+  const { error, isLoading, mutate } = useMutation<ITemporaryAuthorizationObject, Error, ILoginFormInput>(
+    'login',
+    loginPost,
+    {
+      onSuccess(data) {
+        login({
+          name: data.name,
+          token: data.token,
+          role: 'user',
+        });
+      },
+    },
+  );
+
   const {
     formState: { errors },
     register,
@@ -26,19 +46,24 @@ const LoginForm = ({ changeAuthMethod }: LoginFormProps) => {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     handleSubmit(
-      async (data) => {},
+      async (data) => {
+        mutate(data);
+      },
       (e) => {
         console.log(e);
       },
     )();
   };
 
-  const isLoading = false;
-
   return (
     <form onSubmit={onSubmit} className="flex flex-col items-center justify-between">
       <div className="flex flex-col gap-2 w-5/6">
-        <FormFieldWrapper<ILoginFormInput> field="email" register={register} error={errors.email} />
+        <FormFieldWrapper<ILoginFormInput>
+          field="email"
+          register={register}
+          error={errors.email}
+          autocomplete="username"
+        />
         <div className="flex flex-col gap-2">
           <label className="text-light font-semibold">Password</label>
           <div className="relative">
@@ -48,6 +73,7 @@ const LoginForm = ({ changeAuthMethod }: LoginFormProps) => {
                 errors.password ? 'border-error_color' : 'border-light'
               }`}
               type={showPassword ? 'text' : 'password'}
+              autoComplete="current-password"
             />
             <button
               onClick={() => setShowPassword((prevState) => !prevState)}
@@ -69,6 +95,7 @@ const LoginForm = ({ changeAuthMethod }: LoginFormProps) => {
           {isLoading ? <Spinner isLight /> : 'Log in'}
         </Button>
       </div>
+      {error && <div className="text-error_color">{error.message}</div>}
       <p className="text-sm text-light_blue">
         Don't have an account ?<span> </span>
         <button type="button" onClick={() => changeAuthMethod('register')} className="text-light">

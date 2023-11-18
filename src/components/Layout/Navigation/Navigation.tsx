@@ -39,8 +39,8 @@ const Navigation = ({ className }: NavigationsProps) => {
 
   return (
     <>
-      <nav className={`${className} w-full fixed top-0 z-10`}>
-        <div className="container py-2 px-10 md:px-24 flex flex-col md:flex-row md:items-center justify-between">
+      <nav className={`${className} w-full top-0 z-10`}>
+        <div className="py-2 px-10 md:px-24 flex flex-col md:flex-row md:items-center justify-between">
           <div className="flex justify-between">
             <Link to={'/'} className="text-white text-lg font-bold h-20">
               <img src={logoImage} className="max-h-full" />
