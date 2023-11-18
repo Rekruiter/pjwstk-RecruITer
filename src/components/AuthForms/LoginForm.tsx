@@ -91,9 +91,13 @@ const LoginForm = ({ changeAuthMethod }: LoginFormProps) => {
         </div>
       </div>
       <div className="flex flex-row my-3">
-        <Button className="shadow-md min-w-authButton" type="submit" disabled={isLoading}>
-          {isLoading ? <Spinner isLight /> : 'Log in'}
-        </Button>
+        {isLoading ? (
+          <Spinner isLight />
+        ) : (
+          <Button className="shadow-md min-w-authButton" type="submit">
+            Log in
+          </Button>
+        )}
       </div>
       {error && <div className="text-error_color">{error.message}</div>}
       <p className="text-sm text-light_blue">
