@@ -8,7 +8,7 @@ export const JobOfferSchema = z.object({
   companyName: z.string(),
   minSalary: z.number(),
   maxSalary: z.number().nullable(),
-  currency: z.enum(['PLN', 'EUR', 'USD']),
+  currency: z.string(),
   description: z.string(),
   dateAdded: z.string().refine(
     (date) => {
