@@ -1,10 +1,14 @@
-import { ILoginFormInput, IRegisterFormInput } from '../../types/authFormTypes';
+import {
+  ILoginFormInput,
+  IRegisterFormInput,
+  IResetPasswordConfirmFormInput,
+  IResetPasswordFormInput,
+} from '../../types/authFormTypes';
 import { TemporaryAuthorizationObjectSchema } from '../../types/authorizationTypes';
 import axios from '../axios/axios';
 
 export const registerPost = async (inputData: IRegisterFormInput) => {
-  const { data } = await axios.post('/register', inputData);
-  return data;
+  await axios.post('/register', inputData);
 };
 
 export const loginPost = async (inputData: ILoginFormInput) => {
@@ -15,4 +19,16 @@ export const loginPost = async (inputData: ILoginFormInput) => {
     return parsedData.data;
   }
   throw new Error('Error parsing data, please contact administrator');
+};
+
+export const resetPasswordPost = async (inputData: IResetPasswordFormInput) => {
+  await axios.post('/resetPassword', inputData);
+};
+
+export const resetPasswordConfirmPost = async (inputData: IResetPasswordConfirmFormInput, token: string) => {
+  await axios.post('/verifyReset/' + token, inputData);
+};
+
+export const verifyAccountGet = async (token: string) => {
+  await axios.get('/verifyAccount/' + token);
 };

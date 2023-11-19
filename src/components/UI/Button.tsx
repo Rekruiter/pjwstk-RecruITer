@@ -12,7 +12,7 @@ const Button = ({ className, children, onClick, type, disabled }: PropsWithChild
   return (
     <button
       onClick={onClick}
-      className={`${defaultStyles.orangeButton} ${className}bg-darken`}
+      className={`${defaultStyles.orangeButton} ${className} bg-darken`}
       type={type}
       disabled={disabled}>
       {children}

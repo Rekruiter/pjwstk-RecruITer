@@ -6,6 +6,7 @@ type FormFieldWrapperProps<T extends FieldValues> = {
   error: FieldError | undefined;
   type?: React.HTMLInputTypeAttribute | undefined;
   autocomplete?: string;
+  placeholder?: string;
 };
 
 const FormFieldWrapper = <T extends FieldValues>({
@@ -14,6 +15,7 @@ const FormFieldWrapper = <T extends FieldValues>({
   error,
   type = 'text',
   autocomplete = 'off',
+  placeholder,
 }: FormFieldWrapperProps<T>) => {
   const labelName = field.toString();
   return (
@@ -26,6 +28,7 @@ const FormFieldWrapper = <T extends FieldValues>({
         }`}
         type={type}
         autoComplete={autocomplete}
+        placeholder={placeholder}
       />
       {error && <div className="text-error_color">{error.message}</div>}
     </div>

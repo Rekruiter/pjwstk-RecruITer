@@ -19,6 +19,7 @@ module.exports = {
         orange: '#FE5F55',
         orange_dark: '#c74a42',
         error_color: '#FE5F55',
+        success_color: '#4BB543',
       },
       spacing: {
         0.25: '0.0625rem',

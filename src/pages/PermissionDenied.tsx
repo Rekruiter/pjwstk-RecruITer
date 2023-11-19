@@ -6,7 +6,7 @@ const PermissionDenied = () => {
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      navigate('/');
+      navigate('/', { replace: true });
     }, 2000);
 
     return () => clearTimeout(timeout);

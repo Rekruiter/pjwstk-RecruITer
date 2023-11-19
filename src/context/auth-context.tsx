@@ -1,5 +1,6 @@
-import React, { ReactNode, useCallback, useState } from 'react';
+import React, { ReactNode, useCallback, useLayoutEffect, useState } from 'react';
 import { AuthorizationObjectSchema, IAuthorizationObject } from '../types/authorizationTypes';
+import instance from '../api/axios/axios';
 
 type AuthContextProps = {
   name?: IAuthorizationObject['name'];
@@ -43,6 +44,22 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const [authorization, setAuthorization] = useState<IAuthorizationObject | null>(retrieveStoredAuthorization());
 
   const userIsLoggedIn = !!authorization;
+
+  useLayoutEffect(() => {
+    if (!authorization?.token) return;
+    const requestInterceptor = instance.interceptors.request.use(
+      (config) => {
+        config.headers['Authorization'] = `Bearer ${authorization.token}`;
+        return config;
+      },
+      (error) => {
+        return Promise.reject(error);
+      },
+    );
+    return () => {
+      instance.interceptors.request.eject(requestInterceptor);
+    };
+  }, [authorization]);
 
   const logoutHandler = useCallback(() => {
     setAuthorization(null);
