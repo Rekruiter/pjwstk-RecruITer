@@ -13,7 +13,15 @@ type HeaderPathType = {
 
 // When creating new path make sure to assign element in BrowserRouter in App.tsx
 
-const allPaths = ['home', 'notFound', 'jobOffers', 'newJobOffer', 'jobOfferPreview'] as const;
+const allPaths = [
+  'home',
+  'notFound',
+  'jobOffers',
+  'newJobOffer',
+  'jobOfferPreview',
+  'resetPasswordConfirm',
+  'verifyAccount',
+] as const;
 
 export const GetPathsLinks = {
   getJobOfferPreview: (id: number) => `/job-offers/${id}`,
@@ -34,10 +42,16 @@ export const Paths: Record<(typeof allPaths)[number], PathType> = {
   },
   newJobOffer: {
     path: '/job-offers/new',
-    requiredRoles: ['admin', 'recruiter', 'techRecruiter'],
+    requiredRoles: ['admin', 'recruiter', 'techRecruiter', 'user'],
   },
   jobOfferPreview: {
     path: '/job-offers/:id',
+  },
+  resetPasswordConfirm: {
+    path: '/reset/:token',
+  },
+  verifyAccount: {
+    path: '/verify/:token',
   },
 };
 

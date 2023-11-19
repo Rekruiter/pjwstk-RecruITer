@@ -46,6 +46,7 @@ const AuthNavbar = () => {
 
   const handleLogout = () => {
     authCtx.logout();
+    window.location.replace('/');
   };
 
   const changeAuthMethod = (method: AuthMethodType) => {

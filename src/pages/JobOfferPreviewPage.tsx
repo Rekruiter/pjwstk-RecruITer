@@ -9,7 +9,7 @@ import { FaStar } from 'react-icons/fa';
 const JobOfferPreviewPage = () => {
   const { id } = useParams() as { id: string };
 
-  const { data, error, isLoading } = useQuery(['jobOffer', id], () => getJobOffer(id), {});
+  const { data, error, isLoading } = useQuery(['jobOffer', id], () => getJobOffer(id));
 
   if (error) {
     return <div className="m-auto">An error ocurred</div>;

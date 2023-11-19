@@ -7,21 +7,19 @@ import FormFieldWrapper from './FormHelpers/FormFieldWrapper';
 import { AuthMethodType } from '../../helpers/getAuthMethod';
 import { useMutation } from 'react-query';
 import { registerPost } from '../../api/authorization/authorization';
+import { useState } from 'react';
 
 interface RegisterFormsProps {
   changeAuthMethod: (method: AuthMethodType) => void;
 }
 
 const RegisterForm = ({ changeAuthMethod }: RegisterFormsProps) => {
-  const { mutate, error } = useMutation('register', registerPost, {
-    onSuccess(data, variables, context) {
-      console.log(data);
-      console.log(variables);
-      console.log(context);
+  const [isUserRegistered, setIsUserRegistered] = useState(false);
+  const { mutate, error, isLoading } = useMutation<any, Error, IRegisterFormInput>('register', registerPost, {
+    onSuccess() {
+      setIsUserRegistered(true);
     },
   });
-
-  console.log(error);
 
   const {
     formState: { errors },
@@ -33,6 +31,7 @@ const RegisterForm = ({ changeAuthMethod }: RegisterFormsProps) => {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (isLoading) return;
     handleSubmit(
       async (data) => {
         mutate(data);
@@ -43,7 +42,17 @@ const RegisterForm = ({ changeAuthMethod }: RegisterFormsProps) => {
     )();
   };
 
-  const isLoading = false;
+  if (isUserRegistered) {
+    return (
+      <div className="flex flex-col text-success_color items-center gap-1">
+        <h3 className="text-lg font-semibold">Welcome to RecruITer society</h3>
+        <p>We have sent you an email with a link to verify your account</p>
+        <Button onClick={() => changeAuthMethod('login')} className="mt-10">
+          Navigate to login section
+        </Button>
+      </div>
+    );
+  }
 
   return (
     <form onSubmit={onSubmit} className="flex flex-col items-center justify-between">
@@ -87,10 +96,15 @@ const RegisterForm = ({ changeAuthMethod }: RegisterFormsProps) => {
           autocomplete="new-password"
         />
       </div>
+      {error && <p className="text-error_color my-2">{error.message}</p>}
       <div className="flex flex-row my-3">
-        <Button className="shadow-md min-w-authButton" type="submit" disabled={isLoading}>
-          {isLoading ? <Spinner isLight /> : 'Sign up'}
-        </Button>
+        {isLoading ? (
+          <Spinner isLight />
+        ) : (
+          <Button className="shadow-md min-w-authButton" type="submit">
+            Sign up
+          </Button>
+        )}
       </div>
       <p className="text-sm text-light_blue">
         You have an account ?<span> </span>

@@ -11,6 +11,7 @@ import { useMutation } from 'react-query';
 import { loginPost } from '../../api/authorization/authorization';
 import AuthContext from '../../context/auth-context';
 import { ITemporaryAuthorizationObject } from '../../types/authorizationTypes';
+import { useSearchParams } from 'react-router-dom';
 
 export interface LoginFormProps {
   changeAuthMethod: (method: AuthMethodType) => void;
@@ -18,6 +19,7 @@ export interface LoginFormProps {
 
 const LoginForm = ({ changeAuthMethod }: LoginFormProps) => {
   const { login } = useContext(AuthContext);
+  const [, setSearchParams] = useSearchParams();
 
   const { error, isLoading, mutate } = useMutation<ITemporaryAuthorizationObject, Error, ILoginFormInput>(
     'login',
@@ -28,6 +30,10 @@ const LoginForm = ({ changeAuthMethod }: LoginFormProps) => {
           name: data.name,
           token: data.token,
           role: 'user',
+        });
+        setSearchParams((prevParams) => {
+          prevParams.delete('authorization');
+          return prevParams;
         });
       },
     },
@@ -45,6 +51,7 @@ const LoginForm = ({ changeAuthMethod }: LoginFormProps) => {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (isLoading) return;
     handleSubmit(
       async (data) => {
         mutate(data);

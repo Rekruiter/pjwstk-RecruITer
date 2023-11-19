@@ -1,4 +1,4 @@
-import axios, { AxiosError } from 'axios';
+import axios, { isAxiosError } from 'axios';
 
 const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -15,9 +15,10 @@ instance.interceptors.response.use(
     }
   },
   (error) => {
-    if (error instanceof AxiosError) {
-      throw new Error(error.response?.data.message);
+    if (isAxiosError(error) && error.response && error.response.data) {
+      throw new Error(error.response.data.message);
     }
+    throw new Error('An unexpected error occurred, please contact the administrator');
   },
 );
 
