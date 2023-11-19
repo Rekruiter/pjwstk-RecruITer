@@ -1,7 +1,7 @@
 import { Navigate, RouteObject, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import NotFound from './pages/RouteNotFound';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import AuthContext from './context/auth-context';
 
 import { Paths, getRequiredRoles } from './constants/paths';
@@ -9,31 +9,17 @@ import { IAuthorizationObject } from './types/authorizationTypes';
 import PermissionDenied from './pages/PermissionDenied';
 import { wrapInLayout, wrapInPanelLayout } from './helpers';
 import JobOfferPage from './pages/JobOfferPage';
-import instance from './api/axios/axios';
 import JobOfferPreviewPage from './pages/JobOfferPreviewPage';
 import CandidatePanelPage from './pages/panels/CandidatePanelPage';
 import RecruiterPanelPage from './pages/panels/RecruiterPanelPage';
 import AdminPanelPage from './pages/panels/AdminPanelPage';
 import UserPanelPage from './pages/panels/UserPanelPage';
+import ResetPasswordConfirmPage from './pages/ResetPasswordConfirmPage';
+import VerifyAccountPage from './pages/VerifyAccountPage';
+import { wrapInEmptyLayout } from './helpers/getLayoutWrappers';
 
 function App() {
-  const { role, isLoggedIn, token } = useContext(AuthContext);
-
-  useEffect(() => {
-    if (!token) return;
-    const requestInterceptor = instance.interceptors.request.use(
-      (config) => {
-        config.headers['Authorization'] = `Bearer ${token}`;
-        return config;
-      },
-      (error) => {
-        return Promise.reject(error);
-      },
-    );
-    return () => {
-      instance.interceptors.request.eject(requestInterceptor);
-    };
-  }, [token]);
+  const { role, isLoggedIn } = useContext(AuthContext);
 
   const PrivateRoute = (element: JSX.Element, requiredRoles: Partial<IAuthorizationObject>['role'][]) => {
     if (!isLoggedIn) {
@@ -67,6 +53,14 @@ function App() {
     { path: Paths.jobOffers.path, element: wrapInLayout(<JobOfferPage />) },
     { path: Paths.newJobOffer.path, element: PrivateRoute(<JobOfferPage />, getRequiredRoles('newJobOffer')) },
     { path: Paths.jobOfferPreview.path, element: wrapInLayout(<JobOfferPreviewPage />) },
+    {
+      path: Paths.resetPasswordConfirm.path,
+      element: wrapInEmptyLayout(<ResetPasswordConfirmPage />),
+    },
+    {
+      path: Paths.verifyAccount.path,
+      element: wrapInEmptyLayout(<VerifyAccountPage />),
+    },
   ];
 
   const router = createBrowserRouter(routesConfig);
