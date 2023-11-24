@@ -1,6 +1,8 @@
 import KeyboardImage from '../assets/keyboard.png';
 import Button from '../components/UI/Button';
 import TechnologiesCloudImage from '../assets/technologies_cloud.png';
+import BusinessWomanImage from '../assets/business_woman.png';
+import { Link } from 'react-router-dom';
 
 const HomePage = () => {
   return (
@@ -63,6 +65,35 @@ const HomePage = () => {
                 <span className="font-semibold">seasoned tech interviewers</span> and industry experts
               </p>
             </div>
+          </div>
+          <div className="w-full flex flex-col justify-center items-center gap-8">
+            <h4 className="text-dark text-3xl font-semibold">Create account and start preparing yourself</h4>
+            <Button className="w-fit">Sign up</Button>
+          </div>
+        </div>
+      </section>
+      <section className="w-full min-h-screen flex flex-col bg-dark_blue py-20">
+        <div className="container flex flex-col gap-28 px-2 relative">
+          <img src={BusinessWomanImage} className="absolute right-0 -top-10 hidden xl:block max-h-[80vh]" />
+          <h3 className="text-light text-5xl font-normal">ARE YOU AN EMPLOYER...?</h3>
+          <div className="text-light max-w-2xl flex flex-col gap-10 text-lg">
+            <p>
+              Trust our professional approach and join as an company to our community ! At{' '}
+              <span className="font-semibold">RecruITer</span>, we meticulously create symbiotic environments where your
+              esteemed organization and adept candidates converge to create innovative future tech landscapes
+            </p>
+            <p>🎯 Place Your Job Offers - Connecting Employers and Potential Talent</p>
+            <p>🛠 Add Your Technical and Practical Exercises - Shape the Future Skillset</p>
+            <p>🔄 Perform Recruitment Process - Streamlining Hiring to its Best</p>
+            <p>💼 Process Technical Interview - Uncover True Potential</p>
+            <p>👥 Manage Candidates - A Central Hub for All Your Recruitment Needs</p>
+            <p>
+              And many more... navigate to{' '}
+              <Link to={'/'} className="text-orange underline">
+                Employers Section
+              </Link>{' '}
+              to see more details
+            </p>
           </div>
         </div>
       </section>

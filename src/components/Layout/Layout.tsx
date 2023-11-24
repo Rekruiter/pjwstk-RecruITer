@@ -1,5 +1,6 @@
 import { PropsWithChildren, useEffect, useState } from 'react';
 import Navigation from './Navigation/Navigation';
+import Footer from './Footer/Footer';
 
 interface LayoutProps {
   withoutMargin?: boolean;
@@ -31,11 +32,7 @@ const Layout = ({ children, withoutMargin = false, panel }: PropsWithChildren<La
     <div className="flex flex-col min-h-screen min-w-mobile">
       <Navigation className={withoutMargin ? navbarBackground : 'bg-dark_blue sticky'} />
       <div className={`flex-1 flex flex-col`}>{children}</div>
-      {!panel && (
-        <div className="w-full bg-dark_blue text-light min-h-6">
-          <div className="container px-10 md:px-24">footer</div>
-        </div>
-      )}
+      {!panel && <Footer />}
     </div>
   );
 };
