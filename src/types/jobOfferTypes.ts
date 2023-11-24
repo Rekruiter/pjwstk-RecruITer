@@ -10,6 +10,9 @@ export const JobOfferSchema = z.object({
   maxSalary: z.number().nullable(),
   currency: z.string(),
   description: z.string(),
+  location: z.string(),
+  isRemote: z.boolean(),
+  seniority: z.string(),
   dateAdded: z.string().refine(
     (date) => {
       const timestamp = Date.parse(date);

@@ -2,8 +2,6 @@
   top: 50%;
   left: 0;
   width: 100%;
-  min-height: 500px;
-  animation: slide-down 300ms ease-out forwards;
   max-height: 900px;
 }
 
@@ -14,28 +12,8 @@
   }
 }
 
-.modalHide {
-  animation: slide-up 300ms ease-out forwards;
-}
-
-@keyframes slide-down {
-  from {
-    opacity: 0;
-    transform: translate(0, -5rem);
-  }
-  to {
-    opacity: 1;
-    transform: translate(0, -50%);
-  }
-}
-
-@keyframes slide-up {
-  from {
-    opacity: 1;
-    transform: translate(0, -50%);
-  }
-  to {
-    opacity: 0;
-    transform: translate(0, -5rem);
+@media (min-height: 500px) {
+  .modal {
+    min-height: 500px;
   }
 }

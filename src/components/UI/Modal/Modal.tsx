@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren, ReactNode } from 'react';
+import { FC, PropsWithChildren, ReactNode, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import styles from './Modal.module.css';
 
@@ -17,11 +17,19 @@ const Backdrop = ({ onClose }: Pick<ModalProps, 'onClose'>) => {
 };
 
 const ModalOverlay = ({ children, hiding }: { children: ReactNode; hiding: boolean }) => {
+  const [translateClass, setTranslateClass] = useState('translate-y-0 opacity-0');
+
+  useEffect(() => {
+    if (hiding) {
+      setTranslateClass('translate-y-0 opacity-0');
+    } else {
+      setTranslateClass('-translate-y-1/2 opacity-100');
+    }
+  }, [hiding]);
+
   return (
     <div
-      className={`fixed bg-transparent z-30 shadow-2xl overflow-hidden ${styles.modal} flex ${
-        hiding ? styles.modalHide : ''
-      }`}
+      className={`fixed bg-transparent max-h-screen z-30 shadow-2xl overflow-auto transition-[transform,opacity] ${translateClass} duration-500 ${styles.modal} flex`}
       id="modal">
       {children}
     </div>
