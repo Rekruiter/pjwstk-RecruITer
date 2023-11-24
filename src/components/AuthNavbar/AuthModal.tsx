@@ -6,17 +6,28 @@ import RegisterForm from '../AuthForms/RegisterForm';
 import { useLocation } from 'react-router-dom';
 import ForgotPasswordForm from '../AuthForms/ForgotPasswordForm';
 import { IoMdArrowBack } from 'react-icons/io';
+import { useState } from 'react';
+import _debounce from 'lodash.debounce';
 
 interface AuthModalInterface {
-  handleCloseModal: () => void;
-  isHiding: boolean;
+  handleRemoveAuthorization: () => void;
   authMethod: AuthMethodType;
   changeAuthMethod: (method: AuthMethodType) => void;
   name?: string;
 }
 
-const AuthModal = ({ handleCloseModal, isHiding, authMethod, changeAuthMethod }: AuthModalInterface) => {
+const AuthModal = ({ handleRemoveAuthorization, authMethod, changeAuthMethod }: AuthModalInterface) => {
   const location = useLocation();
+  const [isHiding, setIsHiding] = useState(false);
+
+  const debounceHideLogin = _debounce(() => {
+    handleRemoveAuthorization();
+  }, 500);
+
+  const handleCloseModal = () => {
+    setIsHiding(true);
+    debounceHideLogin();
+  };
 
   return (
     <Modal onClose={handleCloseModal} hiding={isHiding}>
