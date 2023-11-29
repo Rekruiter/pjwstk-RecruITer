@@ -29,7 +29,7 @@ const LoginForm = ({ changeAuthMethod }: LoginFormProps) => {
         login({
           name: data.name,
           token: data.token,
-          role: 'user',
+          role: 'admin',
         });
         setSearchParams((prevParams) => {
           prevParams.delete('authorization');
