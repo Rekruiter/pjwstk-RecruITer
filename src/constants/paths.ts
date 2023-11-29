@@ -19,13 +19,21 @@ const allPaths = [
   'jobOffers',
   'newJobOffer',
   'jobOfferPreview',
+  'candidateApplications',
+  'candidateApplicationPreview',
+  'recruiterApplications',
+  'recruiterApplicationsPreview',
   'resetPasswordConfirm',
   'verifyAccount',
 ] as const;
 
+export type AllPathsType = (typeof allPaths)[number];
+
 export const GetPathsLinks = {
   getJobOfferPreview: (id: number) => `/job-offers/${id}`,
   getJobOffersWithFilters: (idCompany?: number) => `/job-offers${idCompany ? `?idCompany=${idCompany}` : ''}`,
+  getCandidateApplicationPreview: (id: number) => `/candidate-applications/${id}`,
+  getRecruiterApplicationPreview: (id: number) => `/recruiter-applications/${id}`,
 };
 
 export const Paths: Record<(typeof allPaths)[number], PathType> = {
@@ -46,6 +54,24 @@ export const Paths: Record<(typeof allPaths)[number], PathType> = {
   },
   jobOfferPreview: {
     path: '/job-offers/:id',
+  },
+  candidateApplications: {
+    path: '/candidate-applications',
+    requiredRoles: ['candidate'],
+    headerSignature: 'Applications',
+  },
+  candidateApplicationPreview: {
+    path: '/candidate-applications/:id',
+    requiredRoles: ['candidate'],
+  },
+  recruiterApplications: {
+    path: '/recruiter-applications',
+    headerSignature: 'Applications',
+    requiredRoles: ['recruiter', 'techRecruiter', 'admin'],
+  },
+  recruiterApplicationsPreview: {
+    path: '/recruiter-applications/:id',
+    requiredRoles: ['recruiter', 'techRecruiter', 'admin'],
   },
   resetPasswordConfirm: {
     path: '/reset/:token',
