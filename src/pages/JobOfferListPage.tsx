@@ -5,9 +5,17 @@ import { useNavigate } from 'react-router-dom';
 import { GetPathsLinks } from '../constants/paths';
 import JobOfferListElement from '../components/JobOfferContent/JobOfferListElement';
 
-const JobOfferPage = () => {
+const JobOfferListPage = () => {
   const navigate = useNavigate();
   const { data, isLoading, isError } = useQuery('jobOffers', getJobOfferList);
+
+  const pickedTechnology = 'Javascript';
+  const pickedSeniority = 'Junior';
+  const pickedLocation = 'Warsaw';
+
+  const signature = `${pickedLocation && pickedLocation + ', '}${pickedSeniority && pickedSeniority + ' '}${
+    pickedTechnology && pickedTechnology + ' Developer'
+  }`;
 
   if (isLoading) {
     return <Spinner />;
@@ -33,6 +41,8 @@ const JobOfferPage = () => {
         </div>
       </div>
       <div className="container p-8 md:px-12 lg:px-16 rounded-b-xl">
+        <h3 className="mb-4 text-dark font-semibold text-lg">Job offers</h3>
+        <h4 className="mb-4 text-dark font-semibold text-base">{signature}</h4>
         {data?.map((jobOffer) => (
           <JobOfferListElement handleOpenJobOffer={handleOpenJobOffer} jobOfferData={jobOffer} key={jobOffer.id} />
         ))}
@@ -42,4 +52,4 @@ const JobOfferPage = () => {
   );
 };
 
-export default JobOfferPage;
+export default JobOfferListPage;

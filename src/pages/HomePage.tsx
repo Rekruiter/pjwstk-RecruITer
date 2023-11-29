@@ -23,7 +23,7 @@ const HomePage = () => {
           <Button className="sm:w-fit">Join US</Button>
         </div>
       </section>
-      <section className="w-full min-h-screen flex flex-col bg-light_blue py-28">
+      <section className="w-full min-h-screen flex flex-col justify-center bg-light_blue py-28">
         <div className="container flex flex-col gap-16 px-2 relative">
           <h3 className="text-center text-dark text-4xl leading-[3.25rem] font-semibold">
             MASTER YOUR FAVOURITE TECHNOLOGIES
@@ -72,7 +72,7 @@ const HomePage = () => {
           </div>
         </div>
       </section>
-      <section className="w-full min-h-screen flex flex-col bg-dark_blue py-20">
+      <section className="w-full min-h-screen flex flex-col justify-center bg-dark_blue py-20">
         <div className="container flex flex-col gap-28 px-2 relative">
           <img src={BusinessWomanImage} className="absolute right-0 -top-10 hidden xl:block max-h-[80vh]" />
           <h3 className="text-light text-5xl font-normal">ARE YOU AN EMPLOYER...?</h3>

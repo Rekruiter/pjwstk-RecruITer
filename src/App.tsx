@@ -8,7 +8,6 @@ import { Paths, getRequiredRoles } from './constants/paths';
 import { IAuthorizationObject } from './types/authorizationTypes';
 import PermissionDenied from './pages/PermissionDenied';
 import { wrapInLayout, wrapInPanelLayout } from './helpers';
-import JobOfferPage from './pages/JobOfferPage';
 import JobOfferPreviewPage from './pages/JobOfferPreviewPage';
 import CandidatePanelPage from './pages/panels/CandidatePanelPage';
 import RecruiterPanelPage from './pages/panels/RecruiterPanelPage';
@@ -17,6 +16,7 @@ import UserPanelPage from './pages/panels/UserPanelPage';
 import ResetPasswordConfirmPage from './pages/ResetPasswordConfirmPage';
 import VerifyAccountPage from './pages/VerifyAccountPage';
 import { wrapInEmptyLayout } from './helpers/getLayoutWrappers';
+import JobOfferListPage from './pages/JobOfferListPage';
 
 function App() {
   const { role, isLoggedIn } = useContext(AuthContext);
@@ -50,8 +50,8 @@ function App() {
   const routesConfig: RouteObject[] = [
     { path: Paths.home.path, element: getDefaultHomeRoute() },
     { path: Paths.notFound.path, element: wrapInLayout(<NotFound />) },
-    { path: Paths.jobOffers.path, element: wrapInLayout(<JobOfferPage />) },
-    { path: Paths.newJobOffer.path, element: PrivateRoute(<JobOfferPage />, getRequiredRoles('newJobOffer')) },
+    { path: Paths.jobOffers.path, element: wrapInLayout(<JobOfferListPage />) },
+    { path: Paths.newJobOffer.path, element: PrivateRoute(<JobOfferListPage />, getRequiredRoles('newJobOffer')) },
     { path: Paths.jobOfferPreview.path, element: wrapInLayout(<JobOfferPreviewPage />) },
     {
       path: Paths.resetPasswordConfirm.path,
