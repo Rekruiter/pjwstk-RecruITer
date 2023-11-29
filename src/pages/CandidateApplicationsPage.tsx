@@ -27,7 +27,7 @@ const CandidateApplicationsPage = () => {
 
   return (
     <div className="flex flex-col justify-center">
-      <div className="container p-8 md:px-12 lg:px-16 rounded-b-xl">
+      <div className="container rounded-b-xl p-8 md:px-12 lg:px-16">
         {applicationsData?.map((application) => (
           <CandidateApplicationListElement
             key={application.applicationId}

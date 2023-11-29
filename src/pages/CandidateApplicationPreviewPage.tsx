@@ -17,8 +17,8 @@ const CandidateApplicationPreviewPage = () => {
   }
 
   return (
-    <div className="flex-1 container bg-light flex flex-col gap-3 p-8">
-      <h2 className="text-center text-dark text-title_bold w-fit rounded-xl">{data.jobOfferTitle}</h2>
+    <div className="container flex flex-1 flex-col gap-3 bg-light p-8">
+      <h2 className="w-fit rounded-xl text-center text-title_bold text-dark">{data.jobOfferTitle}</h2>
       <Link className="cursor-pointer hover:text-orange" to={GetPathsLinks.getJobOffersWithFilters(1)}>
         Company name here
       </Link>

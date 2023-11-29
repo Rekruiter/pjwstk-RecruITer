@@ -31,18 +31,18 @@ const JobOfferListPage = () => {
 
   return (
     <div className="flex flex-col">
-      <div className="w-full sticky top-24 bg-dark_blue text-center text-light shadow-xl">
-        <h4 className="text-xl mt-4">Search for job offers</h4>
-        <div className="flex justify-between container p-6 md:px-20 lg:px-32 mb-2">
+      <div className="sticky top-24 w-full bg-dark_blue text-center text-light shadow-xl">
+        <h4 className="mt-4 text-xl">Search for job offers</h4>
+        <div className="container mb-2 flex justify-between p-6 md:px-20 lg:px-32">
           <p>Technology</p>
           <p>Salary</p>
           <p>Location</p>
           <p>Seniority</p>
         </div>
       </div>
-      <div className="container p-8 md:px-12 lg:px-16 rounded-b-xl">
-        <h3 className="mb-4 text-dark font-semibold text-lg">Job offers</h3>
-        <h4 className="mb-4 text-dark font-semibold text-base">{signature}</h4>
+      <div className="container rounded-b-xl p-8 md:px-12 lg:px-16">
+        <h3 className="mb-4 text-lg font-semibold text-dark">Job offers</h3>
+        <h4 className="mb-4 text-base font-semibold text-dark">{signature}</h4>
         {data?.map((jobOffer) => (
           <JobOfferListElement handleOpenJobOffer={handleOpenJobOffer} jobOfferData={jobOffer} key={jobOffer.id} />
         ))}

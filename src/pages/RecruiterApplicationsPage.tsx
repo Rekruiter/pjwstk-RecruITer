@@ -34,20 +34,20 @@ const RecruiterApplicationsPage = () => {
   };
   return (
     <div className="flex flex-col justify-center">
-      <div className="container p-8 md:px-12 lg:px-16 rounded-b-xl">
+      <div className="container rounded-b-xl p-8 md:px-12 lg:px-16">
         <div className="flex justify-center gap-10 p-2 pb-5 text-dark">
           <button
-            className={`${selectedTab === 'new' ? 'underline underline-offset-8 decoration-orange' : ''}`}
+            className={`${selectedTab === 'new' ? 'underline decoration-orange underline-offset-8' : ''}`}
             onClick={() => handler()}>
             New
           </button>
           <button
-            className={`${selectedTab === 'accepted' ? 'underline underline-offset-8 decoration-orange' : ''}`}
+            className={`${selectedTab === 'accepted' ? 'underline decoration-orange underline-offset-8' : ''}`}
             onClick={() => handler()}>
             Accepted
           </button>
           <button
-            className={`${selectedTab === 'rejected' ? 'underline underline-offset-8 decoration-orange' : ''}`}
+            className={`${selectedTab === 'rejected' ? 'underline decoration-orange underline-offset-8' : ''}`}
             onClick={() => handler()}>
             Rejected
           </button>

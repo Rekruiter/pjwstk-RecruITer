@@ -15,10 +15,10 @@ import UserPanelPage from './pages/panels/UserPanelPage';
 import ResetPasswordConfirmPage from './pages/ResetPasswordConfirmPage';
 import VerifyAccountPage from './pages/VerifyAccountPage';
 import { wrapInEmptyLayout } from './helpers/getLayoutWrappers';
-import JobOfferListPage from './pages/JobOfferListPage';
 import CandidateApplicationsPage from './pages/CandidateApplicationsPage';
 import CandidateApplicationPreviewPage from './pages/CandidateApplicationPreviewPage';
 import RecruiterApplicationsPage from './pages/RecruiterApplicationsPage';
+import JobOfferListPage from './pages/JobOfferListPage';
 
 function App() {
   const { role, isLoggedIn } = useContext(AuthContext);
@@ -53,8 +53,7 @@ function App() {
   const routesConfig: RouteObject[] = [
     { path: Paths.home.path, element: getDefaultHomeRoute() },
     { path: Paths.notFound.path, element: wrapInLayout(<NotFound />) },
-    { path: Paths.jobOffers.path, element: wrapInLayout(<JobOfferPage />) },
-    { path: Paths.newJobOffer.path, element: PrivateRoute(<JobOfferPage />, 'newJobOffer') },
+    { path: Paths.jobOffers.path, element: wrapInLayout(<JobOfferListPage />) },
     { path: Paths.jobOfferPreview.path, element: wrapInLayout(<JobOfferPreviewPage />) },
     {
       path: Paths.resetPasswordConfirm.path,

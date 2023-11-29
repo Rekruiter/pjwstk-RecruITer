@@ -4,7 +4,7 @@ import {
   IResetPasswordConfirmFormInput,
   IResetPasswordFormInput,
 } from '../../types/authFormTypes';
-import { TemporaryAuthorizationObjectSchema } from '../../types/authorizationTypes';
+import { AuthorizationObjectSchema } from '../../types/authorizationTypes';
 import axios from '../axios/axios';
 
 export const registerPost = async (inputData: IRegisterFormInput) => {
@@ -14,7 +14,7 @@ export const registerPost = async (inputData: IRegisterFormInput) => {
 export const loginPost = async (inputData: ILoginFormInput) => {
   const { data } = await axios.post('/authenticate', inputData);
 
-  const parsedData = TemporaryAuthorizationObjectSchema.safeParse(data);
+  const parsedData = AuthorizationObjectSchema.safeParse(data);
   if (parsedData.success) {
     return parsedData.data;
   }
