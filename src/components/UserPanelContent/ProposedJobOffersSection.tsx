@@ -27,7 +27,7 @@ const ProposedJobOffersSection = ({ jobOffers }: ProposedJobOffersSectionProps) 
             <p className="line-clamp-1 overflow-hidden">{jobOffer.title}</p>
           </div>
           <p className="basis-1/3 md:basis-1/4 md:text-center">{jobOffer.location}</p>
-          <p className="md:text-cener basis-full sm:basis-1/3 md:basis-1/4">
+          <p className="md:text-cener basis-full sm:basis-1/3 md:basis-3/4 2xl:basis-1/4">
             {jobOffer.minSalary}
             {jobOffer.maxSalary !== null && `-${jobOffer.maxSalary}`} {jobOffer.currency}
           </p>

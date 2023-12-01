@@ -32,6 +32,13 @@ const recruiterApplicationsSchema = z
   )
   .max(5);
 
+const candidateUpcomingRecruitmentsSchema = z.array(
+  recruitmentSchema.extend({
+    jobTitle: z.string(),
+    companyName: z.string(),
+  }),
+);
+
 const recruiterUpcomingRecruitmentsSchema = z
   .array(
     recruitmentSchema.extend({
@@ -63,15 +70,18 @@ export const UserPanelPageSchema = z.object({
 
 export const CandidatePanelPageSchema = z.object({
   lastTasks: z.array(taskSchema).max(5),
-  jobOffers: z.array(jobOfferSchema).max(5),
-  upcomingRecruitments: z
+  jobOffers: z
     .array(
-      recruitmentSchema.extend({
-        jobTitle: z.string(),
+      jobOfferSchema.extend({
+        companyName: z.string(),
+        minSalary: z.number(),
+        maxSalary: z.number().nullable(),
+        currency: z.string(),
       }),
     )
     .max(5),
-  recruitmentsInvitations: z.array(recruitmentSchema).max(10),
+  upcomingRecruitments: candidateUpcomingRecruitmentsSchema.max(5),
+  recruitmentsInvitations: candidateUpcomingRecruitmentsSchema.max(10),
 });
 
 // RECRUITER/TECH-RECRUITER ROLE PANEL SCHEMA
@@ -102,7 +112,7 @@ export const AdminPanelPageSchema = z.object({
       currentApplicationsCount: z.number(),
     }),
   ),
-  applications: RecuiterPanelPageSchema,
+  applications: recruiterApplicationsSchema,
   jobOffers: z
     .array(
       jobOfferSchema.extend({
@@ -110,7 +120,7 @@ export const AdminPanelPageSchema = z.object({
       }),
     )
     .max(5),
-  upcomingRecruitments: recruiterUpcomingRecruitmentsSchema,
+  recruitments: recruiterUpcomingRecruitmentsSchema,
 });
 
 export type IUserPanel = z.infer<typeof UserPanelPageSchema>;

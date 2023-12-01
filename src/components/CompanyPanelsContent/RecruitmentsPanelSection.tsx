@@ -14,7 +14,7 @@ const RecruitmentsPanelSection = ({ recruitments }: RecruitmentsPanelSectionProp
           key={recruitment.id}
           className="flex w-full cursor-pointer flex-wrap border p-2 text-light hover:bg-orange"
           onClick={() => {
-            // navigate to recruitments
+            // navigate to recruitment
           }}>
           <div className="basis-full">
             <p className="line-clamp-1 overflow-hidden font-medium">

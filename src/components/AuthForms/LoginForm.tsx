@@ -35,7 +35,7 @@ const LoginForm = ({ changeAuthMethod }: LoginFormProps) => {
         name: data.name,
         token: data.token,
         // role: getMappedRole(data.role),
-        role: 'recruiter',
+        role: 'admin',
       });
       setSearchParams((prevParams) => {
         prevParams.delete('authorization');

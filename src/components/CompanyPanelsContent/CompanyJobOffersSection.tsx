@@ -20,18 +20,20 @@ const CompanyJobOffersSection = ({ jobOffers }: ProposedJobOffersSectionProps) =
       {jobOffers.map((jobOffer) => (
         <div
           key={jobOffer.id}
-          className="flex w-full cursor-pointer flex-wrap gap-x-10 border p-2 text-light hover:bg-orange"
+          className="flex w-full cursor-pointer flex-wrap border p-2 text-light hover:bg-orange"
           onClick={() => {
             navigate(GetPathsLinks.getJobOfferPreview(jobOffer.id));
           }}>
-          <div className="basis-full md:basis-1/2">
+          <div className="basis-full md:basis-3/4">
             <p className="line-clamp-1 overflow-hidden">{jobOffer.title}</p>
           </div>
           <p className="basis-1/2 md:basis-1/4 md:text-center">{jobOffer.location}</p>
-          <p className="md:text-cener md:basis-1/4">Application Count: {jobOffer.applicationsCount}</p>
+          <p className="md:text-cener basis-full">Application Count: {jobOffer.applicationsCount}</p>
         </div>
       ))}
-      <Button className="mx-auto my-2 w-fit">Add new job offer</Button>
+      <div className="mt-1 flex w-full flex-1">
+        <Button className="m-auto">Add new job offer</Button>
+      </div>
     </PanelSectionWrapper>
   );
 };

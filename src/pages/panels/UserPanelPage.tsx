@@ -105,7 +105,7 @@ const UserPanelPage = () => {
   return (
     <div className="container flex flex-grow flex-col gap-10 bg-light p-6">
       <h3 className="text-3xl text-dark">Hello {name}</h3>
-      <div className="flex min-h-[50vh] flex-col rounded-lg bg-light_blue p-5">
+      <div className="flex min-h-[50vh] flex-col gap-5 rounded-lg bg-light_blue p-5 xl:px-12 xl:py-10">
         <div className="flex w-full flex-col gap-5 md:flex-row">
           {data.jobOffers && <ProposedJobOffersSection jobOffers={data.jobOffers} />}
           {data.lastTasks && <LastTasksSection tasks={data.lastTasks} />}

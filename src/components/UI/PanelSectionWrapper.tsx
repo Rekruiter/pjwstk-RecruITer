@@ -1,13 +1,16 @@
+import { cn } from '../../utils/cn';
+
 interface PanelSectionWrapperProps {
   children: React.ReactNode;
   headerTitle: string;
   headerClickHandler: () => void;
+  className?: string;
 }
 
-const PanelSectionWrapper = ({ children, headerClickHandler, headerTitle }: PanelSectionWrapperProps) => {
+const PanelSectionWrapper = ({ children, headerClickHandler, headerTitle, className }: PanelSectionWrapperProps) => {
   return (
-    <div className="sm:basis-1/2">
-      <div className="flex flex-col gap-2 rounded-lg border border-light bg-dark_blue p-3">
+    <div className={cn('sm:basis-1/2', className)}>
+      <div className="flex h-full flex-col gap-2 overflow-auto rounded-lg border border-light bg-dark_blue p-3 md:max-h-[548px]">
         <h5 className="mx-auto cursor-pointer text-lg font-semibold text-light" onClick={headerClickHandler}>
           {headerTitle}
         </h5>
