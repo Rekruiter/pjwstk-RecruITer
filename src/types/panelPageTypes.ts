@@ -10,11 +10,7 @@ const taskSchema = z.object({
 const jobOfferSchema = z.object({
   id: z.number(),
   title: z.string(),
-  companyName: z.string(),
   location: z.string(),
-  minSalary: z.number(),
-  maxSalary: z.number().nullable(),
-  currency: z.string(),
 });
 
 const recruitmentSchema = z.object({
@@ -22,16 +18,15 @@ const recruitmentSchema = z.object({
   date: z.string().refine((date) => !isNaN(Date.parse(date)), {
     message: 'Invalid date format',
   }),
-  companyName: z.string(),
 });
 
 const recruiterApplicationsSchema = z
   .array(
     z.object({
       id: z.number(),
-      name: z.string(),
-      surname: z.string(),
-      expectedSalary: z.number(),
+      candidateName: z.string(),
+      candidateSurname: z.string(),
+      expectedSalary: z.number().nullable(),
       currency: z.string(),
     }),
   )
@@ -51,7 +46,17 @@ const recruiterUpcomingRecruitmentsSchema = z
 export const UserPanelPageSchema = z.object({
   isVerified: z.boolean(),
   lastTasks: z.array(taskSchema).max(5).nullable(),
-  jobOffers: z.array(jobOfferSchema).max(5).nullable(),
+  jobOffers: z
+    .array(
+      jobOfferSchema.extend({
+        companyName: z.string(),
+        minSalary: z.number(),
+        maxSalary: z.number().nullable(),
+        currency: z.string(),
+      }),
+    )
+    .max(5)
+    .nullable(),
 });
 
 // CANDIDATE ROLE PANEL SCHEMA
@@ -81,7 +86,7 @@ export const RecuiterPanelPageSchema = z.object({
       }),
     )
     .max(5),
-  upcomingRecruitments: recruiterUpcomingRecruitmentsSchema,
+  recruitments: recruiterUpcomingRecruitmentsSchema,
 });
 
 // ADMIN ROLE PANEL SCHEMA

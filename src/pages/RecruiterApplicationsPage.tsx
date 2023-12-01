@@ -16,7 +16,9 @@ const RecruiterApplicationsPage = () => {
     isLoading,
     isError,
     refetch,
-  } = useQuery('recruiterApplications', getRecruiterApplicationsList);
+  } = useQuery('recruiterApplications', getRecruiterApplicationsList, {
+    staleTime: 1000 * 60 * 5,
+  });
 
   if (isLoading) {
     return <Spinner />;
@@ -26,7 +28,7 @@ const RecruiterApplicationsPage = () => {
   }
 
   const handler = async () => {
-    refetch();
+    refetch({ queryKey: 'recruiterApplications' });
   };
 
   const handleOpenApplication = (id: number) => {

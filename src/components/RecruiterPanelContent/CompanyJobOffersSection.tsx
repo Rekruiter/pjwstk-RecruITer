@@ -1,13 +1,14 @@
 import { useNavigate } from 'react-router-dom';
-import { IUserPanel } from '../../types/panelPageTypes';
+import { IRecruiterPanel } from '../../types/panelPageTypes';
 import { GetPathsLinks, Paths } from '../../constants/paths';
+import Button from '../UI/Button';
 import PanelSectionWrapper from '../UI/PanelSectionWrapper';
 
 interface ProposedJobOffersSectionProps {
-  jobOffers: NonNullable<IUserPanel['jobOffers']>;
+  jobOffers: IRecruiterPanel['jobOffers'];
 }
 
-const ProposedJobOffersSection = ({ jobOffers }: ProposedJobOffersSectionProps) => {
+const CompanyJobOffersSection = ({ jobOffers }: ProposedJobOffersSectionProps) => {
   const navigate = useNavigate();
 
   return (
@@ -15,27 +16,24 @@ const ProposedJobOffersSection = ({ jobOffers }: ProposedJobOffersSectionProps) 
       headerClickHandler={() => {
         navigate(Paths.jobOffers.path);
       }}
-      headerTitle="Job offers">
+      headerTitle="Job offer">
       {jobOffers.map((jobOffer) => (
         <div
           key={jobOffer.id}
-          className="flex w-full cursor-pointer flex-wrap border p-2 text-light hover:bg-orange"
+          className="flex w-full cursor-pointer flex-wrap gap-x-10 border p-2 text-light hover:bg-orange"
           onClick={() => {
             navigate(GetPathsLinks.getJobOfferPreview(jobOffer.id));
           }}>
           <div className="basis-full md:basis-1/2">
             <p className="line-clamp-1 overflow-hidden">{jobOffer.title}</p>
           </div>
-          <p className="basis-1/3 md:basis-1/4 md:text-center">{jobOffer.location}</p>
-          <p className="md:text-cener basis-full sm:basis-1/3 md:basis-1/4">
-            {jobOffer.minSalary}
-            {jobOffer.maxSalary !== null && `-${jobOffer.maxSalary}`} {jobOffer.currency}
-          </p>
-          <p className="basis-1/3 text-sm md:basis-full">{jobOffer.companyName}</p>
+          <p className="basis-1/2 md:basis-1/4 md:text-center">{jobOffer.location}</p>
+          <p className="md:text-cener md:basis-1/4">Application Count: {jobOffer.applicationsCount}</p>
         </div>
       ))}
+      <Button className="mx-auto my-2 w-fit">Add new job offer</Button>
     </PanelSectionWrapper>
   );
 };
 
-export default ProposedJobOffersSection;
+export default CompanyJobOffersSection;

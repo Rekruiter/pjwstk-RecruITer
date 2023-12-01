@@ -9,29 +9,29 @@ const JobOfferListElement = ({ handleOpenJobOffer, jobOfferData }: JobOfferListE
   return (
     <div
       className={
-        'flex flex-wrap sm:flex-nowrap justify-between sm:justify-normal border max-w-full break-all bg-light text-dark py-2 px-5 cursor-pointer hover:bg-orange group'
+        'group flex max-w-full cursor-pointer flex-wrap justify-between break-all border bg-light px-5 py-2 text-dark hover:bg-orange sm:flex-nowrap sm:justify-normal'
       }
       onClick={() => handleOpenJobOffer(jobOfferData.id)}>
-      <div className="basis-1/2 min-w-[5.5rem] gap-2 group-hover:text-light">
-        <p className="group-hover:scale-110 group-hover:underline w-fit">{jobOfferData.title}</p>
+      <div className="min-w-[5.5rem] basis-1/2 gap-2 group-hover:text-light">
+        <p className="w-fit group-hover:scale-110 group-hover:underline">{jobOfferData.title}</p>
         <p className="text-xs">{jobOfferData.companyName}</p>
       </div>
-      <div className="basis-1/2 sm:basis-1/6 min-w-3 flex flex-wrap justify-center gap-x-3 gap-y-1 text-sm sm:mx-2">
+      <div className="flex min-w-3 basis-1/2 flex-wrap justify-center gap-x-3 gap-y-1 text-sm sm:mx-2 sm:basis-1/6">
         {Object.keys(jobOfferData.requirements)
           .slice(0, 2)
           .map((key) => (
             <p
               key={key}
-              className="group-hover:text-light border border-dark group-hover:border-light p-1 h-fit line-clamp-1">
+              className="line-clamp-1 h-fit border border-dark p-1 group-hover:border-light group-hover:text-light">
               {key}
             </p>
           ))}
       </div>
-      <p className="basis-1/2 sm:basis-1/6 text-center group-hover:text-light min-w-3">
+      <p className="min-w-3 basis-1/2 text-center group-hover:text-light sm:basis-1/6">
         {jobOfferData.minSalary}
         {jobOfferData.maxSalary !== null && `-${jobOfferData.maxSalary}`} {jobOfferData.currency}
       </p>
-      <p className="basis-1/2 sm:basis-1/6 text-center group-hover:text-light min-w-4.25 sm:mx-2">
+      <p className="min-w-4.25 basis-1/2 text-center group-hover:text-light sm:mx-2 sm:basis-1/6">
         {jobOfferData.location}
       </p>
     </div>
