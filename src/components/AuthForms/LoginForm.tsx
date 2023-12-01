@@ -10,34 +10,39 @@ import { AuthMethodType } from '../../helpers/getAuthMethod';
 import { useMutation } from 'react-query';
 import { loginPost } from '../../api/authorization/authorization';
 import AuthContext from '../../context/auth-context';
-import { ITemporaryAuthorizationObject } from '../../types/authorizationTypes';
 import { useSearchParams } from 'react-router-dom';
+import { IAuthorizationObject } from '../../types/authorizationTypes';
 
 export interface LoginFormProps {
   changeAuthMethod: (method: AuthMethodType) => void;
 }
 
+const getMappedRole = (role: string): IAuthorizationObject['role'] => {
+  switch (role) {
+    case 'Basic user':
+      return 'user';
+  }
+  return 'user';
+};
+
 const LoginForm = ({ changeAuthMethod }: LoginFormProps) => {
   const { login } = useContext(AuthContext);
   const [, setSearchParams] = useSearchParams();
 
-  const { error, isLoading, mutate } = useMutation<ITemporaryAuthorizationObject, Error, ILoginFormInput>(
-    'login',
-    loginPost,
-    {
-      onSuccess(data) {
-        login({
-          name: data.name,
-          token: data.token,
-          role: 'admin',
-        });
-        setSearchParams((prevParams) => {
-          prevParams.delete('authorization');
-          return prevParams;
-        });
-      },
+  const { error, isLoading, mutate } = useMutation<IAuthorizationObject, Error, ILoginFormInput>('login', loginPost, {
+    onSuccess(data) {
+      login({
+        name: data.name,
+        token: data.token,
+        // role: getMappedRole(data.role),
+        role: 'admin',
+      });
+      setSearchParams((prevParams) => {
+        prevParams.delete('authorization');
+        return prevParams;
+      });
     },
-  );
+  });
 
   const {
     formState: { errors },
@@ -64,7 +69,7 @@ const LoginForm = ({ changeAuthMethod }: LoginFormProps) => {
 
   return (
     <form onSubmit={onSubmit} className="flex flex-col items-center justify-between">
-      <div className="flex flex-col gap-2 w-5/6">
+      <div className="flex w-5/6 flex-col gap-2">
         <FormFieldWrapper<ILoginFormInput>
           field="email"
           register={register}
@@ -72,11 +77,11 @@ const LoginForm = ({ changeAuthMethod }: LoginFormProps) => {
           autocomplete="username"
         />
         <div className="flex flex-col gap-2">
-          <label className="text-light font-semibold">Password</label>
+          <label className="font-semibold text-light">Password</label>
           <div className="relative">
             <input
               {...register('password')}
-              className={`w-full rounded py-2 pl-2 text-base h-10 border-2 ${
+              className={`h-10 w-full rounded border-2 py-2 pl-2 text-base ${
                 errors.password ? 'border-error_color' : 'border-light'
               }`}
               type={showPassword ? 'text' : 'password'}
@@ -85,23 +90,23 @@ const LoginForm = ({ changeAuthMethod }: LoginFormProps) => {
             <button
               onClick={() => setShowPassword((prevState) => !prevState)}
               type="button"
-              className="absolute right-0 bottom-0 h-10 aspect-square flex items-center justify-center hover:border rounded ">
+              className="absolute bottom-0 right-0 flex aspect-square h-10 items-center justify-center rounded hover:border ">
               {showPassword ? <IoMdEyeOff /> : <IoMdEye />}
             </button>
           </div>
           {errors.password && <div className="text-error_color">{errors.password.message}</div>}
-          <div className="w-full flex justify-end">
-            <button onClick={() => changeAuthMethod('reset-password')} type="button" className="text-light text-sm">
+          <div className="flex w-full justify-end">
+            <button onClick={() => changeAuthMethod('reset-password')} type="button" className="text-sm text-light">
               Forgot password ?
             </button>
           </div>
         </div>
       </div>
-      <div className="flex flex-row my-3">
+      <div className="my-3 flex flex-row">
         {isLoading ? (
           <Spinner isLight />
         ) : (
-          <Button className="shadow-md min-w-authButton" type="submit">
+          <Button className="min-w-authButton shadow-md" type="submit">
             Log in
           </Button>
         )}

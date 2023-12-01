@@ -29,9 +29,9 @@ const Layout = ({ children, withoutMargin = false, panel }: PropsWithChildren<La
   }, [withoutMargin]);
 
   return (
-    <div className="flex flex-col min-h-screen min-w-mobile">
-      <Navigation className={withoutMargin ? navbarBackground : 'bg-dark_blue sticky'} />
-      <div className={`flex-1 flex flex-col`}>{children}</div>
+    <div className="flex min-h-screen min-w-mobile flex-col">
+      <Navigation className={withoutMargin ? navbarBackground : 'sticky bg-dark_blue'} />
+      <div className={`flex flex-1 flex-col`}>{children}</div>
       {!panel && <Footer />}
     </div>
   );
