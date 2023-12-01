@@ -15,8 +15,12 @@ const JobOfferPreviewPage = () => {
     return <div className="m-auto">An error ocurred</div>;
   }
 
-  if (!data || isLoading) {
+  if (isLoading) {
     return <Spinner />;
+  }
+
+  if (!data) {
+    return <div className="m-auto">Job offer not found</div>;
   }
 
   const daysLeft = Math.round((new Date(data.dateExpires).getTime() - Date.now()) / (24 * 60 * 60 * 1000));
@@ -24,8 +28,8 @@ const JobOfferPreviewPage = () => {
   const dateAdded = new Date(data.dateAdded);
 
   return (
-    <div className="flex-1 container bg-light flex flex-col gap-3 p-8">
-      <h2 className="text-center text-dark text-title_bold w-fit rounded-xl">{data.title}</h2>
+    <div className="container flex flex-1 flex-col gap-3 bg-light p-8">
+      <h2 className="w-fit rounded-xl text-center text-title_bold text-dark">{data.title}</h2>
       <Link className="cursor-pointer hover:text-orange" to={GetPathsLinks.getJobOffersWithFilters(data.idCompany)}>
         {data.companyName}
       </Link>
@@ -35,9 +39,9 @@ const JobOfferPreviewPage = () => {
       </p>
       <p>Description: {data.description}</p>
       <p>Requirements:</p>
-      <div className="flex gap-2 flex-wrap">
+      <div className="flex flex-wrap gap-2">
         {Object.keys(data.requirements).map((key) => (
-          <div className="flex p-1 gap-2 border border-dark items-center">
+          <div className="flex items-center gap-2 border border-dark p-1">
             <p>{key}</p>
             <div className="inline-flex text-orange">
               {Array(data.requirements[key])
