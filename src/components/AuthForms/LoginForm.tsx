@@ -5,7 +5,7 @@ import { ILoginFormInput, LoginFormInputSchema } from '../../types/authFormTypes
 import { zodResolver } from '@hookform/resolvers/zod';
 import { IoMdEye, IoMdEyeOff } from 'react-icons/io';
 import { useContext, useState } from 'react';
-import FormFieldWrapper from './FormHelpers/FormFieldWrapper';
+import FormFieldWrapper from '../FormHelpers/FormFieldWrapper';
 import { AuthMethodType } from '../../helpers/getAuthMethod';
 import { useMutation } from 'react-query';
 import { loginPost } from '../../api/authorization/authorization';

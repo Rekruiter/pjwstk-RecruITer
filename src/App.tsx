@@ -19,6 +19,7 @@ import CandidateApplicationsPage from './pages/CandidateApplicationsPage';
 import CandidateApplicationPreviewPage from './pages/CandidateApplicationPreviewPage';
 import RecruiterApplicationsPage from './pages/RecruiterApplicationsPage';
 import JobOfferListPage from './pages/JobOfferListPage';
+import FillUpPersonalData from './pages/FillUpPersonalData';
 
 function App() {
   const { role, isLoggedIn } = useContext(AuthContext);
@@ -52,6 +53,7 @@ function App() {
 
   const routesConfig: RouteObject[] = [
     { path: Paths.home.path, element: getDefaultHomeRoute() },
+    { path: Paths.fillUpPersonalData.path, element: wrapInLayout(<FillUpPersonalData />) },
     { path: Paths.notFound.path, element: wrapInLayout(<NotFound />) },
     { path: Paths.jobOffers.path, element: wrapInLayout(<JobOfferListPage />) },
     { path: Paths.jobOfferPreview.path, element: wrapInLayout(<JobOfferPreviewPage />) },

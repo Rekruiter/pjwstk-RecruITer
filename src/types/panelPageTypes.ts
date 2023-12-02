@@ -27,6 +27,7 @@ const recruiterApplicationsSchema = z
       candidateName: z.string(),
       candidateSurname: z.string(),
       expectedSalary: z.number().nullable(),
+      jobOfferTitle: z.string(),
       currency: z.string(),
     }),
   )

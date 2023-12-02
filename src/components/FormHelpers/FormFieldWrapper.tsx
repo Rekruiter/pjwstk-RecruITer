@@ -7,6 +7,7 @@ type FormFieldWrapperProps<T extends FieldValues> = {
   type?: React.HTMLInputTypeAttribute | undefined;
   autocomplete?: string;
   placeholder?: string;
+  label?: string;
 };
 
 const FormFieldWrapper = <T extends FieldValues>({
@@ -16,14 +17,15 @@ const FormFieldWrapper = <T extends FieldValues>({
   type = 'text',
   autocomplete = 'off',
   placeholder,
+  label,
 }: FormFieldWrapperProps<T>) => {
   const labelName = field.toString();
   return (
-    <div className="w-full flex flex-col gap-2">
-      <label className="text-light font-semibold">{labelName[0].toUpperCase() + labelName.slice(1)}</label>
+    <div className="flex w-full flex-col gap-2">
+      <label className="font-semibold text-light">{label ?? labelName[0].toUpperCase() + labelName.slice(1)}</label>
       <input
         {...register(field as FieldValue<T>)}
-        className={`w-full rounded py-2 pl-2 bg-white text-base h-10 border-2 ${
+        className={`h-11 w-full rounded border-2 bg-white px-2 py-2 text-base ${
           error ? 'border-error_color' : 'border-light'
         }`}
         type={type}

@@ -93,6 +93,7 @@ const mockedData2: IUserPanel = {
     },
   ],
 };
+
 const UserPanelPage = () => {
   const { name } = useContext(AuthContext);
 
