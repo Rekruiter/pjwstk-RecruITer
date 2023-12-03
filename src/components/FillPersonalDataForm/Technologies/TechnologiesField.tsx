@@ -59,7 +59,7 @@ const TechnologiesField = ({ control }: TechnologiesFieldProps) => {
           </div>
         )}
         <button
-          className="mx-auto h-fit basis-1/4 rounded-md bg-orange px-2 py-1.5 text-sm text-light"
+          className="mx-auto basis-1/4 rounded-md bg-orange px-2 py-1.5 text-sm text-light"
           type="button"
           onClick={() => setIsOpenedModal(true)}>
           Add technology

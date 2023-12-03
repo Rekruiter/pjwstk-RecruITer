@@ -49,7 +49,7 @@ const ForeignLanguagesField = ({ control }: ForeignLanguagesFieldProps) => {
                 <p
                   key={field.id}
                   className="relative flex items-center gap-3 rounded-md border border-dark  p-1 text-sm text-dark">
-                  {field.language}
+                  {field.name}
                   <button type="button" onClick={() => handleRemoveTechnology(field.id)}>
                     <FaDeleteLeft size={20} />
                   </button>
@@ -59,7 +59,7 @@ const ForeignLanguagesField = ({ control }: ForeignLanguagesFieldProps) => {
           </div>
         )}
         <button
-          className="mx-auto h-fit basis-1/4 rounded-md bg-orange px-2 py-1.5 text-sm text-light"
+          className="mx-auto basis-1/4 rounded-md bg-orange px-2 py-1.5 text-sm text-light"
           type="button"
           onClick={() => setIsOpenedModal(true)}>
           Add Foregin languages

@@ -53,6 +53,7 @@ const TechnologiesModal = ({ handleCloseModal, fields, handlePickTechnology }: T
                   />
                   {filteredTechnologies.map((technology) => (
                     <button
+                      key={technology.id}
                       className="rounded-md p-1 text-start hover:bg-orange hover:text-white"
                       type="button"
                       onClick={() => handlePickTechnology(technology.id)}>

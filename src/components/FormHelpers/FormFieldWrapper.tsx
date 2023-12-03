@@ -8,6 +8,8 @@ type FormFieldWrapperProps<T extends FieldValues> = {
   autocomplete?: string;
   placeholder?: string;
   label?: string;
+  min?: string | number;
+  max?: string | number;
 };
 
 const FormFieldWrapper = <T extends FieldValues>({
@@ -18,6 +20,8 @@ const FormFieldWrapper = <T extends FieldValues>({
   autocomplete = 'off',
   placeholder,
   label,
+  max,
+  min,
 }: FormFieldWrapperProps<T>) => {
   const labelName = field.toString();
   return (
@@ -31,6 +35,8 @@ const FormFieldWrapper = <T extends FieldValues>({
         type={type}
         autoComplete={autocomplete}
         placeholder={placeholder}
+        min={min}
+        max={max}
       />
       {error && <div className="text-error_color">{error.message}</div>}
     </div>

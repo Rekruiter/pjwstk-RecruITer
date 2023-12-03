@@ -13,7 +13,7 @@ const ForeignLanguagesModal = ({ handleCloseModal, fields, handlePickTechnology 
   const [languageSearch, setLanguageSearch] = useState<string>();
 
   const filteredLanguages = fields.filter(
-    (field) => !field.isPicked && field.language.toLowerCase().includes(languageSearch?.toLowerCase() ?? ''),
+    (field) => !field.isPicked && field.name.toLowerCase().includes(languageSearch?.toLowerCase() ?? ''),
   );
 
   return (
@@ -42,7 +42,7 @@ const ForeignLanguagesModal = ({ handleCloseModal, fields, handlePickTechnology 
               leaveTo="opacity-0 scale-95">
               <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                 <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900">
-                  Add technologies
+                  Add new language
                 </Dialog.Title>
                 <div className="mt-5 flex max-h-[300px] flex-col gap-5 overflow-auto text-dark">
                   <input
@@ -53,10 +53,11 @@ const ForeignLanguagesModal = ({ handleCloseModal, fields, handlePickTechnology 
                   />
                   {filteredLanguages.map((language) => (
                     <button
+                      key={language.id}
                       className="rounded-md p-1 text-start hover:bg-orange hover:text-white"
                       type="button"
                       onClick={() => handlePickTechnology(language.id)}>
-                      {language.language}
+                      {language.name}
                     </button>
                   ))}
                 </div>

@@ -8,30 +8,26 @@ export const PersonalDataFormSchema = z.object({
     message: 'Address is required',
   }),
   jobHistory: z.array(
-    z.object({
-      nameOfCompany: z.string().min(1, {
-        message: 'Name of company is required',
-      }),
-      position: z.string().min(1, {
-        message: 'Position is required',
-      }),
-      startDate: z
-        .string()
-        .min(1, {
-          message: 'Start date is required',
-        })
-        .refine((date) => !isNaN(Date.parse(date)), {
-          message: 'Invalid date format',
+    z
+      .object({
+        nameOfCompany: z.string().min(1, {
+          message: 'Name of company is required',
         }),
-      endDate: z
-        .string()
-        .min(1, {
-          message: 'End date is required',
-        })
-        .refine((date) => !isNaN(Date.parse(date)), {
-          message: 'Invalid date format',
+        position: z.string().min(1, {
+          message: 'Position is required',
         }),
-    }),
+        startDate: z.string().min(1, { message: 'Start date is required' }).pipe(z.coerce.date()),
+        endDate: z
+          .string()
+          .min(1, {
+            message: 'End date is required',
+          })
+          .pipe(z.coerce.date()),
+      })
+      .refine((data) => new Date(data.startDate).getTime() < new Date(data.endDate).getTime(), {
+        message: 'Start date should be less than end date',
+        path: ['startDate'],
+      }),
   ),
   portfolioLinks: z.array(
     z.object({
@@ -49,26 +45,43 @@ export const PersonalDataFormSchema = z.object({
     }),
   ),
   status: z.enum(['free', 'hired']),
-  dateOfBirth: z.string().refine((date) => !isNaN(Date.parse(date)), {
-    message: 'Invalid date format',
-  }),
+  dateOfBirth: z.coerce.date(),
   foreignLanguages: z.array(
     z.object({
-      language: z.string().min(1, {
-        message: 'Language is required',
+      name: z.string().min(1, {
+        message: 'Language name is required',
       }),
-      code: z.number(),
+      code: z.bigint(),
       isPicked: z.boolean(),
     }),
   ),
   technologies: z.array(
     z.object({
       name: z.string().min(1, { message: 'Technology name is required' }),
-      code: z.number(),
+      code: z.bigint(),
       isPicked: z.boolean(),
     }),
   ),
 });
+
+export const PersonalDataInputSchema = PersonalDataFormSchema.pick({
+  address: true,
+  status: true,
+  portfolioLinks: true,
+}).extend({
+  jobHistory: z.array(
+    z.object({
+      position: z.string(),
+      nameOfCompany: z.string(),
+      startDate: z.string(),
+      endDate: z.string(),
+    }),
+  ),
+  technologies: z.bigint(),
+  foreignLanguages: z.bigint(),
+});
+
+export type IPersonalDataInput = z.infer<typeof PersonalDataInputSchema>;
 
 // cv: z
 //     .custom<FileList>()
