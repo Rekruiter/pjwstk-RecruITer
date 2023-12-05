@@ -25,5 +25,6 @@ export const getPersonalDataInputForm = (inputData: IPersonalDataForm): IPersona
     technologies: inputTechnologies,
     foreignLanguages: inputLanguages,
     jobHistory: inputJobHistory,
+    dateOfBirth: inputData.dateOfBirth.toISOString(),
   };
 };
