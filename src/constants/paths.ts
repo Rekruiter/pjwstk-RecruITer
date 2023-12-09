@@ -26,6 +26,7 @@ const allPaths = [
   'resetPasswordConfirm',
   'verifyAccount',
   'fillUpPersonalData',
+  'tasks',
 ] as const;
 
 export type AllPathsType = (typeof allPaths)[number];
@@ -82,6 +83,10 @@ export const Paths: Record<(typeof allPaths)[number], PathType> = {
   },
   fillUpPersonalData: {
     path: 'personal-data',
+  },
+  tasks: {
+    path: '/tasks',
+    headerSignature: 'Tasks',
   },
 };
 

@@ -8,6 +8,7 @@ import { AuthMethodType } from '../../helpers/getAuthMethod';
 import { useMutation } from 'react-query';
 import { registerPost } from '../../api/authorization/authorization';
 import { useState } from 'react';
+import IError from '../../api/Error/Error';
 
 interface RegisterFormsProps {
   changeAuthMethod: (method: AuthMethodType) => void;
@@ -15,7 +16,7 @@ interface RegisterFormsProps {
 
 const RegisterForm = ({ changeAuthMethod }: RegisterFormsProps) => {
   const [isUserRegistered, setIsUserRegistered] = useState(false);
-  const { mutate, error, isLoading } = useMutation<any, Error, IRegisterFormInput>('register', registerPost, {
+  const { mutate, error, isLoading } = useMutation<any, IError, IRegisterFormInput>('register', registerPost, {
     onSuccess() {
       setIsUserRegistered(true);
     },
@@ -55,8 +56,8 @@ const RegisterForm = ({ changeAuthMethod }: RegisterFormsProps) => {
   }
 
   return (
-    <form onSubmit={onSubmit} className="flex flex-col items-center justify-between">
-      <div className="flex w-2/3 flex-col gap-2">
+    <form onSubmit={onSubmit} className="flex flex-col items-center justify-between py-6">
+      <div className="flex w-2/3 flex-col gap-2 py-10">
         <FormFieldWrapper<IRegisterFormInput>
           field="name"
           register={register}
@@ -96,7 +97,16 @@ const RegisterForm = ({ changeAuthMethod }: RegisterFormsProps) => {
           autocomplete="new-password"
         />
       </div>
-      {error && <p className="my-2 text-error_color">{error.message}</p>}
+      {error && (
+        <>
+          <p className="my-2 font-semibold text-error_color">
+            {error.message} {error.errors.length != 0 && ': '}
+          </p>
+          {error.errors.map((err) => (
+            <p className=" text-error_color">{err}</p>
+          ))}
+        </>
+      )}
       <div className="my-3 flex flex-row">
         {isLoading ? (
           <Spinner isLight />

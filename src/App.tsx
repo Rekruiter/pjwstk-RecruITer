@@ -20,6 +20,7 @@ import CandidateApplicationPreviewPage from './pages/CandidateApplicationPreview
 import RecruiterApplicationsPage from './pages/RecruiterApplicationsPage';
 import JobOfferListPage from './pages/JobOfferListPage';
 import FillUpPersonalData from './pages/FillUpPersonalData';
+import TasksListPage from './pages/TasksListPage';
 
 function App() {
   const { role, isLoggedIn } = useContext(AuthContext);
@@ -76,6 +77,10 @@ function App() {
     {
       path: Paths.recruiterApplications.path,
       element: PrivateRoute(<RecruiterApplicationsPage />, 'recruiterApplications'),
+    },
+    {
+      path: Paths.tasks.path,
+      element: wrapInLayout(<TasksListPage />),
     },
   ];
 

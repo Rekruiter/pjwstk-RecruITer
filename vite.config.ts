@@ -1,3 +1,4 @@
+import path from 'path';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
@@ -10,4 +11,9 @@ export default defineConfig({
     },
   ],
   assetsInclude: /\.(png|jpe?g|gif|svg)$/i,
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+    },
+  },
 });

@@ -29,7 +29,7 @@ const AuthModal = ({ handleRemoveAuthorization, authMethod, changeAuthMethod }: 
 
   return (
     <Modal onClose={handleCloseModal} hiding={isHiding}>
-      <div className={`grid flex-grow rounded-xl bg-dark/80 p-4`}>
+      <div className={`grid flex-grow rounded-xl bg-dark p-4`}>
         <div className="flex w-full items-start">
           {authMethod === 'reset-password' && (
             <button onClick={() => changeAuthMethod('login')} className="text-white">
