@@ -3,6 +3,13 @@ import * as z from 'zod';
 // const maxFileSize = 5000000;
 // const ACCEPTED_CV_TYPES = ['application/pdf', 'image/jpg', 'image/png'];
 
+const jobHistoryObjectSchema = z.object({
+  position: z.string(),
+  nameOfCompany: z.string(),
+  startDate: z.string(),
+  endDate: z.string(),
+});
+
 export const PersonalDataFormSchema = z.object({
   address: z.string().min(1, {
     message: 'Address is required',
@@ -69,20 +76,55 @@ export const PersonalDataInputSchema = PersonalDataFormSchema.pick({
   status: true,
   portfolioLinks: true,
 }).extend({
-  jobHistory: z.array(
-    z.object({
-      position: z.string(),
-      nameOfCompany: z.string(),
-      startDate: z.string(),
-      endDate: z.string(),
-    }),
-  ),
+  jobHistory: z.array(jobHistoryObjectSchema),
   technologies: z.bigint(),
   foreignLanguages: z.bigint(),
+  dateOfBirth: z.string(),
 });
 
-export type IPersonalDataInput = z.infer<typeof PersonalDataInputSchema>;
+export const PersonalDataFetchSchema = z.object({
+  address: z.string().nullable(),
+  status: z.enum(['free', 'hired']).nullable(),
+  portfolioLinks: z.array(
+    z.object({
+      name: z.string().min(1, {
+        message: 'Name is required',
+      }),
+      linkUrl: z
+        .string()
+        .min(1, {
+          message: 'Link is required',
+        })
+        .url({
+          message: 'Invalid url format',
+        }),
+    }),
+  ),
+  dateOfBirth: z
+    .string()
+    .refine((date) => !isNaN(Date.parse(date)), {
+      message: 'Invalid date format',
+    })
+    .nullable(),
+  technologies: z.array(z.string()).nullable(),
+  foreignLanguages: z.array(z.string()).nullable(),
+  jobHistory: z.array(jobHistoryObjectSchema).nullable(),
+  enumTechnologies: z.array(
+    z.object({
+      name: z.string(),
+      code: z.coerce.bigint(),
+    }),
+  ),
+  enumForeignLanguages: z.array(
+    z.object({
+      name: z.string(),
+      code: z.coerce.bigint(),
+    }),
+  ),
+});
 
+export type IPersonalDataFetch = z.infer<typeof PersonalDataFetchSchema>;
+export type IPersonalDataInput = z.infer<typeof PersonalDataInputSchema>;
 // cv: z
 //     .custom<FileList>()
 //     .refine((fileList) => fileList.length === 1, 'Expected file')
@@ -91,9 +133,5 @@ export type IPersonalDataInput = z.infer<typeof PersonalDataInputSchema>;
 //       return file.size <= maxFileSize;
 //     }, `File size should be less than 5mb.`)
 //     .refine((file) => ACCEPTED_CV_TYPES.includes(file.type), 'Only these types are allowed .jpg, .png, .pdf'),
-
-export const DEFAULT_PERSONAL_DATA_FORM_VALUES: Partial<IPersonalDataForm> = {
-  status: 'free',
-};
 
 export type IPersonalDataForm = z.infer<typeof PersonalDataFormSchema>;
