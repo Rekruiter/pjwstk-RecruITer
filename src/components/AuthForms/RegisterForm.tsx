@@ -3,11 +3,12 @@ import { IRegisterFormInput, RegisterFormInputSchema } from '../../types/authFor
 import { zodResolver } from '@hookform/resolvers/zod';
 import Button from '../UI/Button';
 import Spinner from '../UI/Spinner/Spinner';
-import FormFieldWrapper from './FormHelpers/FormFieldWrapper';
+import FormFieldWrapper from '../FormHelpers/FormFieldWrapper';
 import { AuthMethodType } from '../../helpers/getAuthMethod';
 import { useMutation } from 'react-query';
 import { registerPost } from '../../api/authorization/authorization';
 import { useState } from 'react';
+import IError from '../../api/Error/Error';
 
 interface RegisterFormsProps {
   changeAuthMethod: (method: AuthMethodType) => void;
@@ -15,7 +16,7 @@ interface RegisterFormsProps {
 
 const RegisterForm = ({ changeAuthMethod }: RegisterFormsProps) => {
   const [isUserRegistered, setIsUserRegistered] = useState(false);
-  const { mutate, error, isLoading } = useMutation<any, Error, IRegisterFormInput>('register', registerPost, {
+  const { mutate, error, isLoading } = useMutation<any, IError, IRegisterFormInput>('register', registerPost, {
     onSuccess() {
       setIsUserRegistered(true);
     },
@@ -44,7 +45,7 @@ const RegisterForm = ({ changeAuthMethod }: RegisterFormsProps) => {
 
   if (isUserRegistered) {
     return (
-      <div className="flex flex-col text-success_color items-center gap-1">
+      <div className="flex flex-col items-center gap-1 text-success_color">
         <h3 className="text-lg font-semibold">Welcome to RecruITer society</h3>
         <p>We have sent you an email with a link to verify your account</p>
         <Button onClick={() => changeAuthMethod('login')} className="mt-10">
@@ -55,8 +56,8 @@ const RegisterForm = ({ changeAuthMethod }: RegisterFormsProps) => {
   }
 
   return (
-    <form onSubmit={onSubmit} className="flex flex-col items-center justify-between">
-      <div className="flex flex-col gap-2 w-2/3">
+    <form onSubmit={onSubmit} className="flex flex-col items-center justify-between py-6">
+      <div className="flex w-2/3 flex-col gap-2 py-10">
         <FormFieldWrapper<IRegisterFormInput>
           field="name"
           register={register}
@@ -96,12 +97,21 @@ const RegisterForm = ({ changeAuthMethod }: RegisterFormsProps) => {
           autocomplete="new-password"
         />
       </div>
-      {error && <p className="text-error_color my-2">{error.message}</p>}
-      <div className="flex flex-row my-3">
+      {error && (
+        <>
+          <p className="my-2 font-semibold text-error_color">
+            {error.message} {error.errors.length != 0 && ': '}
+          </p>
+          {error.errors.map((err) => (
+            <p className=" text-error_color">{err}</p>
+          ))}
+        </>
+      )}
+      <div className="my-3 flex flex-row">
         {isLoading ? (
           <Spinner isLight />
         ) : (
-          <Button className="shadow-md min-w-authButton" type="submit">
+          <Button className="min-w-authButton shadow-md" type="submit">
             Sign up
           </Button>
         )}

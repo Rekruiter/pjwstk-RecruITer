@@ -27,6 +27,7 @@ const recruiterApplicationsSchema = z
       candidateName: z.string(),
       candidateSurname: z.string(),
       expectedSalary: z.number().nullable(),
+      jobOfferTitle: z.string(),
       currency: z.string(),
     }),
   )
@@ -81,7 +82,7 @@ export const CandidatePanelPageSchema = z.object({
     )
     .max(5),
   upcomingRecruitments: candidateUpcomingRecruitmentsSchema.max(5),
-  recruitmentsInvitations: candidateUpcomingRecruitmentsSchema.max(10),
+  recruitmentInvitations: candidateUpcomingRecruitmentsSchema.max(10),
 });
 
 // RECRUITER/TECH-RECRUITER ROLE PANEL SCHEMA

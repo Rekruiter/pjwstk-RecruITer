@@ -31,7 +31,7 @@ const CompanyApplicationsSection = ({ applications }: CompanyApplicationsSection
               applied for:
             </p>
           </div>
-          <p className="line-clamp-1 basis-full font-semibold">Junior Java developer with analytic skills</p>
+          <p className="line-clamp-1 basis-full font-semibold">{application.jobOfferTitle}</p>
           {application.expectedSalary && (
             <p className="md:text-cener">
               His exptected salary is{' '}

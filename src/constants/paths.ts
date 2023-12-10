@@ -25,6 +25,8 @@ const allPaths = [
   'recruiterApplicationsPreview',
   'resetPasswordConfirm',
   'verifyAccount',
+  'fillUpPersonalData',
+  'tasks',
 ] as const;
 
 export type AllPathsType = (typeof allPaths)[number];
@@ -78,6 +80,13 @@ export const Paths: Record<(typeof allPaths)[number], PathType> = {
   },
   verifyAccount: {
     path: '/verify/:token',
+  },
+  fillUpPersonalData: {
+    path: 'personal-data',
+  },
+  tasks: {
+    path: '/tasks',
+    headerSignature: 'Tasks',
   },
 };
 

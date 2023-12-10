@@ -8,98 +8,21 @@ import RecruitmentsPanelSection from '../../components/CompanyPanelsContent/Recr
 import { useContext } from 'react';
 import { IAdminPanel } from '../../types/panelPageTypes';
 import CompanyRecruitersSection from '../../components/CompanyPanelsContent/CompanyRecruitersSection';
-
-const data: IAdminPanel = {
-  companyName: 'Test Company',
-  jobOffers: [
-    {
-      id: 1,
-      applicationsCount: 10,
-      location: 'Warsaw',
-      title: 'Test Job Offer',
-    },
-    {
-      id: 1,
-      applicationsCount: 10,
-      location: 'Warsaw',
-      title: 'Test Job Offer',
-    },
-    {
-      id: 1,
-      applicationsCount: 10,
-      location: 'Warsaw',
-      title: 'Test Job Offer',
-    },
-    {
-      id: 1,
-      applicationsCount: 10,
-      location: 'Warsaw',
-      title: 'Test Job Offer',
-    },
-    {
-      id: 1,
-      applicationsCount: 10,
-      location: 'Warsaw',
-      title: 'Test Job Offer',
-    },
-  ],
-  applications: [
-    { id: 1, candidateName: 'Jan', candidateSurname: 'Kowalski', currency: 'PLN', expectedSalary: 10000 },
-    { id: 1, candidateName: 'Jan', candidateSurname: 'Kowalski', currency: 'PLN', expectedSalary: 10000 },
-    { id: 1, candidateName: 'Jan', candidateSurname: 'Kowalski', currency: 'PLN', expectedSalary: 10000 },
-    { id: 1, candidateName: 'Jan', candidateSurname: 'Kowalski', currency: 'PLN', expectedSalary: 10000 },
-    { id: 1, candidateName: 'Jan', candidateSurname: 'Kowalski', currency: 'PLN', expectedSalary: 10000 },
-  ],
-  recruitments: [
-    {
-      candidateName: 'Jan',
-      candidateSurname: 'Kowalski',
-      date: '2021-10-10',
-      id: 1,
-    },
-    {
-      candidateName: 'Jan',
-      candidateSurname: 'Kowalski',
-      date: '2021-10-10',
-      id: 1,
-    },
-    {
-      candidateName: 'Jan',
-      candidateSurname: 'Kowalski',
-      date: '2021-10-10',
-      id: 1,
-    },
-    {
-      candidateName: 'Jan',
-      candidateSurname: 'Kowalski',
-      date: '2021-10-10',
-      id: 1,
-    },
-    {
-      candidateName: 'Jan',
-      candidateSurname: 'Kowalski',
-      date: '2021-10-10',
-      id: 1,
-    },
-  ],
-  recruiters: [
-    {
-      id: 1,
-      email: 'email.com@p.pl.',
-      currentApplicationsCount: 10,
-      name: 'Jan',
-      surname: 'Kowalski',
-    },
-  ],
-};
+import IError from '../../api/Error/Error';
 
 const AdminPanelPage = () => {
   const { name } = useContext(AuthContext);
-  // const { data, isError, isLoading } = useQuery('adminPanel', getAdminPanelData);
+  const { data, isError, isLoading } = useQuery<IAdminPanel, IError>('adminPanel', getAdminPanelData, {
+    onError: (err) => {
+      console.log(err.errors);
+      console.log(err.message);
+      console.log(err.status);
+    },
+  });
 
-  // if (isError) return <div>An error occured...</div>;
-  // if (isLoading) return <Spinner />;
-  // if (!data) return null;
+  if (isError) return <p className="m-auto">An error occured...</p>;
+  if (isLoading) return <Spinner />;
+  if (!data) return null;
 
   return (
     <div className="container flex flex-grow flex-col gap-10 bg-light p-6">

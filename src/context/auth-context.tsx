@@ -1,6 +1,7 @@
 import React, { ReactNode, useCallback, useLayoutEffect, useState } from 'react';
 import { AuthorizationObjectSchema, IAuthorizationObject } from '../types/authorizationTypes';
 import instance from '../api/axios/axios';
+import { safeJSONParse } from '../helpers';
 
 type AuthContextProps = {
   name?: IAuthorizationObject['name'];
@@ -17,26 +18,26 @@ const AuthContext = React.createContext<AuthContextProps>({
   logout: () => {},
 });
 
-const safeJSONParse = (data: string) => {
-  try {
-    return JSON.parse(data);
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
-};
-
 const retrieveStoredAuthorization = (): IAuthorizationObject | null => {
   const storedAuthorization = localStorage.getItem('authorization');
+  const storedRole = localStorage.getItem('role');
 
   if (!storedAuthorization) return null;
+  if (!storedRole) return null;
 
-  const parsedAuthorization = AuthorizationObjectSchema.safeParse(safeJSONParse(storedAuthorization));
+  const authorizationObject = safeJSONParse(storedAuthorization);
+  const roleObject = safeJSONParse(storedRole);
 
+  const parsedAuthorization = AuthorizationObjectSchema.safeParse({
+    ...authorizationObject,
+    role: roleObject,
+  });
   if (parsedAuthorization.success) {
     return parsedAuthorization.data;
   }
+
   localStorage.removeItem('authorization');
+  localStorage.removeItem('role');
   return null;
 };
 
@@ -64,10 +65,19 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const logoutHandler = useCallback(() => {
     setAuthorization(null);
     localStorage.removeItem('authorization');
+    localStorage.removeItem('role');
   }, []);
 
   const loginHandler = (authorization: IAuthorizationObject) => {
-    localStorage.setItem('authorization', JSON.stringify(authorization));
+    console.log(authorization);
+    localStorage.setItem(
+      'authorization',
+      JSON.stringify({
+        token: authorization.token,
+        name: authorization.name,
+      }),
+    );
+    localStorage.setItem('role', JSON.stringify(authorization.role));
     setAuthorization(authorization);
   };
 

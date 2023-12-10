@@ -10,7 +10,7 @@ type ApplicationsRecruiterTabs = 'new' | 'accepted' | 'rejected';
 
 const RecruiterApplicationsPage = () => {
   const navigate = useNavigate();
-  const [selectedTab, setSelectedTab] = useState<ApplicationsRecruiterTabs>('new');
+  const [selectedTab] = useState<ApplicationsRecruiterTabs>('new');
   const {
     data: applicationsData,
     isLoading,
