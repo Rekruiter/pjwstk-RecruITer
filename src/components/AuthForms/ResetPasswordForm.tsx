@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { IResetPasswordConfirmFormInput, ResetPasswordConfirmFormInputSchema } from '../../types/authFormTypes';
 import { zodResolver } from '@hookform/resolvers/zod';
-import FormFieldWrapper from './FormHelpers/FormFieldWrapper';
+import FormFieldWrapper from '../FormHelpers/FormFieldWrapper';
 import Button from '../UI/Button';
 import { useMutation } from 'react-query';
 import { resetPasswordConfirmPost } from '../../api/authorization/authorization';
@@ -41,7 +41,7 @@ const ResetPasswordForm = () => {
 
   if (isSuccess) {
     return (
-      <div className="m-auto flex flex-col text-dark items-center gap-1">
+      <div className="m-auto flex flex-col items-center gap-1 text-dark">
         <h3 className="text-lg font-semibold text-success_color">Your password has been reset successfully</h3>
         <p>We have sent you an email with a link to reset your password.</p>
         <Button
@@ -59,7 +59,7 @@ const ResetPasswordForm = () => {
 
   if (error) {
     return (
-      <div className="m-auto flex flex-col text-dark items-center gap-1">
+      <div className="m-auto flex flex-col items-center gap-1 text-dark">
         <h3 className="text-lg font-semibold text-error_color">Oh no !</h3>
         <p>{error.message}</p>
         <p>In order to try again: </p>
@@ -79,7 +79,7 @@ const ResetPasswordForm = () => {
   return (
     <form
       onSubmit={onSubmit}
-      className="m-auto md:min-w-[32rem] px-10 py-20 bg-dark/80 shadow-md rounded-xl flex flex-col gap-2">
+      className="m-auto flex flex-col gap-2 rounded-xl bg-dark/80 px-10 py-20 shadow-md md:min-w-[32rem]">
       <FormFieldWrapper<IResetPasswordConfirmFormInput>
         field="newPassword"
         register={register}

@@ -4,11 +4,9 @@ import NotFound from './pages/RouteNotFound';
 import { useContext } from 'react';
 import AuthContext from './context/auth-context';
 
-import { Paths, getRequiredRoles } from './constants/paths';
-import { IAuthorizationObject } from './types/authorizationTypes';
+import { AllPathsType, Paths, getRequiredRoles } from './constants/paths';
 import PermissionDenied from './pages/PermissionDenied';
 import { wrapInLayout, wrapInPanelLayout } from './helpers';
-import JobOfferPage from './pages/JobOfferPage';
 import JobOfferPreviewPage from './pages/JobOfferPreviewPage';
 import CandidatePanelPage from './pages/panels/CandidatePanelPage';
 import RecruiterPanelPage from './pages/panels/RecruiterPanelPage';
@@ -17,14 +15,21 @@ import UserPanelPage from './pages/panels/UserPanelPage';
 import ResetPasswordConfirmPage from './pages/ResetPasswordConfirmPage';
 import VerifyAccountPage from './pages/VerifyAccountPage';
 import { wrapInEmptyLayout } from './helpers/getLayoutWrappers';
+import CandidateApplicationsPage from './pages/CandidateApplicationsPage';
+import CandidateApplicationPreviewPage from './pages/CandidateApplicationPreviewPage';
+import RecruiterApplicationsPage from './pages/RecruiterApplicationsPage';
+import JobOfferListPage from './pages/JobOfferListPage';
+import FillUpPersonalData from './pages/FillUpPersonalData';
+import TasksListPage from './pages/TasksListPage';
 
 function App() {
   const { role, isLoggedIn } = useContext(AuthContext);
 
-  const PrivateRoute = (element: JSX.Element, requiredRoles: Partial<IAuthorizationObject>['role'][]) => {
+  const PrivateRoute = (element: JSX.Element, pathName: AllPathsType) => {
     if (!isLoggedIn) {
       return <Navigate to={'/?authorization=login'} />;
     }
+    const requiredRoles = getRequiredRoles(pathName);
     if (requiredRoles.length !== 0 && !requiredRoles.includes(role!)) {
       return wrapInPanelLayout(<PermissionDenied />);
     }
@@ -49,9 +54,9 @@ function App() {
 
   const routesConfig: RouteObject[] = [
     { path: Paths.home.path, element: getDefaultHomeRoute() },
+    { path: Paths.fillUpPersonalData.path, element: wrapInLayout(<FillUpPersonalData />) },
     { path: Paths.notFound.path, element: wrapInLayout(<NotFound />) },
-    { path: Paths.jobOffers.path, element: wrapInLayout(<JobOfferPage />) },
-    { path: Paths.newJobOffer.path, element: PrivateRoute(<JobOfferPage />, getRequiredRoles('newJobOffer')) },
+    { path: Paths.jobOffers.path, element: wrapInLayout(<JobOfferListPage />) },
     { path: Paths.jobOfferPreview.path, element: wrapInLayout(<JobOfferPreviewPage />) },
     {
       path: Paths.resetPasswordConfirm.path,
@@ -60,6 +65,22 @@ function App() {
     {
       path: Paths.verifyAccount.path,
       element: wrapInEmptyLayout(<VerifyAccountPage />),
+    },
+    {
+      path: Paths.candidateApplications.path,
+      element: PrivateRoute(<CandidateApplicationsPage />, 'candidateApplications'),
+    },
+    {
+      path: Paths.candidateApplicationPreview.path,
+      element: PrivateRoute(<CandidateApplicationPreviewPage />, 'candidateApplicationPreview'),
+    },
+    {
+      path: Paths.recruiterApplications.path,
+      element: PrivateRoute(<RecruiterApplicationsPage />, 'recruiterApplications'),
+    },
+    {
+      path: Paths.tasks.path,
+      element: wrapInLayout(<TasksListPage />),
     },
   ];
 

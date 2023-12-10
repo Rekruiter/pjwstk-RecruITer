@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { IResetPasswordFormInput, ResetPasswordFormInputSchema } from '../../types/authFormTypes';
-import FormFieldWrapper from './FormHelpers/FormFieldWrapper';
+import FormFieldWrapper from '../FormHelpers/FormFieldWrapper';
 import Button from '../UI/Button';
 import Spinner from '../UI/Spinner/Spinner';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -60,12 +60,12 @@ const ForgotPasswordForm = () => {
 
   if (isEmailSent) {
     return isEmailSent.type === 'succes' ? (
-      <div className="flex flex-col text-light items-center gap-1">
+      <div className="flex flex-col items-center gap-1 text-light">
         <h3 className="text-lg font-semibold">Check your email {isEmailSent.email}</h3>
         <p>We have sent you an email with a link to reset your password.</p>
       </div>
     ) : (
-      <div className="flex flex-col text-error_color items-center gap-1">
+      <div className="flex flex-col items-center gap-1 text-error_color">
         <h3 className="text-lg font-semibold">An error ocurred while trying to reset your password</h3>
         <p>{isEmailSent.message}</p>
       </div>
@@ -74,7 +74,7 @@ const ForgotPasswordForm = () => {
 
   return (
     <form onSubmit={onSubmit} className="flex flex-col items-center justify-between">
-      <div className="flex flex-col gap-2 w-5/6">
+      <div className="flex w-5/6 flex-col gap-2">
         <FormFieldWrapper<IResetPasswordFormInput>
           field="email"
           register={register}
@@ -82,11 +82,11 @@ const ForgotPasswordForm = () => {
           autocomplete="username"
         />
       </div>
-      <div className="flex flex-row my-3">
+      <div className="my-3 flex flex-row">
         {isLoading ? (
           <Spinner isLight />
         ) : (
-          <Button className="shadow-md min-w-authButton" type="submit">
+          <Button className="min-w-authButton shadow-md" type="submit">
             Reset password
           </Button>
         )}
