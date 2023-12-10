@@ -81,6 +81,7 @@ const TasksListPage = () => {
                 handlePickTechnology={handlePickTechnology}
               />
             )} */}
+            <button onClick={handleUpdatePickedTechnologies}>click me</button>
           </div>
         </div>
       </div>

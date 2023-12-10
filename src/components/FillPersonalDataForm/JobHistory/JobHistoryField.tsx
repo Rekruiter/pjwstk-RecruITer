@@ -35,8 +35,8 @@ const JobHistoryField = ({ control, register }: JobHistoryFieldProps) => {
           type="button"
           onClick={() =>
             append({
-              startDate: '',
-              endDate: '',
+              startDate: new Date(Date.now()),
+              endDate: new Date(Date.now()),
               nameOfCompany: '',
               position: '',
             })

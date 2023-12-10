@@ -5,11 +5,11 @@ import NotVerifiedStatement from '../../components/UserPanelContent/NotVerifiedS
 import ProposedJobOffersSection from '../../components/UserPanelContent/ProposedJobOffersSection';
 import LastTasksSection from '../../components/UserPanelContent/LastTasksSection';
 
-const mockedData: IUserPanel = {
-  isVerified: false,
-  jobOffers: null,
-  lastTasks: null,
-};
+// const mockedData: IUserPanel = {
+//   isVerified: false,
+//   jobOffers: null,
+//   lastTasks: null,
+// };
 
 const mockedData2: IUserPanel = {
   isVerified: true,

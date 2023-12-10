@@ -17,13 +17,13 @@ export interface LoginFormProps {
   changeAuthMethod: (method: AuthMethodType) => void;
 }
 
-const getMappedRole = (role: string): IAuthorizationObject['role'] => {
-  switch (role) {
-    case 'Basic user':
-      return 'user';
-  }
-  return 'user';
-};
+// const getMappedRole = (role: string): IAuthorizationObject['role'] => {
+//   switch (role) {
+//     case 'Basic user':
+//       return 'user';
+//   }
+//   return 'user';
+// };
 
 const LoginForm = ({ changeAuthMethod }: LoginFormProps) => {
   const { login } = useContext(AuthContext);
@@ -35,7 +35,7 @@ const LoginForm = ({ changeAuthMethod }: LoginFormProps) => {
         name: data.name,
         token: data.token,
         // role: getMappedRole(data.role),
-        role: 'admin',
+        role: 'candidate',
       });
       setSearchParams((prevParams) => {
         prevParams.delete('authorization');

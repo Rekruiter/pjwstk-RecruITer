@@ -1,5 +1,5 @@
 import { Switch } from '@headlessui/react';
-import { ControllerRenderProps, FieldPath, FieldValues, UseControllerReturn } from 'react-hook-form';
+import { ControllerRenderProps, FieldPath, FieldValues } from 'react-hook-form';
 
 interface FormToggleWrapperProps<T extends FieldValues, F extends FieldPath<T>> {
   isToggled: boolean;
