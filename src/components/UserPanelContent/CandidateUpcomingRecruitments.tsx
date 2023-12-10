@@ -3,7 +3,7 @@ import { ICandidatePanel } from '../../types/panelPageTypes';
 import PanelSectionWrapper from '../UI/PanelSectionWrapper';
 
 interface CandidateUpcomingRecruitmentsProps {
-  recruitments: ICandidatePanel['recruitmentsInvitations'];
+  recruitments: ICandidatePanel['recruitmentInvitations'];
 }
 
 const CandidateUpcomingRecruitments = ({ recruitments }: CandidateUpcomingRecruitmentsProps) => {

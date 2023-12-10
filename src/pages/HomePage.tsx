@@ -34,7 +34,7 @@ const HomePage = () => {
       </section>
       <section className="flex min-h-screen w-full flex-col justify-center bg-light_blue py-28">
         <div className="container relative flex flex-col gap-16 px-2">
-          <h3 className="text-center text-4xl font-semibold leading-[3.25rem] text-dark">
+          <h3 className="text-center text-4xl font-semibold leading-[3.25rem] text-dark opacity-0 hover:opacity-100">
             MASTER YOUR FAVOURITE TECHNOLOGIES
             <br />
             AT TRAINING SECTION
