@@ -27,6 +27,8 @@ const allPaths = [
   'verifyAccount',
   'fillUpPersonalData',
   'tasks',
+  'settings',
+  'company',
 ] as const;
 
 export type AllPathsType = (typeof allPaths)[number];
@@ -38,10 +40,15 @@ export const GetPathsLinks = {
   getRecruiterApplicationPreview: (id: number) => `/recruiter-applications/${id}`,
 };
 
-export const Paths: Record<(typeof allPaths)[number], PathType> = {
+export const Paths: Record<AllPathsType, PathType> = {
   home: {
     path: '/',
     headerSignature: 'Home',
+  },
+  company: {
+    path: '/company',
+    headerSignature: 'Company',
+    requiredRoles: [],
   },
   notFound: {
     path: '*',
@@ -82,11 +89,14 @@ export const Paths: Record<(typeof allPaths)[number], PathType> = {
     path: '/verify/:token',
   },
   fillUpPersonalData: {
-    path: 'personal-data',
+    path: '/personal-data',
   },
   tasks: {
     path: '/tasks',
     headerSignature: 'Tasks',
+  },
+  settings: {
+    path: '/settings',
   },
 };
 
@@ -126,5 +136,6 @@ export const headerPathsByRole: Record<IAuthorizationObject['role'], HeaderPathT
 };
 
 export const headerDefaultRoles: HeaderPathType[] = Object.values(Paths).filter(
-  (value): value is HeaderPathType => value.headerSignature !== undefined && value.requiredRoles === undefined,
+  (value): value is HeaderPathType =>
+    value.headerSignature !== undefined && (value.requiredRoles === undefined || value.requiredRoles.length === 0),
 );

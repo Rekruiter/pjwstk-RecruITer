@@ -1,16 +1,17 @@
 import { useController, useForm } from 'react-hook-form';
-import { IPersonalDataForm, PersonalDataFormSchema } from '../types/personalDataFormTypes';
+import { IPersonalDataForm, PersonalDataFormSchema } from '../../types/personalDataFormTypes';
 import { zodResolver } from '@hookform/resolvers/zod';
-import Button from '../components/UI/Button';
-import FormFieldWrapper from '../components/FormHelpers/FormFieldWrapper';
-import FormToggleWrapper from '../components/FormHelpers/FormToggleWrapper';
-import TechnologiesField from '../components/FillPersonalDataForm/Technologies/TechnologiesField';
-import ForeignLanguagesField from '../components/FillPersonalDataForm/ForeignLanguages/ForeignLanguagesField';
-import PortfolioLinksField from '../components/FillPersonalDataForm/PortfolioLinks/PortfolioLinksField';
-import JobHistoryField from '../components/FillPersonalDataForm/JobHistory/JobHistoryField';
-import { MAX_DATE, MIN_DATE } from '../constants/dateInputValues';
-import { getPersonalDataInputForm } from '../api/personalData/personalDataForm';
+import Button from '../../components/UI/Button';
+import FormFieldWrapper from '../../components/FormHelpers/FormFieldWrapper';
+import FormToggleWrapper from '../../components/FormHelpers/FormToggleWrapper';
+import TechnologiesField from '../../components/FillPersonalDataForm/Technologies/TechnologiesField';
+import ForeignLanguagesField from '../../components/FillPersonalDataForm/ForeignLanguages/ForeignLanguagesField';
+import PortfolioLinksField from '../../components/FillPersonalDataForm/PortfolioLinks/PortfolioLinksField';
+import JobHistoryField from '../../components/FillPersonalDataForm/JobHistory/JobHistoryField';
+import { MAX_DATE, MIN_DATE } from '../../constants/dateInputValues';
+import { getPersonalDataInputForm } from '../../api/personalData/personalDataForm';
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const mocked_technologies: IPersonalDataForm['technologies'] = [
   {
     code: BigInt(1),
@@ -39,6 +40,7 @@ export const mocked_technologies: IPersonalDataForm['technologies'] = [
   },
 ];
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const mocked_languages: IPersonalDataForm['foreignLanguages'] = [
   {
     code: BigInt(1),

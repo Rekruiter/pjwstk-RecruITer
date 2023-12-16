@@ -1,9 +1,6 @@
-import { useContext } from 'react';
-import AuthContext from '../context/auth-context';
-import PublicTasksInformationPage from './PublicTasksInformationPage';
-import { IPersonalDataForm } from '../types/personalDataFormTypes';
+import { IPersonalDataForm } from '../../types/personalDataFormTypes';
 import { useSearchParams } from 'react-router-dom';
-import { safeJSONParse } from '../helpers';
+import { safeJSONParse } from '../../helpers';
 
 type Test = IPersonalDataForm['technologies'][number];
 
@@ -27,7 +24,6 @@ const fields: Omit<Test, 'isPicked'>[] = [
 ];
 
 const TasksListPage = () => {
-  const { isLoggedIn } = useContext(AuthContext);
   // const [isOpenedModal, setIsOpenedModal] = useState(false);
 
   const [searchParams, SetSearchParams] = useSearchParams();
@@ -55,10 +51,6 @@ const TasksListPage = () => {
       return prevParams;
     });
   };
-
-  if (!isLoggedIn) {
-    return <PublicTasksInformationPage />;
-  }
 
   return (
     <div className="flex flex-col">

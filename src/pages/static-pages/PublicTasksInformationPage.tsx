@@ -1,5 +1,5 @@
 import { useSearchParams } from 'react-router-dom';
-import Button from '../components/UI/Button';
+import Button from '../../components/UI/Button';
 import { FaStar } from 'react-icons/fa';
 
 const PublicTasksInformationPage = () => {
@@ -13,7 +13,7 @@ const PublicTasksInformationPage = () => {
   };
 
   return (
-    <section className="min-h-screen-navbar flex w-full flex-col items-center gap-32 bg-light p-2 text-dark md:p-0">
+    <section className="flex w-full flex-col items-center gap-32 bg-light p-6 text-dark md:p-4">
       <h2 className="mx-auto mt-5 text-3xl">Tasks section</h2>
       <div className="flex w-full max-w-[40rem] flex-col">
         <div className="group flex cursor-pointer flex-col gap-2 border p-1 hover:scale-105 hover:bg-orange/70 hover:text-light/70">

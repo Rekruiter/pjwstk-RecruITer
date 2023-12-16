@@ -1,9 +1,9 @@
 import { useQuery } from 'react-query';
 import { Link, useParams } from 'react-router-dom';
-import { getJobOffer } from '../api/jobOffers/jobOffers';
-import Spinner from '../components/UI/Spinner/Spinner';
-import Button from '../components/UI/Button';
-import { GetPathsLinks } from '../constants/paths';
+import { getJobOffer } from '../../api/jobOffers/jobOffers';
+import Spinner from '../../components/UI/Spinner/Spinner';
+import Button from '../../components/UI/Button';
+import { GetPathsLinks } from '../../constants/paths';
 import { FaStar } from 'react-icons/fa';
 
 const JobOfferPreviewPage = () => {

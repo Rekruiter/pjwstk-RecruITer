@@ -7,16 +7,16 @@ interface EmptyLayoutProps {
 
 const EmptyLayout = ({ children }: EmptyLayoutProps) => {
   return (
-    <div className="flex flex-col min-h-screen min-w-mobile">
-      <div className="py-2 px-10 md:px-24 flex flex-col md:flex-row md:items-center justify-between bg-dark_blue">
+    <div className="flex min-h-screen min-w-mobile flex-col">
+      <div className="flex flex-col justify-between bg-dark_blue px-10 py-2 md:flex-row md:items-center md:px-24">
         <div className="flex justify-between">
-          <Link to={'/'} className="text-white text-lg font-bold h-20">
+          <Link to={'/'} className="h-20 text-lg font-bold text-white">
             <img src={logoImage} className="max-h-full" />
           </Link>
         </div>
       </div>
-      <div className={`flex-1 flex flex-col`}>{children}</div>
-      <div className="w-full bg-dark_blue text-light min-h-6">
+      <div className={`flex flex-1 flex-col`}>{children}</div>
+      <div className="min-h-6 w-full bg-dark_blue text-light">
         <div className="container px-10 md:px-24">footer</div>
       </div>
     </div>

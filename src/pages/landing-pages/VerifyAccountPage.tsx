@@ -1,8 +1,8 @@
 import { useQuery } from 'react-query';
-import Spinner from '../components/UI/Spinner/Spinner';
-import { verifyAccountGet } from '../api/authorization/authorization';
+import Spinner from '../../components/UI/Spinner/Spinner';
+import { verifyAccountGet } from '../../api/authorization/authorization';
 import { useNavigate, useParams } from 'react-router-dom';
-import Button from '../components/UI/Button';
+import Button from '../../components/UI/Button';
 
 const VerifyAccountPage = () => {
   const { token } = useParams() as { token: string };
@@ -12,7 +12,7 @@ const VerifyAccountPage = () => {
 
   if (isSuccess) {
     return (
-      <div className="m-auto flex flex-col text-dark items-center gap-1">
+      <div className="m-auto flex flex-col items-center gap-1 text-dark">
         <h3 className="text-lg font-semibold text-success_color">Your account has been successfully verified</h3>
         <p>Welcome to our society, you can now log into your account</p>
         <Button
@@ -30,7 +30,7 @@ const VerifyAccountPage = () => {
 
   if (error) {
     return (
-      <div className="m-auto flex flex-col text-dark items-center gap-1">
+      <div className="m-auto flex flex-col items-center gap-1 text-dark">
         <h3 className="text-lg font-semibold text-error_color">Oh no !</h3>
         <p>{error.message}</p>
       </div>
