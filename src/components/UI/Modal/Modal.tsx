@@ -10,7 +10,7 @@ interface ModalProps {
 const Backdrop = ({ onClose }: Pick<ModalProps, 'onClose'>) => {
   return (
     <div
-      className="fixed inset-0 flex items-center justify-center z-20 bg-black bg-opacity-30"
+      className="fixed inset-0 z-20 flex items-center justify-center bg-black bg-opacity-30"
       onClick={onClose}
       id="backdrop"></div>
   );
@@ -29,7 +29,7 @@ const ModalOverlay = ({ children, hiding }: { children: ReactNode; hiding: boole
 
   return (
     <div
-      className={`fixed bg-transparent max-h-screen z-30 shadow-2xl overflow-auto transition-[transform,opacity] ${translateClass} duration-500 ${styles.modal} flex`}
+      className={`fixed z-30 max-h-screen overflow-auto bg-transparent shadow-2xl transition-[transform,opacity] ${translateClass} duration-500 ${styles.modal} flex`}
       id="modal">
       {children}
     </div>

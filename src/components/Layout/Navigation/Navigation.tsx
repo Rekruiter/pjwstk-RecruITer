@@ -17,8 +17,8 @@ const getNavLinks = (role?: IAuthorizationObject['role']) => {
         <NavLink
           key={link.path}
           className={({ isActive }) =>
-            `hover:text-white rounded-md text-base font-medium ${
-              isActive ? 'text-light underline underline-offset-8 decoration-orange' : 'text-gray-300'
+            `rounded-md text-base font-medium hover:text-white ${
+              isActive ? 'text-light underline decoration-orange underline-offset-8' : 'text-gray-300'
             }`
           }
           to={link.path}>
@@ -39,10 +39,10 @@ const Navigation = ({ className }: NavigationsProps) => {
 
   return (
     <>
-      <nav className={`${className} w-full top-0 z-10`}>
-        <div className="py-2 px-10 md:px-24 flex flex-col md:flex-row md:items-center justify-between">
+      <nav className={`${className} top-0 z-10 w-full`}>
+        <div className="flex flex-col justify-between px-10 py-2 md:flex-row md:items-center md:px-24">
           <div className="flex justify-between">
-            <Link to={'/'} className="text-white text-lg font-bold h-20">
+            <Link to={'/'} className="h-20 text-lg font-bold text-white">
               <img src={logoImage} className="max-h-full" />
             </Link>
             <button className="md:hidden" onClick={toggleNavigation}>
@@ -64,9 +64,9 @@ const Navigation = ({ className }: NavigationsProps) => {
             </button>
           </div>
           <div
-            className={`w-full flex flex-col ${
+            className={`flex w-full flex-col ${
               !isOpened ? 'hidden' : ''
-            } md:flex md:flex-row md:w-auto gap-4 xl:gap-14 items-center`}>
+            } items-center gap-4 md:flex md:w-auto md:flex-row xl:gap-14`}>
             {getNavLinks(authCtx.role)}
             {<AuthNavbar />}
           </div>
