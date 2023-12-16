@@ -1,8 +1,8 @@
 import { useQuery } from 'react-query';
 import { Link, useParams } from 'react-router-dom';
-import { getCandidateApplication } from '../api/applications/userApplications';
-import Spinner from '../components/UI/Spinner/Spinner';
-import { GetPathsLinks } from '../constants/paths';
+import { getCandidateApplication } from '../../api/applications/userApplications';
+import Spinner from '../../components/UI/Spinner/Spinner';
+import { GetPathsLinks } from '../../constants/paths';
 
 const CandidateApplicationPreviewPage = () => {
   const { id } = useParams() as { id: string };

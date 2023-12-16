@@ -1,9 +1,9 @@
 import { useQuery } from 'react-query';
-import { getJobOfferList } from '../api/jobOffers/jobOffers';
-import Spinner from '../components/UI/Spinner/Spinner';
+import { getJobOfferList } from '../../api/jobOffers/jobOffers';
+import Spinner from '../../components/UI/Spinner/Spinner';
 import { useNavigate } from 'react-router-dom';
-import { GetPathsLinks } from '../constants/paths';
-import JobOfferListElement from '../components/JobOfferContent/JobOfferListElement';
+import { GetPathsLinks } from '../../constants/paths';
+import JobOfferListElement from '../../components/JobOfferContent/JobOfferListElement';
 
 const JobOfferListPage = () => {
   const navigate = useNavigate();

@@ -1,6 +1,7 @@
 import { PropsWithChildren, useEffect, useState } from 'react';
 import Navigation from './Navigation/Navigation';
 import Footer from './Footer/Footer';
+import { ScrollRestoration } from 'react-router-dom';
 
 interface LayoutProps {
   withoutMargin?: boolean;
@@ -29,9 +30,10 @@ const Layout = ({ children, withoutMargin = false, panel }: PropsWithChildren<La
   }, [withoutMargin]);
 
   return (
-    <div className="flex min-h-screen min-w-mobile flex-col">
+    <div className="flex min-w-mobile flex-col">
+      <ScrollRestoration />
       <Navigation className={withoutMargin ? navbarBackground : 'sticky bg-dark_blue'} />
-      <div className={`flex flex-1 flex-col`}>{children}</div>
+      <div className={`min-h-screen-navbar flex flex-1 flex-col`}>{children}</div>
       {!panel && <Footer />}
     </div>
   );

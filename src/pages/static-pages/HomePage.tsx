@@ -1,8 +1,9 @@
-import KeyboardImage from '../assets/keyboard.png';
-import Button from '../components/UI/Button';
-import TechnologiesCloudImage from '../assets/technologies_cloud.png';
-import BusinessWomanImage from '../assets/business_woman.png';
+import KeyboardImage from '../../assets/keyboard.png';
+import Button from '../../components/UI/Button';
+import TechnologiesCloudImage from '../../assets/technologies_cloud.png';
+import BusinessWomanImage from '../../assets/business_woman.png';
 import { Link, useSearchParams } from 'react-router-dom';
+import { Paths } from '@/constants/paths';
 
 const HomePage = () => {
   const [, setSearchParams] = useSearchParams();
@@ -34,7 +35,7 @@ const HomePage = () => {
       </section>
       <section className="flex min-h-screen w-full flex-col justify-center bg-light_blue py-28">
         <div className="container relative flex flex-col gap-16 px-2">
-          <h3 className="text-center text-4xl font-semibold leading-[3.25rem] text-dark opacity-0 hover:opacity-100">
+          <h3 className="text-center text-4xl font-semibold leading-[3.25rem] text-dark">
             MASTER YOUR FAVOURITE TECHNOLOGIES
             <br />
             AT TRAINING SECTION
@@ -98,7 +99,7 @@ const HomePage = () => {
             <p>👥 Manage Candidates - A Central Hub for All Your Recruitment Needs</p>
             <p>
               And many more... navigate to{' '}
-              <Link to={'/'} className="text-orange underline">
+              <Link to={Paths.company.path} className="text-orange underline">
                 Employers Section
               </Link>{' '}
               to see more details

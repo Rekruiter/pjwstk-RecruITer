@@ -4,6 +4,8 @@ import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md';
 import { defaultStyles } from '../../../constants/defaultStyles';
 import emptyAvatar from '../../../assets/empty_avatar.svg';
 import { Avatar, AvatarFallback, AvatarImage } from '../../UI/Avatar';
+import { useNavigate } from 'react-router-dom';
+import { Paths } from '@/constants/paths';
 
 interface AuthorizedDropdownMenuProps {
   onLogout: () => void;
@@ -11,6 +13,8 @@ interface AuthorizedDropdownMenuProps {
 }
 
 const AuthorizedDropdownMenu = ({ onLogout, name }: AuthorizedDropdownMenuProps) => {
+  const navigate = useNavigate();
+
   return (
     <Menu as="div" className="relative inline-block">
       <Menu.Button className={`${defaultStyles.orangeButton} bg-darken max-w-[20rem]`}>
@@ -33,8 +37,8 @@ const AuthorizedDropdownMenu = ({ onLogout, name }: AuthorizedDropdownMenuProps)
         leave="transition ease-in duration-75"
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95">
-        <Menu.Items className="absolute right-0 mt-2 w-full origin-top divide-y divide-gray-100 rounded-md bg-white ring-1 focus:outline-none">
-          <div className="px-1 py-1 ">
+        <Menu.Items className="absolute right-0 mt-2 w-full origin-top divide-y divide-gray-100 rounded-md bg-light ring-1 focus:outline-none">
+          <div className="flex flex-col gap-2 px-1 py-1">
             <Menu.Item as={'div'} className="flex justify-center ">
               {({ active }) => (
                 <button
@@ -48,6 +52,7 @@ const AuthorizedDropdownMenu = ({ onLogout, name }: AuthorizedDropdownMenuProps)
             <Menu.Item as={'div'} className="flex justify-center">
               {({ active }) => (
                 <button
+                  onClick={() => navigate(Paths.settings.path)}
                   className={`${
                     active ? 'bg-orange text-white' : 'text-dark'
                   } w-11/12 rounded-md py-2 text-sm hover:scale-105`}>

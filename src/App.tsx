@@ -1,26 +1,29 @@
 import { Navigate, RouteObject, RouterProvider, createBrowserRouter } from 'react-router-dom';
-import HomePage from './pages/HomePage';
-import NotFound from './pages/RouteNotFound';
+import HomePage from './pages/static-pages/HomePage';
+import NotFound from './pages/static-pages/RouteNotFound';
 import { useContext } from 'react';
 import AuthContext from './context/auth-context';
 
 import { AllPathsType, Paths, getRequiredRoles } from './constants/paths';
-import PermissionDenied from './pages/PermissionDenied';
+import PermissionDenied from './pages/static-pages/PermissionDenied';
 import { wrapInLayout, wrapInPanelLayout } from './helpers';
-import JobOfferPreviewPage from './pages/JobOfferPreviewPage';
-import CandidatePanelPage from './pages/panels/CandidatePanelPage';
+import JobOfferPreviewPage from './pages/job-offers/JobOfferPreviewPage';
 import RecruiterPanelPage from './pages/panels/RecruiterPanelPage';
 import AdminPanelPage from './pages/panels/AdminPanelPage';
 import UserPanelPage from './pages/panels/UserPanelPage';
-import ResetPasswordConfirmPage from './pages/ResetPasswordConfirmPage';
-import VerifyAccountPage from './pages/VerifyAccountPage';
+import ResetPasswordConfirmPage from './pages/landing-pages/ResetPasswordConfirmPage';
+import VerifyAccountPage from './pages/landing-pages/VerifyAccountPage';
 import { wrapInEmptyLayout } from './helpers/getLayoutWrappers';
-import CandidateApplicationsPage from './pages/CandidateApplicationsPage';
-import CandidateApplicationPreviewPage from './pages/CandidateApplicationPreviewPage';
-import RecruiterApplicationsPage from './pages/RecruiterApplicationsPage';
-import JobOfferListPage from './pages/JobOfferListPage';
-import FillUpPersonalData from './pages/FillUpPersonalData';
-import TasksListPage from './pages/TasksListPage';
+import CandidateApplicationsPage from './pages/applications/CandidateApplicationsPage';
+import CandidateApplicationPreviewPage from './pages/applications/CandidateApplicationPreviewPage';
+import RecruiterApplicationsPage from './pages/applications/RecruiterApplicationsPage';
+import JobOfferListPage from './pages/job-offers/JobOfferListPage';
+import FillUpPersonalData from './pages/user-settings/FillUpPersonalData';
+import TasksListPage from './pages/tasks/TasksListPage';
+import SettingsPage from './pages/user-settings/SettingsPage';
+import PublicTasksInformationPage from './pages/static-pages/PublicTasksInformationPage';
+import CompanyPage from './pages/static-pages/CompanyPage';
+import CandidatePanelPage from './pages/panels/CandidatePanelPage';
 
 function App() {
   const { role, isLoggedIn } = useContext(AuthContext);
@@ -59,6 +62,10 @@ function App() {
     { path: Paths.jobOffers.path, element: wrapInLayout(<JobOfferListPage />) },
     { path: Paths.jobOfferPreview.path, element: wrapInLayout(<JobOfferPreviewPage />) },
     {
+      path: Paths.company.path,
+      element: wrapInLayout(<CompanyPage />),
+    },
+    {
       path: Paths.resetPasswordConfirm.path,
       element: wrapInEmptyLayout(<ResetPasswordConfirmPage />),
     },
@@ -80,7 +87,11 @@ function App() {
     },
     {
       path: Paths.tasks.path,
-      element: wrapInLayout(<TasksListPage />),
+      element: wrapInLayout(isLoggedIn ? <TasksListPage /> : <PublicTasksInformationPage />),
+    },
+    {
+      path: Paths.settings.path,
+      element: PrivateRoute(<SettingsPage />, 'settings'),
     },
   ];
 

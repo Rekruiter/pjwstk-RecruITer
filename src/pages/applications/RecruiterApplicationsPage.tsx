@@ -1,9 +1,9 @@
 import { useQuery } from 'react-query';
-import { getRecruiterApplicationsList } from '../api/applications/userApplications';
-import Spinner from '../components/UI/Spinner/Spinner';
+import { getRecruiterApplicationsList } from '../../api/applications/userApplications';
+import Spinner from '../../components/UI/Spinner/Spinner';
 import { useNavigate } from 'react-router-dom';
-import { GetPathsLinks } from '../constants/paths';
-import RecruiterApplicationListElement from '../components/RecruiterApplicationsContent/RecruiterApplicationListElement';
+import { GetPathsLinks } from '../../constants/paths';
+import RecruiterApplicationListElement from '../../components/RecruiterApplicationsContent/RecruiterApplicationListElement';
 import { useState } from 'react';
 
 type ApplicationsRecruiterTabs = 'new' | 'accepted' | 'rejected';

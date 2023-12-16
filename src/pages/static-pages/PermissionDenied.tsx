@@ -10,7 +10,7 @@ const PermissionDenied = () => {
     }, 2000);
 
     return () => clearTimeout(timeout);
-  }, []);
+  }, [navigate]);
 
   return <div className="m-auto">You are not allowed to access this resource</div>;
 };
