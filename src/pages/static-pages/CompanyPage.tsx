@@ -1,46 +1,29 @@
 import Button from '@/components/UI/Button';
+import BusinessWomanImage from '../../assets/business_woman.png';
 
 const CompanyPage = () => {
   return (
     <section className="container flex w-full flex-col self-center bg-light p-6 md:p-4">
-      <div className="flex w-full flex-col gap-12 rounded-md px-5 py-5 pb-24 text-dark lg:px-32">
+      <div className="flex w-full flex-col gap-12 rounded-md px-5 py-5 pb-24 text-dark lg:px-16">
         <h2 className="mt-5 text-2xl font-bold">For companies</h2>
-        <h4 className="text-2xl text-dark">
-          Our System provides section where you can learn to your interviews <br />
-          based from real recruiters’ question database.
-        </h4>
-        <div className="flex w-full flex-col gap-7 px-20 text-dark">
-          <div className="flex max-w-[30rem] flex-col gap-5 self-start">
-            <h5 className="text-lg font-semibold">🚀 Dive Into Tailored Tech Tracks</h5>
-            <p>
-              Navigate through our extensive library of theoretical questions, categorized into specific technologies
-              and programming languages such as <span className="font-semibold">JavaScript, Python, Java</span>, and
-              many more.
-            </p>
+        <div className="relative flex h-[625px] justify-between text-dark">
+          <div className="flex max-h-full flex-col items-start gap-12 rounded-md bg-dark/5 p-8 shadow-lg">
+            <h3 className="text-lg font-normal">Are you an employer...?</h3>
+            <div className="text-md flex max-w-2xl flex-col gap-10">
+              <p>
+                Trust our professional approach and join as an company to our community ! At{' '}
+                <span className="font-semibold">RecruITer</span>, we meticulously create symbiotic environments where
+                your esteemed organization and adept candidates converge to create innovative future tech landscapes
+              </p>
+              <p>🎯 Place Your Job Offers - Connecting Employers and Potential Talent</p>
+              <p>🛠 Add Your Technical and Practical Exercises - Shape the Future Skillset</p>
+              <p>🔄 Perform Recruitment Process - Streamlining Hiring to its Best</p>
+              <p>💼 Process Technical Interview - Uncover True Potential</p>
+              <p>👥 Manage Candidates - A Central Hub for All Your Recruitment Needs</p>
+            </div>
+            <Button className="w-full md:w-auto">Create company account</Button>
           </div>
-          <div className="flex max-w-[30rem] flex-col gap-5 md:self-end">
-            <h5 className="text-lg font-semibold">🔍 Real Recruiters’ Question Database</h5>
-            <p>
-              Equip yourself with insights from our robust database of
-              <span className="font-semibold"> actual interview questions</span>, pooled from recruiters and experienced
-              professionals. Organized by difficulty, question type, and technology.
-            </p>
-          </div>
-          <div className="flex max-w-[30rem] flex-col gap-5 self-start">
-            <h5 className="text-lg font-semibold">
-              🧠 Challenge Your Coding Prowess - <br />
-              Practical Programming Problems
-            </h5>
-            <p>
-              Embark on an enriching journey through our curated assortment of practical programming problems, devised
-              by
-              <span className="font-semibold">seasoned tech interviewers</span> and industry experts
-            </p>
-          </div>
-        </div>
-        <div className="flex w-full flex-col items-center justify-center gap-8">
-          <h4 className="text-3xl font-semibold text-dark">Create account and start preparing yourself</h4>
-          <Button className="w-fit">Sign up</Button>
+          <img src={BusinessWomanImage} className="relative right-0 hidden h-full object-contain xl:block" />
         </div>
       </div>
     </section>

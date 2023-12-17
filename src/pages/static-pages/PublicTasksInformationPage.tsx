@@ -26,7 +26,7 @@ const PublicTasksInformationPage = () => {
           handleOpenRegisterModal={() => handleOpenLoginModal('register')}
         />
       )}
-      <div className="flex w-full flex-col gap-12 rounded-md px-5 py-5 pb-24 lg:px-32">
+      <div className="flex w-full flex-col gap-12 rounded-md px-5 py-5 pb-24 lg:px-16">
         <h2 className="mt-5 text-2xl font-bold">Tasks section</h2>
         <div className="flex max-w-[40rem] flex-col gap-5 rounded-md p-4 shadow-md">
           <h5 className="text-lg font-semibold">🚀 Dive Into Tailored Tech Tracks</h5>
