@@ -112,7 +112,7 @@ const FillUpPersonalData = () => {
       <form
         onSubmit={onSubmit}
         className="flex min-h-[500px] w-full flex-col items-center justify-between gap-5 bg-dark_blue px-10 py-5 sm:rounded-xl md:w-[540px] xl:w-[768px]">
-        <div className="mx-auto flex w-full flex-col gap-2">
+        <div className="mx-auto flex w-full flex-col gap-4">
           <FormFieldWrapper<IPersonalDataForm> field="address" error={errors.address} register={register} />
           <FormFieldWrapper<IPersonalDataForm>
             field="dateOfBirth"
