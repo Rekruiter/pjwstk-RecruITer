@@ -56,7 +56,10 @@ const ForeignLanguagesModal = ({ handleCloseModal, fields, handlePickTechnology 
                       key={language.id}
                       className="rounded-md p-1 text-start hover:bg-orange hover:text-white"
                       type="button"
-                      onClick={() => handlePickTechnology(language.id)}>
+                      onClick={() => {
+                        setLanguageSearch('');
+                        handlePickTechnology(language.id);
+                      }}>
                       {language.name}
                     </button>
                   ))}

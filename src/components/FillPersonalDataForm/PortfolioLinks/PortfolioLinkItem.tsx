@@ -18,7 +18,7 @@ const PortfolioLinkItem = ({ remove, register, index, control }: PortfolioLinkIt
   const linkUrlError = errors.portfolioLinks?.[index]?.linkUrl;
 
   return (
-    <div className="flex w-full flex-col gap-1 text-dark">
+    <div className="flex w-full flex-col gap-1 rounded-md bg-light/5 p-3 text-dark shadow-xl">
       <input
         {...register(`portfolioLinks.${index}.name`)}
         className={`w-fit rounded-md p-1 ${nameError ? 'border-2 border-error_color' : ''}`}
@@ -28,10 +28,10 @@ const PortfolioLinkItem = ({ remove, register, index, control }: PortfolioLinkIt
       <div className="flex gap-3 text-dark">
         <input
           {...register(`portfolioLinks.${index}.linkUrl`)}
-          className={`w-full rounded-md bg-light_blue p-1 ${linkUrlError ? 'border-2 border-error_color' : ''}`}
+          className={`w-full rounded-md bg-light p-1 ${linkUrlError ? 'border-2 border-error_color' : ''}`}
           placeholder="Link url"
         />
-        <button onClick={remove} className="text-white">
+        <button onClick={remove} className="text-white" type="button">
           <FaDeleteLeft />
         </button>
       </div>

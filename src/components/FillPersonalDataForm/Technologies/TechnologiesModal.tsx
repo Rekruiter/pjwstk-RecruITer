@@ -56,7 +56,10 @@ const TechnologiesModal = ({ handleCloseModal, fields, handlePickTechnology }: T
                       key={technology.id}
                       className="rounded-md p-1 text-start hover:bg-orange hover:text-white"
                       type="button"
-                      onClick={() => handlePickTechnology(technology.id)}>
+                      onClick={() => {
+                        setTechnologySearch('');
+                        handlePickTechnology(technology.id);
+                      }}>
                       {technology.name}
                     </button>
                   ))}
