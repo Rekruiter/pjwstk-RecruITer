@@ -19,7 +19,7 @@ const ProposedJobOffersSection = ({ jobOffers }: ProposedJobOffersSectionProps) 
       {jobOffers.map((jobOffer) => (
         <div
           key={jobOffer.id}
-          className="flex w-full cursor-pointer flex-wrap border p-2 text-light hover:bg-orange"
+          className="flex w-full cursor-pointer flex-wrap rounded-md bg-light/5 p-2 text-light shadow-md hover:bg-orange"
           onClick={() => {
             navigate(GetPathsLinks.getJobOfferPreview(jobOffer.id));
           }}>

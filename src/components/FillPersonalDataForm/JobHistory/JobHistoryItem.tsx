@@ -21,7 +21,7 @@ const JobHistoryItem = ({ index, register, control, remove }: JobHistoryItemProp
   const positionError = errors.jobHistory?.[index]?.position;
 
   return (
-    <div className="flex w-full flex-col gap-1 border border-light p-2 text-dark">
+    <div className="flex w-full flex-col gap-1 rounded-sm bg-light/5 p-3 text-dark shadow-xl">
       <div className="flex flex-col justify-between gap-2 sm:flex-row">
         <div className="flex flex-col gap-1">
           <div className="flex flex-col gap-1 md:flex-row md:items-center md:gap-5">

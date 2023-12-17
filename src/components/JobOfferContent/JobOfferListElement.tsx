@@ -9,7 +9,7 @@ const JobOfferListElement = ({ handleOpenJobOffer, jobOfferData }: JobOfferListE
   return (
     <div
       className={
-        'group flex max-w-full cursor-pointer flex-wrap justify-between break-all border bg-light px-5 py-2 text-dark hover:bg-orange sm:flex-nowrap sm:justify-normal'
+        'group flex max-w-full cursor-pointer flex-wrap justify-between break-all bg-dark/5 px-5 py-2 text-dark shadow-sm hover:bg-orange sm:flex-nowrap sm:justify-normal'
       }
       onClick={() => handleOpenJobOffer(jobOfferData.id)}>
       <div className="min-w-[5.5rem] basis-1/2 gap-2 group-hover:text-light">

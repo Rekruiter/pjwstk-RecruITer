@@ -15,7 +15,7 @@ const HomePage = () => {
           background: `linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.25)), url(${KeyboardImage})`,
           backgroundSize: 'cover',
         }}>
-        <div className="container flex flex-col gap-6 px-2">
+        <div className="container mt-24 flex flex-col gap-6 px-2 sm:px-12 2xl:px-0">
           <h2 className="text-4xl text-light sm:w-[32rem] sm:text-5xl">MAKE CODING RECRUITMENTS EASY AND PRODUCTIVE</h2>
           <p className="text-light">
             New tool to proceed programming recruitments at
@@ -83,28 +83,30 @@ const HomePage = () => {
         </div>
       </section>
       <section className="flex min-h-screen w-full flex-col justify-center bg-dark_blue py-20">
-        <div className="container relative flex flex-col gap-28 px-2">
-          <img src={BusinessWomanImage} className="absolute -top-10 right-0 hidden max-h-[80vh] xl:block" />
-          <h3 className="text-5xl font-normal text-light">ARE YOU AN EMPLOYER...?</h3>
-          <div className="flex max-w-2xl flex-col gap-10 text-lg text-light">
-            <p>
-              Trust our professional approach and join as an company to our community ! At{' '}
-              <span className="font-semibold">RecruITer</span>, we meticulously create symbiotic environments where your
-              esteemed organization and adept candidates converge to create innovative future tech landscapes
-            </p>
-            <p>🎯 Place Your Job Offers - Connecting Employers and Potential Talent</p>
-            <p>🛠 Add Your Technical and Practical Exercises - Shape the Future Skillset</p>
-            <p>🔄 Perform Recruitment Process - Streamlining Hiring to its Best</p>
-            <p>💼 Process Technical Interview - Uncover True Potential</p>
-            <p>👥 Manage Candidates - A Central Hub for All Your Recruitment Needs</p>
-            <p>
-              And many more... navigate to{' '}
-              <Link to={Paths.company.path} className="text-orange underline">
-                Employers Section
-              </Link>{' '}
-              to see more details
-            </p>
+        <div className="container relative flex justify-between">
+          <div className="bg-dark/15 flex w-max flex-col gap-28 rounded-md p-8 shadow-md">
+            <h3 className="text-5xl font-normal text-light">ARE YOU AN EMPLOYER...?</h3>
+            <div className="flex max-w-2xl flex-col gap-10 text-lg text-light">
+              <p>
+                Trust our professional approach and join as an company to our community ! At{' '}
+                <span className="font-semibold">RecruITer</span>, we meticulously create symbiotic environments where
+                your esteemed organization and adept candidates converge to create innovative future tech landscapes
+              </p>
+              <p>🎯 Place Your Job Offers - Connecting Employers and Potential Talent</p>
+              <p>🛠 Add Your Technical and Practical Exercises - Shape the Future Skillset</p>
+              <p>🔄 Perform Recruitment Process - Streamlining Hiring to its Best</p>
+              <p>💼 Process Technical Interview - Uncover True Potential</p>
+              <p>👥 Manage Candidates - A Central Hub for All Your Recruitment Needs</p>
+              <p>
+                And many more... navigate to{' '}
+                <Link to={Paths.company.path} className="text-orange underline">
+                  Employers Section
+                </Link>{' '}
+                to see more details
+              </p>
+            </div>
           </div>
+          <img src={BusinessWomanImage} className="relative right-0  hidden max-h-[80vh] xl:block" />
         </div>
       </section>
     </>

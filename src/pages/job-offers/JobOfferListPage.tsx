@@ -40,8 +40,8 @@ const JobOfferListPage = () => {
           <p>Seniority</p>
         </div>
       </div>
-      <div className="container rounded-b-xl p-8 md:px-12 lg:px-16">
-        <h3 className="mb-4 text-lg font-semibold text-dark">Job offers</h3>
+      <div className="container flex flex-col gap-1 rounded-b-xl p-8 md:px-12 lg:px-16">
+        <h3 className="mb-4 text-2xl font-semibold text-dark">Job offers</h3>
         <h4 className="mb-4 text-base font-semibold text-dark">{signature}</h4>
         {data?.map((jobOffer) => (
           <JobOfferListElement handleOpenJobOffer={handleOpenJobOffer} jobOfferData={jobOffer} key={jobOffer.id} />

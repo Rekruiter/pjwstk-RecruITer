@@ -2,9 +2,9 @@ import Button from '@/components/UI/Button';
 
 const CompanyPage = () => {
   return (
-    <section className="min-h-screen-navbar flex w-full flex-col justify-center self-center bg-light">
-      <div className="container relative flex flex-col gap-16 px-2">
-        <h3 className="text-center text-4xl font-semibold leading-[3.25rem] text-dark">FOR COMPANIES</h3>
+    <section className="container flex w-full flex-col self-center bg-light p-6 md:p-4">
+      <div className="flex w-full flex-col gap-12 rounded-md px-5 py-5 pb-24 text-dark lg:px-32">
+        <h2 className="mt-5 text-2xl font-bold">For companies</h2>
         <h4 className="text-2xl text-dark">
           Our System provides section where you can learn to your interviews <br />
           based from real recruiters’ question database.
