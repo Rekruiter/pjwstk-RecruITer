@@ -24,6 +24,7 @@ const Layout = ({ children, withoutMargin = false, panel }: PropsWithChildren<La
         setNavbarBackground('bg-transparent fixed');
       }
     };
+    handleScroll();
     window.addEventListener('scroll', handleScroll);
 
     return () => {
