@@ -85,7 +85,7 @@ const PublicTasksInformationPage = () => {
           or{' '}
           <span
             className="cursor-pointer font-semibold text-orange underline"
-            onClick={() => handleOpenLoginModal('register')}>
+            onClick={() => handleOpenLoginModal('login')}>
             log in
           </span>
           .
