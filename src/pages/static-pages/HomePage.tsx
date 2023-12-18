@@ -113,7 +113,7 @@ const HomePage = () => {
           </Button>
         </div>
       </section>
-      <section className="flex min-h-screen w-full flex-col justify-center bg-light_blue py-28">
+      <section className="flex min-h-screen w-full flex-col justify-center overflow-hidden bg-light_blue py-28">
         <div className="container relative flex flex-col gap-16 px-2 [&>*:nth-child(1)]:duration-700 [&>*:nth-child(3)]:duration-700">
           <h3 className={cn('text-center text-4xl font-semibold leading-[3.25rem] text-dark', transitionOpacity)}>
             MASTER YOUR FAVOURITE TECHNOLOGIES
