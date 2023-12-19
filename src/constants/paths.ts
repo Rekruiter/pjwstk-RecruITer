@@ -90,6 +90,7 @@ export const Paths: Record<AllPathsType, PathType> = {
   },
   fillUpPersonalData: {
     path: '/personal-data',
+    requiredRoles: ['candidate', 'user'],
   },
   tasks: {
     path: '/tasks',

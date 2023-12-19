@@ -10,7 +10,7 @@ interface ForeignLanguagesModalProps {
 }
 
 const ForeignLanguagesModal = ({ handleCloseModal, fields, handlePickTechnology }: ForeignLanguagesModalProps) => {
-  const [languageSearch, setLanguageSearch] = useState<string>();
+  const [languageSearch, setLanguageSearch] = useState<string>('');
 
   const filteredLanguages = fields.filter(
     (field) => !field.isPicked && field.name.toLowerCase().includes(languageSearch?.toLowerCase() ?? ''),

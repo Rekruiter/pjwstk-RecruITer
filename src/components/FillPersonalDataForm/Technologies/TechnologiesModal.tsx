@@ -10,7 +10,7 @@ interface TechnologiesModalProps {
 }
 
 const TechnologiesModal = ({ handleCloseModal, fields, handlePickTechnology }: TechnologiesModalProps) => {
-  const [technologySearch, setTechnologySearch] = useState<string>();
+  const [technologySearch, setTechnologySearch] = useState<string>('');
 
   const filteredTechnologies = fields.filter(
     (field) => !field.isPicked && field.name.toLowerCase().includes(technologySearch?.toLowerCase() ?? ''),

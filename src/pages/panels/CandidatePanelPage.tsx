@@ -20,8 +20,11 @@ const CandidatePanelPage = () => {
       <h3 className="text-3xl text-dark">Hello {name}</h3>
       <div className="flex min-h-[50vh] flex-col gap-5 rounded-lg bg-light_blue p-5 xl:px-12 xl:py-10">
         <div className="flex w-full flex-col gap-5 md:flex-row">
-          {data.jobOffers && <ProposedJobOffersSection jobOffers={data.jobOffers} />}
-          {data.lastTasks && <LastTasksSection tasks={data.lastTasks} />}
+          <ProposedJobOffersSection jobOffers={data.jobOffers} />
+          <LastTasksSection
+            lastPracticalTasks={data.lastPracticalTasks}
+            lastTheoreticalTasks={data.lastTheoreticalTasks}
+          />
         </div>
         <div className="flex w-full flex-col gap-5 md:flex-row">
           <CandidateUpcomingRecruitments recruitments={data.upcomingRecruitments} />

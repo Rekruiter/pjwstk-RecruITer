@@ -16,6 +16,7 @@ const ProposedJobOffersSection = ({ jobOffers }: ProposedJobOffersSectionProps) 
         navigate(Paths.jobOffers.path);
       }}
       headerTitle="Job offers">
+      {jobOffers.length === 0 && <p className="text-center">No job offers</p>}
       {jobOffers.map((jobOffer) => (
         <div
           key={jobOffer.id}

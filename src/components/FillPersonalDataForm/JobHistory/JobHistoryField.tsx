@@ -10,7 +10,7 @@ interface JobHistoryFieldProps {
 const JobHistoryField = ({ control, register }: JobHistoryFieldProps) => {
   const { fields, remove, append } = useFieldArray({
     control,
-    name: 'jobHistory',
+    name: 'jobHistories',
   });
 
   const handleRemoveField = (index: number) => {
@@ -35,8 +35,8 @@ const JobHistoryField = ({ control, register }: JobHistoryFieldProps) => {
           type="button"
           onClick={() =>
             append({
-              startDate: new Date(Date.now()),
-              endDate: new Date(Date.now()),
+              startDate: '',
+              endDate: '',
               nameOfCompany: '',
               position: '',
             })
