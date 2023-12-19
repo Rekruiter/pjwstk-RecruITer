@@ -18,12 +18,12 @@ import CandidateApplicationsPage from './pages/applications/CandidateApplication
 import CandidateApplicationPreviewPage from './pages/applications/CandidateApplicationPreviewPage';
 import RecruiterApplicationsPage from './pages/applications/RecruiterApplicationsPage';
 import JobOfferListPage from './pages/job-offers/JobOfferListPage';
-import FillUpPersonalData from './pages/user-settings/FillUpPersonalData';
 import TasksListPage from './pages/tasks/TasksListPage';
 import SettingsPage from './pages/user-settings/SettingsPage';
 import PublicTasksInformationPage from './pages/static-pages/PublicTasksInformationPage';
 import CompanyPage from './pages/static-pages/CompanyPage';
 import CandidatePanelPage from './pages/panels/CandidatePanelPage';
+import FillUpPersonalDataPage from './pages/user-settings/FillUpPersonalDataPage';
 
 function App() {
   const { role, isLoggedIn } = useContext(AuthContext);
@@ -57,7 +57,7 @@ function App() {
 
   const routesConfig: RouteObject[] = [
     { path: Paths.home.path, element: getDefaultHomeRoute() },
-    { path: Paths.fillUpPersonalData.path, element: wrapInLayout(<FillUpPersonalData />) },
+    { path: Paths.fillUpPersonalData.path, element: PrivateRoute(<FillUpPersonalDataPage />, 'fillUpPersonalData') },
     { path: Paths.notFound.path, element: wrapInLayout(<NotFound />) },
     { path: Paths.jobOffers.path, element: wrapInLayout(<JobOfferListPage />) },
     { path: Paths.jobOfferPreview.path, element: wrapInLayout(<JobOfferPreviewPage />) },
