@@ -37,6 +37,7 @@ const PersonalDataForm = ({ data, handlePersonalDataPost, mutationLoading }: Per
   const defaultForeignLanguages: IPersonalDataForm['foreignLanguages'] = allForeignLanguages.map((language) => {
     return {
       name: language.name,
+      code: language.code,
       isPicked: personalData.foreignLanguages?.includes(language.name) ?? false,
     };
   });

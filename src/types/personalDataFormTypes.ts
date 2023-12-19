@@ -57,6 +57,7 @@ export const PersonalDataFormSchema = z.object({
   foreignLanguages: z.array(
     z.object({
       name: z.string(),
+      code: z.string(),
       isPicked: z.boolean(),
     }),
   ),
@@ -73,7 +74,7 @@ export const PersonalDataInputSchema = PersonalDataFormSchema.pick({
   status: true,
   portfolioLinks: true,
 }).extend({
-  jobHistories: z.array(jobHistoriesObjectSchema),
+  jobHistory: z.array(jobHistoriesObjectSchema),
   technologies: z.array(z.object({ name: z.string() })),
   foreignLanguages: z.array(z.string()),
   dateOfBirth: z.string(),

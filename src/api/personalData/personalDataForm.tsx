@@ -20,9 +20,9 @@ export const getPersonalDataInputForm = (inputData: IPersonalDataForm): IPersona
     });
   const pickedForeignLanguages = inputData.foreignLanguages
     .filter((language) => language.isPicked)
-    .map((language) => language.name);
+    .map((language) => language.code);
 
-  const inputJobHistories: IPersonalDataInput['jobHistories'] = inputData.jobHistories.map((historyObj) => {
+  const inputJobHistory: IPersonalDataInput['jobHistory'] = inputData.jobHistories.map((historyObj) => {
     return {
       position: historyObj.position,
       nameOfCompany: historyObj.nameOfCompany,
@@ -37,7 +37,7 @@ export const getPersonalDataInputForm = (inputData: IPersonalDataForm): IPersona
     portfolioLinks: inputData.portfolioLinks,
     technologies: pickedTechnologies,
     foreignLanguages: pickedForeignLanguages,
-    jobHistories: inputJobHistories,
+    jobHistory: inputJobHistory,
     dateOfBirth: inputData.dateOfBirth,
   };
 };
