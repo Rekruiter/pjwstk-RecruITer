@@ -5,10 +5,11 @@ import { FaStar } from 'react-icons/fa';
 import PanelSectionWrapper from '../UI/PanelSectionWrapper';
 
 interface LastTasksSectionProps {
-  tasks: NonNullable<IUserPanel['lastTasks']>;
+  lastPracticalTasks: NonNullable<IUserPanel['lastPracticalTasks']>;
+  lastTheoreticalTasks: NonNullable<IUserPanel['lastTheoreticalTasks']>;
 }
 
-const LastTasksSection = ({ tasks }: LastTasksSectionProps) => {
+const LastTasksSection = ({ lastPracticalTasks, lastTheoreticalTasks }: LastTasksSectionProps) => {
   const navigate = useNavigate();
   return (
     <PanelSectionWrapper

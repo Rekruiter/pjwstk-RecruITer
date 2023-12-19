@@ -53,7 +53,8 @@ const recruiterUpcomingRecruitmentsSchema = z
 
 export const UserPanelPageSchema = z.object({
   isVerified: z.boolean(),
-  lastTasks: z.array(taskSchema).max(5).nullable(),
+  lastPracticalTasks: z.array(taskSchema).max(5).nullable(),
+  lastTheoreticalTasks: z.array(taskSchema).max(5).nullable(),
   jobOffers: z
     .array(
       jobOfferSchema.extend({
@@ -70,7 +71,8 @@ export const UserPanelPageSchema = z.object({
 // CANDIDATE ROLE PANEL SCHEMA
 
 export const CandidatePanelPageSchema = z.object({
-  lastTasks: z.array(taskSchema).max(5),
+  lastPracticalTasks: z.array(taskSchema).max(5),
+  lastTheoreticalTasks: z.array(taskSchema).max(5),
   jobOffers: z
     .array(
       jobOfferSchema.extend({
