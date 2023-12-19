@@ -6,19 +6,15 @@ type Test = IPersonalDataForm['technologies'][number];
 
 const fields: Omit<Test, 'isPicked'>[] = [
   {
-    code: BigInt(1),
     name: 'React',
   },
   {
-    code: BigInt(1),
     name: 'Javascript',
   },
   {
-    code: BigInt(1),
     name: 'Node',
   },
   {
-    code: BigInt(1),
     name: 'Vite',
   },
 ];

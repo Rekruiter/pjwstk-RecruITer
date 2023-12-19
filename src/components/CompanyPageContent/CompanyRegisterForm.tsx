@@ -47,7 +47,7 @@ const CompanyRegisterForm = ({ handlePreviousSection }: CompanyRegisterFormProps
 
   return (
     <form
-      className="flex h-min min-h-full basis-full flex-col items-start justify-between gap-4 overflow-y-scroll rounded-md bg-dark_blue p-5 text-light shadow-lg md:p-10 xl:basis-1/2"
+      className="flex h-min min-h-full basis-full flex-col items-start justify-between gap-4 overflow-y-auto rounded-md bg-dark_blue p-5 text-light shadow-lg md:p-10 xl:basis-1/2"
       onSubmit={formStep === 2 ? onSubmit : handleContinue}>
       <button
         type="button"
