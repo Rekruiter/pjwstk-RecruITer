@@ -1,5 +1,6 @@
 import { PropsWithChildren } from 'react';
 import { defaultStyles } from '../../constants/defaultStyles';
+import { cn } from '@/lib/utils';
 
 interface ButtonProps {
   onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
@@ -10,11 +11,7 @@ interface ButtonProps {
 
 const Button = ({ className, children, onClick, type, disabled }: PropsWithChildren<ButtonProps>) => {
   return (
-    <button
-      onClick={onClick}
-      className={`${defaultStyles.orangeButton} ${className} bg-darken`}
-      type={type}
-      disabled={disabled}>
+    <button onClick={onClick} className={cn(defaultStyles.orangeButton, className)} type={type} disabled={disabled}>
       {children}
     </button>
   );

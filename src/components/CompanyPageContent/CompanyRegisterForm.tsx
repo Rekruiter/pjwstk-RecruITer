@@ -4,12 +4,19 @@ import { IRegisterCompanyFormInput, RegisterCompanyFormInputSchema } from '@/typ
 import { zodResolver } from '@hookform/resolvers/zod';
 import Button from '../UI/Button';
 import { useEffect, useState } from 'react';
+import { useMutation } from 'react-query';
+import { registerCompanyPost } from '@/api/authorization/companyAuth';
+import IError from '@/api/Error/Error';
+import Spinner from '../UI/Spinner/Spinner';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 interface CompanyRegisterFormProps {
   handlePreviousSection: () => void;
 }
 
 const CompanyRegisterForm = ({ handlePreviousSection }: CompanyRegisterFormProps) => {
+  const navigate = useNavigate();
   const [formStep, setFormStep] = useState<0 | 1 | 2>(0);
   const {
     register,
@@ -21,10 +28,24 @@ const CompanyRegisterForm = ({ handlePreviousSection }: CompanyRegisterFormProps
     resolver: zodResolver(RegisterCompanyFormInputSchema),
   });
 
+  const { mutate, isLoading } = useMutation<any, IError, IRegisterCompanyFormInput>(
+    'registerCompany',
+    registerCompanyPost,
+    {
+      onSuccess() {
+        toast.success('Account has been created successfully');
+        navigate('/?authorization=login', { replace: true });
+      },
+      onError(error) {
+        toast.error(error.message);
+      },
+    },
+  );
+
   const handleContinue = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const validation = await trigger(['adress', 'city', 'nameCompany', 'nipNumber', 'zipCode']);
+    const validation = await trigger(['companyAddress', 'city', 'nameCompany', 'nipNumber', 'zipCode']);
 
     if (!validation) {
       setFormStep(1);
@@ -34,7 +55,7 @@ const CompanyRegisterForm = ({ handlePreviousSection }: CompanyRegisterFormProps
   };
 
   useEffect(() => {
-    const subscribeCompany = watch(() => trigger(['adress', 'city', 'nameCompany', 'nipNumber', 'zipCode']));
+    const subscribeCompany = watch(() => trigger(['companyAddress', 'city', 'nameCompany', 'nipNumber', 'zipCode']));
     if (formStep !== 1) {
       subscribeCompany.unsubscribe();
     }
@@ -42,12 +63,13 @@ const CompanyRegisterForm = ({ handlePreviousSection }: CompanyRegisterFormProps
   }, [watch, formStep, trigger]);
 
   const onSubmit = handleSubmit((data) => {
-    console.log(data);
+    if (isLoading) return;
+    mutate(data);
   });
 
   return (
     <form
-      className="flex h-min min-h-full basis-full flex-col items-start justify-between gap-4 overflow-y-auto rounded-md bg-dark_blue p-5 text-light shadow-lg md:p-10 xl:basis-1/2"
+      className="flex min-h-full basis-full flex-col items-start justify-between gap-4 overflow-y-auto rounded-md bg-dark_blue p-5 text-light shadow-lg md:p-10 xl:basis-1/2"
       onSubmit={formStep === 2 ? onSubmit : handleContinue}>
       <button
         type="button"
@@ -73,8 +95,8 @@ const CompanyRegisterForm = ({ handlePreviousSection }: CompanyRegisterFormProps
               key="nipNumber"
             />
             <FormFieldWrapper<IRegisterCompanyFormInput>
-              field="adress"
-              error={errors.adress}
+              field="companyAddress"
+              error={errors.companyAddress}
               register={register}
               label="Adress"
               key="adress"
@@ -143,7 +165,13 @@ const CompanyRegisterForm = ({ handlePreviousSection }: CompanyRegisterFormProps
           </>
         )}
       </div>
-      <Button className="place-self-end">Continue</Button>
+      {formStep === 2 ? (
+        <Button className="place-self-end disabled:opacity-70" disabled={isLoading}>
+          {isLoading ? <Spinner isLight className="h-6 w-6 border-2" /> : 'Register account'}
+        </Button>
+      ) : (
+        <Button className="place-self-end">Continue</Button>
+      )}
     </form>
   );
 };

@@ -23,18 +23,16 @@ const recruitmentSchema = z.object({
   }),
 });
 
-const recruiterApplicationsSchema = z
-  .array(
-    z.object({
-      id: z.number(),
-      candidateName: z.string(),
-      candidateSurname: z.string(),
-      expectedSalary: z.number().nullable(),
-      jobOfferTitle: z.string(),
-      currency: z.string(),
-    }),
-  )
-  .max(5);
+const recruiterApplicationsSchema = z.array(
+  z.object({
+    id: z.number(),
+    candidateName: z.string(),
+    candidateSurname: z.string(),
+    expectedSalary: z.number().nullable(),
+    jobOfferTitle: z.string().nullable(),
+    currency: z.string(),
+  }),
+);
 
 const candidateUpcomingRecruitmentsSchema = z.array(
   recruitmentSchema.extend({
@@ -115,17 +113,15 @@ export const AdminPanelPageSchema = z.object({
       name: z.string(),
       surname: z.string(),
       email: z.string(),
-      currentApplicationsCount: z.number(),
+      // currentApplicationsCount: z.number(),
     }),
   ),
   applications: recruiterApplicationsSchema,
-  jobOffers: z
-    .array(
-      jobOfferSchema.extend({
-        applicationsCount: z.number(),
-      }),
-    )
-    .max(5),
+  jobOffers: z.array(
+    jobOfferSchema.extend({
+      applicationsCount: z.number(),
+    }),
+  ),
   recruitments: recruiterUpcomingRecruitmentsSchema,
 });
 
