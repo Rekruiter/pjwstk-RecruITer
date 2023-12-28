@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Paths } from '../../constants/paths';
 import { ICandidatePanel } from '../../types/panelPageTypes';
 import { FaStar } from 'react-icons/fa';
@@ -12,7 +12,6 @@ interface LastTasksSectionProps {
 
 const LastTasksSection = ({ lastPracticalTasks, lastTheoreticalTasks }: LastTasksSectionProps) => {
   const [tasksCategory, setTasksCategory] = useState<'practical' | 'theoretical'>('practical');
-  const navigate = useNavigate();
 
   const pickedTasks =
     tasksCategory === 'practical'
@@ -23,7 +22,7 @@ const LastTasksSection = ({ lastPracticalTasks, lastTheoreticalTasks }: LastTask
         }));
 
   return (
-    <PanelSectionWrapper headerClickHandler={() => navigate(Paths.tasks.path)} headerTitle="Last tasks">
+    <PanelSectionWrapper headerTitle="Last tasks">
       {pickedTasks.length === 0 ? (
         <p className="m-auto text-light">
           Navigate to{' '}

@@ -1,7 +1,7 @@
 import { useSearchParams } from 'react-router-dom';
-import RequiredSignUpModal from '@/components/PublicTasksContent/RequiredSignUpModal';
+import RequiredSignUpModal from '@/components/PublicTasksInformation/RequiredSignUpModal';
 import { useState } from 'react';
-import EmptyDisabledTask from '@/components/PublicTasksContent/EmptyDisabledTask';
+import EmptyDisabledTask from '@/components/PublicTasksInformation/EmptyDisabledTask';
 
 const PublicTasksInformationPage = () => {
   const [, setSearchParams] = useSearchParams();

@@ -95,7 +95,7 @@ const PersonalDataForm = ({ data, handlePersonalDataPost, mutationLoading }: Per
       <h2 className="text-4xl font-medium text-dark">Fill up personal data</h2>
       <form
         onSubmit={onSubmit}
-        className="flex min-h-[500px] w-full flex-col items-center justify-between gap-5 bg-dark_blue px-10 py-5 sm:rounded-xl md:w-[540px] xl:w-[768px]">
+        className="flex min-h-[500px] w-full flex-col items-center justify-between gap-5 bg-dark_blue px-10 py-5 sm:rounded-xl xl:w-auto xl:min-w-[800px]">
         <div className="mx-auto flex w-full flex-col gap-4">
           <FormFieldWrapper<IPersonalDataForm> field="address" error={errors.address} register={register} />
           <FormFieldWrapper<IPersonalDataForm>

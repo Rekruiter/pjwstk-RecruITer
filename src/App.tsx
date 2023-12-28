@@ -24,6 +24,7 @@ import PublicTasksInformationPage from './pages/static-pages/PublicTasksInformat
 import CompanyPage from './pages/static-pages/CompanyPage';
 import CandidatePanelPage from './pages/panels/CandidatePanelPage';
 import FillUpPersonalDataPage from './pages/user-settings/FillUpPersonalDataPage';
+import PracticalTaskSolvePage from './pages/tasks/PracticalTaskSolvePage';
 
 function App() {
   const { role, isLoggedIn } = useContext(AuthContext);
@@ -87,11 +88,15 @@ function App() {
     },
     {
       path: Paths.tasks.path,
-      element: wrapInLayout(isLoggedIn ? <TasksListPage /> : <PublicTasksInformationPage />),
+      element: !isLoggedIn ? wrapInLayout(<PublicTasksInformationPage />) : PrivateRoute(<TasksListPage />, 'tasks'),
     },
     {
       path: Paths.settings.path,
       element: PrivateRoute(<SettingsPage />, 'settings'),
+    },
+    {
+      path: Paths.practicalTaskSolve.path,
+      element: PrivateRoute(<PracticalTaskSolvePage />, 'practicalTaskSolve'),
     },
   ];
 

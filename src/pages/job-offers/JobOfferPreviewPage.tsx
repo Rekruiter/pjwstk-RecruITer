@@ -5,13 +5,11 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 import Button from '../../components/UI/Button';
 import { GetPathsLinks } from '../../constants/paths';
 import { FaStar } from 'react-icons/fa';
-
 const JobOfferPreviewPage = () => {
   const { id } = useParams() as { id: string };
+  const { data, isError, isLoading } = useQuery(['jobOffer', id], () => getJobOffer(id));
 
-  const { data, error, isLoading } = useQuery(['jobOffer', id], () => getJobOffer(id));
-
-  if (error) {
+  if (isError) {
     return <div className="m-auto">An error ocurred</div>;
   }
 
@@ -24,7 +22,6 @@ const JobOfferPreviewPage = () => {
   }
 
   const daysLeft = Math.round((new Date(data.dateExpires).getTime() - Date.now()) / (24 * 60 * 60 * 1000));
-
   const dateAdded = new Date(data.dateAdded);
 
   return (

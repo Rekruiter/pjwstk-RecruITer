@@ -79,7 +79,7 @@ export const RegisterCompanyFormInputSchema = z
     nameCompany: z.string().min(3, { message: 'Name company must be at least 3 characters long' }),
     nipNumber: z.string().min(10, { message: 'NIP number must be at least 10 characters long' }),
     city: z.string().min(3, { message: 'City must be at least 3 characters long' }),
-    adress: z.string().min(3, { message: 'Adress must be at least 3 characters long' }),
+    companyAddress: z.string().min(3, { message: 'Company adress must be at least 3 characters long' }),
     zipCode: z.string().min(4, { message: 'Zip code must be at least 6 characters long' }),
   })
   .refine((data) => data.password === data.confirmPassword, {
