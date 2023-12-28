@@ -1,7 +1,7 @@
 import Button from '../UI/Button';
 import Spinner from '../UI/Spinner/Spinner';
 import { useForm } from 'react-hook-form';
-import { ILoginFormInput, LoginFormInputSchema } from '../../types/authFormTypes';
+import { ILoginFormInput, ILoginResponse, LoginFormInputSchema } from '../../types/authFormTypes';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { IoMdEye, IoMdEyeOff } from 'react-icons/io';
 import { useContext, useState } from 'react';
@@ -39,7 +39,7 @@ const LoginForm = ({ changeAuthMethod }: LoginFormProps) => {
   const { login } = useContext(AuthContext);
   const [, setSearchParams] = useSearchParams();
 
-  const { error, isLoading, mutate } = useMutation<IAuthorizationObject, Error, ILoginFormInput>('login', loginPost, {
+  const { error, isLoading, mutate } = useMutation<ILoginResponse, Error, ILoginFormInput>('login', loginPost, {
     onSuccess(data) {
       login({
         name: data.name,

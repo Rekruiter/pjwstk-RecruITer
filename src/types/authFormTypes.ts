@@ -7,6 +7,12 @@ export const LoginFormInputSchema = z.object({
   password: z.string().refine((password) => password.trim().length > 0, 'Password can not be empty'),
 });
 
+export const LoginResponseSchema = z.object({
+  token: z.string().min(1),
+  role: z.string(),
+  name: z.string(),
+});
+
 export const RegisterFormInputSchema = z
   .object({
     name: z
@@ -89,6 +95,7 @@ export const RegisterCompanyFormInputSchema = z
 
 export type IRegisterFormInput = z.infer<typeof RegisterFormInputSchema>;
 export type ILoginFormInput = z.infer<typeof LoginFormInputSchema>;
+export type ILoginResponse = z.infer<typeof LoginResponseSchema>;
 export type IResetPasswordFormInput = z.infer<typeof ResetPasswordFormInputSchema>;
 export type IResetPasswordConfirmFormInput = z.infer<typeof ResetPasswordConfirmFormInputSchema>;
 export type IRegisterCompanyFormInput = z.infer<typeof RegisterCompanyFormInputSchema>;
