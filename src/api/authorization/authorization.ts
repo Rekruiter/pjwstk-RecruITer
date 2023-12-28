@@ -3,8 +3,8 @@ import {
   IRegisterFormInput,
   IResetPasswordConfirmFormInput,
   IResetPasswordFormInput,
+  LoginResponseSchema,
 } from '../../types/authFormTypes';
-import { AuthorizationObjectSchema } from '../../types/authorizationTypes';
 import axios from '../axios/axios';
 
 export const registerPost = async (inputData: IRegisterFormInput) => {
@@ -14,7 +14,7 @@ export const registerPost = async (inputData: IRegisterFormInput) => {
 export const loginPost = async (inputData: ILoginFormInput) => {
   const { data } = await axios.post('/authenticate', inputData);
 
-  const parsedData = AuthorizationObjectSchema.safeParse(data);
+  const parsedData = LoginResponseSchema.safeParse(data); // TODO: Replace this with authorizationObjectSChema when roles are unified
   if (parsedData.success) {
     return parsedData.data;
   }
