@@ -94,10 +94,10 @@ const HomePage = () => {
           backgroundSize: 'cover',
         }}>
         <div className="container mt-24 flex flex-col gap-6 px-2 first:duration-700 sm:px-12 2xl:px-0 [&>*:nth-child(1)]:duration-300 [&>*:nth-child(2)]:duration-500 [&>*:nth-child(3)]:duration-700">
-          <h2 className={cn('text-4xl text-light sm:w-[32rem] sm:text-5xl', transitionLeft)}>
+          <h2 className={cn('text-2xl text-light sm:w-[32rem] sm:text-5xl', transitionLeft)}>
             MAKE CODING RECRUITMENTS EASY AND PRODUCTIVE
           </h2>
-          <p className={cn('text-light', transitionLeft)}>
+          <p className={cn('text-xs text-light sm:text-sm', transitionLeft)}>
             New tool to proceed programming recruitments at
             <br />
             <span className="drop-shadow-xl">another level of efficiency</span>
@@ -113,9 +113,13 @@ const HomePage = () => {
           </Button>
         </div>
       </section>
-      <section className="flex min-h-screen w-full flex-col justify-center overflow-hidden bg-light_blue py-28">
+      <section className="flex min-h-screen w-full flex-col justify-center overflow-hidden bg-light_blue px-6 py-28">
         <div className="container relative flex flex-col gap-16 px-2 [&>*:nth-child(1)]:duration-700 [&>*:nth-child(3)]:duration-700">
-          <h3 className={cn('text-center text-4xl font-semibold leading-[3.25rem] text-dark', transitionOpacity)}>
+          <h3
+            className={cn(
+              'text-center text-2xl font-semibold text-dark sm:text-3xl sm:leading-[3.25rem]',
+              transitionOpacity,
+            )}>
             MASTER YOUR FAVOURITE TECHNOLOGIES
             <br />
             AT TRAINING SECTION
@@ -123,14 +127,14 @@ const HomePage = () => {
           <div className="absolute right-0 top-10 hidden xl:block">
             <img src={TechnologiesCloudImage} />
           </div>
-          <h4 className={cn('text-2xl text-dark', transitionOpacity)}>
+          <h4 className={cn('text-lg text-dark sm:text-2xl', transitionOpacity)}>
             Our System provides section where you can learn to your interviews <br />
             based from real recruiters’ question database.
           </h4>
           <div className="flex w-full flex-col gap-7 px-20 text-dark [&>*:nth-child(1)]:duration-700 [&>*:nth-child(2)]:duration-700 [&>*:nth-child(3)]:duration-700">
             <div className={cn('flex max-w-[30rem] flex-col gap-5 self-start', transitionLeft)}>
               <h5 className="text-lg font-semibold">🚀 Dive Into Tailored Tech Tracks</h5>
-              <p>
+              <p className="text-sm">
                 Navigate through our extensive library of theoretical questions, categorized into specific technologies
                 and programming languages such as <span className="font-semibold">JavaScript, Python, Java</span>, and
                 many more.
@@ -138,7 +142,7 @@ const HomePage = () => {
             </div>
             <div className={cn('flex max-w-[30rem] flex-col gap-5 md:self-end', transitionRight)}>
               <h5 className="text-lg font-semibold">🔍 Real Recruiters’ Question Database</h5>
-              <p>
+              <p className="text-sm">
                 Equip yourself with insights from our robust database of
                 <span className="font-semibold"> actual interview questions</span>, pooled from recruiters and
                 experienced professionals. Organized by difficulty, question type, and technology.
@@ -149,7 +153,7 @@ const HomePage = () => {
                 🧠 Challenge Your Coding Prowess - <br />
                 Practical Programming Problems
               </h5>
-              <p>
+              <p className="text-sm">
                 Embark on an enriching journey through our curated assortment of practical programming problems, devised
                 by
                 <span className="font-semibold">seasoned tech interviewers</span> and industry experts
@@ -158,7 +162,9 @@ const HomePage = () => {
           </div>
           <div
             className={cn('flex w-full flex-col items-center justify-center gap-8 duration-1000', transitionOpacity)}>
-            <h4 className="text-3xl font-semibold text-dark">Create account and start preparing yourself</h4>
+            <h4 className="text-center text-xl font-semibold text-dark sm:text-2xl">
+              Create account and start preparing yourself
+            </h4>
             <Button className="w-fit">Sign up</Button>
           </div>
         </div>
@@ -166,10 +172,10 @@ const HomePage = () => {
       <section className="flex min-h-screen w-full flex-col justify-center bg-dark_blue py-20">
         <div className="container relative flex justify-between">
           <div className="bg-dark/15 flex w-max flex-col gap-28 rounded-md p-8 shadow-md">
-            <h3 className={cn('text-5xl font-normal text-light duration-700', transitionLeft)}>
+            <h3 className={cn('text-3xl font-normal text-light duration-700 sm:text-5xl', transitionLeft)}>
               ARE YOU AN EMPLOYER...?
             </h3>
-            <div className={`flex max-w-2xl flex-col gap-10 text-lg text-light [&>*]:duration-700`}>
+            <div className={`flex max-w-2xl flex-col gap-10 text-sm text-light sm:text-lg [&>*]:duration-700`}>
               <p className={transitionLeft}>
                 Trust our professional approach and join as an company to our community ! At{' '}
                 <span className="font-semibold">RecruITer</span>, we meticulously create symbiotic environments where

@@ -1,83 +1,67 @@
-import { IPersonalDataForm } from '../../types/personalDataFormTypes';
 import { useSearchParams } from 'react-router-dom';
 import { safeJSONParse } from '../../helpers';
-
-type Test = IPersonalDataForm['technologies'][number];
-
-const fields: Omit<Test, 'isPicked'>[] = [
-  {
-    name: 'React',
-  },
-  {
-    name: 'Javascript',
-  },
-  {
-    name: 'Node',
-  },
-  {
-    name: 'Vite',
-  },
-];
+import { useQuery } from 'react-query';
+import { getPublicPracticalTasks } from '@/api/tasks/publicTasks';
+import Spinner from '@/components/UI/Spinner/Spinner';
+import PublicTasksContent from '@/components/PublicTasksContent/PublicTasksContent';
+import PaginationFooter from '@/components/UI/PaginationFooter/PaginationFooter';
+import { useEffect } from 'react';
 
 const TasksListPage = () => {
-  // const [isOpenedModal, setIsOpenedModal] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const currentPage = searchParams.get('page');
 
-  const [searchParams, SetSearchParams] = useSearchParams();
+  useEffect(() => {
+    if (!currentPage) {
+      setSearchParams((prevParams) => {
+        prevParams.set('page', '1');
+        return prevParams;
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const pickedTechnologies: string = safeJSONParse(searchParams.get('technologies'));
-
   const technologies: string[] = pickedTechnologies ? pickedTechnologies.toLowerCase().split(',') : [];
 
-  const allFields: IPersonalDataForm['technologies'] = fields.map((field) => {
-    return {
-      ...field,
-      isPicked: technologies.includes(field.name.toLowerCase()),
-    };
-  });
+  const queryPage = parseInt(currentPage ?? '1');
 
-  const pickedFields = allFields.filter((field) => field.isPicked);
+  const { isLoading, isError, data, isFetching } = useQuery(
+    ['tasks', queryPage, technologies],
+    () => getPublicPracticalTasks(queryPage, technologies),
+    {
+      keepPreviousData: true,
+    },
+  );
 
-  const handleUpdatePickedTechnologies = () => {
-    const pickedTechnologies = ['React', 'Angular', 'Vue', 'Node'];
+  if (isLoading) {
+    return <Spinner />;
+  }
 
-    const pickedTechnologiesString = pickedTechnologies.join(',');
+  if (isError) {
+    return <p className="m-auto">An error occured, please try again later</p>;
+  }
 
-    SetSearchParams((prevParams) => {
-      prevParams.set('technologies', JSON.stringify(pickedTechnologiesString));
+  const handleChangePage = (pageNumber: number) => {
+    if (pageNumber === queryPage) return;
+    setSearchParams((prevParams) => {
+      prevParams.set('page', pageNumber.toString());
       return prevParams;
     });
   };
 
   return (
-    <div className="flex flex-col">
-      <div className="sticky top-24 w-full bg-dark_blue text-center text-light shadow-xl">
-        <h4 className="mt-4 text-xl">Prepare yourself for every recruitment</h4>
-        <div className="container mb-2 flex p-6 md:px-20 lg:px-32">
-          <div className="flex w-1/2 items-center gap-2">
-            <p>Technologies: </p>
-            <div className="flex flex-wrap gap-2">
-              {pickedFields.map((field) => (
-                <p key={field.name} className="border p-1">
-                  {field.name}
-                </p>
-              ))}
-            </div>
-            {/* {isOpenedModal && (
-              <TechnologiesModal
-                fields={fields}
-                handleCloseModal={handleCloseModal}
-                handlePickTechnology={handlePickTechnology}
-              />
-            )} */}
-            <button onClick={handleUpdatePickedTechnologies}>click me</button>
-          </div>
-        </div>
+    data && (
+      <div className="container flex flex-grow flex-col gap-10 bg-light px-6">
+        <PublicTasksContent
+          tasks={data.items}
+          isFetching={isFetching}
+          technologies={technologies}
+          setSearchParams={setSearchParams}
+        />
+        <PaginationFooter totalPageNumber={data.totalPages} currPage={queryPage} callback={handleChangePage} />
       </div>
-      <div className="container rounded-b-xl p-8 md:px-12 lg:px-16">
-        <h3 className="mb-4 text-lg font-semibold text-dark">Job offers</h3>
-        <h4 className="mb-4 text-base font-semibold text-dark"></h4>
-      </div>
-    </div>
+    )
   );
 };
 
