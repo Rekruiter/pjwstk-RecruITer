@@ -20,7 +20,7 @@ const PracticalTaskSolveContent = ({ task }: PracticalTaskSolveContentProps) => 
 
   const { mutate, isLoading } = useMutation<
     {
-      isCorrectAnswer: boolean;
+      isSolutionCorrect: boolean;
     },
     IError,
     { id: number; solution: string }
@@ -30,7 +30,7 @@ const PracticalTaskSolveContent = ({ task }: PracticalTaskSolveContentProps) => 
       setShowSolutions(true);
     },
     onSuccess(data) {
-      if (data.isCorrectAnswer) {
+      if (data.isSolutionCorrect) {
         toast.success('Correct answer');
       } else {
         toast.error('Wrong answer');
@@ -56,8 +56,8 @@ const PracticalTaskSolveContent = ({ task }: PracticalTaskSolveContentProps) => 
         <div className="inline-flex text-orange">
           {Array(task.difficultyLevel)
             .fill(0)
-            .map(() => (
-              <FaStar />
+            .map((_, idx) => (
+              <FaStar key={idx} />
             ))}
         </div>
         <p className="place-self-start rounded-sm border bg-dark/5 p-0.5 shadow-sm">{task.tag}</p>

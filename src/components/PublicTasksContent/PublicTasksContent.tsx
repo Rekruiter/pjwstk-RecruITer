@@ -1,4 +1,4 @@
-import { IFilteringTechnology, IPublicPracticalTask } from '@/types/publicTasksTypes';
+import { IFilteringTechnology, IPublicPracticalTask, ISupportedTechnology } from '@/types/publicTasksTypes';
 import { SetURLSearchParams } from 'react-router-dom';
 import FilterTechnologiesModal from '../UI/FilterTechnologiesModal/FilterTechnologiesModal';
 import { useState } from 'react';
@@ -6,50 +6,27 @@ import { CiEdit } from 'react-icons/ci';
 import Spinner from '../UI/Spinner/Spinner';
 import TaskElement from './TaskElement/TaskElement';
 
-const fields: Omit<IFilteringTechnology, 'isPicked'>[] = [
-  {
-    name: 'React',
-  },
-  {
-    name: 'Javascript',
-  },
-  {
-    name: 'Node',
-  },
-  {
-    name: 'Vite',
-  },
-  {
-    name: 'Angular',
-  },
-  {
-    name: 'Vue',
-  },
-  {
-    name: 'Svelte',
-  },
-  {
-    name: 'Typescript',
-  },
-  {
-    name: 'HTML',
-  },
-];
-
 type PublicTasksContentProps = {
   tasks: IPublicPracticalTask[];
   isFetching: boolean;
   technologies: string[];
   setSearchParams: SetURLSearchParams;
+  supportedTechnologies: ISupportedTechnology[];
 };
 
-const PublicTasksContent = ({ tasks, isFetching, technologies, setSearchParams }: PublicTasksContentProps) => {
+const PublicTasksContent = ({
+  tasks,
+  isFetching,
+  technologies,
+  setSearchParams,
+  supportedTechnologies,
+}: PublicTasksContentProps) => {
   const [technologyModal, setTechnologyModal] = useState(false);
 
-  const allFields: IFilteringTechnology[] = fields.map((field) => {
+  const allFields: IFilteringTechnology[] = supportedTechnologies.map((field) => {
     return {
       ...field,
-      isPicked: technologies.includes(field.name.toLowerCase()),
+      isPicked: technologies.includes(field.code.toLowerCase()),
     };
   });
 

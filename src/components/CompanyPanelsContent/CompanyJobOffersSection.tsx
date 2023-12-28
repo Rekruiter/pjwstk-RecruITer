@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { IRecruiterPanel } from '../../types/panelPageTypes';
-import { GetPathsLinks } from '../../constants/paths';
+import { GetPathsLinks, Paths } from '../../constants/paths';
 import Button from '../UI/Button';
 import PanelSectionWrapper from '../UI/PanelSectionWrapper';
 
@@ -32,7 +32,9 @@ const CompanyJobOffersSection = ({ jobOffers }: ProposedJobOffersSectionProps) =
         </div>
       ))}
       <div className="mt-1 flex w-full flex-1">
-        <Button className="m-auto">Add new job offer</Button>
+        <Button className="m-auto" onClick={() => navigate(Paths.addJobOffer.path)}>
+          Add new job offer
+        </Button>
       </div>
     </PanelSectionWrapper>
   );

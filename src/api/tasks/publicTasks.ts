@@ -16,8 +16,8 @@ export const getPublicPracticalTask = async (id: string) => {
 };
 
 export const solvePublicPracticalTaskPost = async ({ id, solution }: { id: number; solution: string }) => {
-  const { data } = await axios.post(`/solvePracticalTask/${id}`, {
-    solution: solution,
+  const { data } = await axios.post(`/practicalTasks/${id}/solutions`, {
+    Solution: solution,
   });
   return data;
 };

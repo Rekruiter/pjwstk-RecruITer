@@ -27,10 +27,17 @@ export const publicPracticalTasksSchema = z.object({
   totalPages: z.number(),
 });
 
-const filteringTechnologySchema = z.object({
+const supportedTechnologySchema = z.object({
   name: z.string(),
+  code: z.string(),
+});
+
+export const supportedTechnologiesSchema = z.array(supportedTechnologySchema);
+
+const filteringTechnologySchema = supportedTechnologySchema.extend({
   isPicked: z.boolean(),
 });
 
 export type IPublicPracticalTask = z.infer<typeof PracticalTaskItemSchema>;
 export type IFilteringTechnology = z.infer<typeof filteringTechnologySchema>;
+export type ISupportedTechnology = z.infer<typeof supportedTechnologySchema>;
