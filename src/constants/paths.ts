@@ -29,6 +29,7 @@ const allPaths = [
   'tasks',
   'settings',
   'company',
+  'practicalTaskSolve',
 ] as const;
 
 export type AllPathsType = (typeof allPaths)[number];
@@ -38,6 +39,7 @@ export const GetPathsLinks = {
   getJobOffersWithFilters: (idCompany?: number) => `/job-offers${idCompany ? `?idCompany=${idCompany}` : ''}`,
   getCandidateApplicationPreview: (id: number) => `/candidate-applications/${id}`,
   getRecruiterApplicationPreview: (id: number) => `/recruiter-applications/${id}`,
+  getPracticalTaskSolve: (id: number) => `/practice-task-solve/${id}`,
 };
 
 export const Paths: Record<AllPathsType, PathType> = {
@@ -67,7 +69,7 @@ export const Paths: Record<AllPathsType, PathType> = {
   candidateApplications: {
     path: '/candidate-applications',
     requiredRoles: ['candidate'],
-    headerSignature: 'Applications',
+    headerSignature: 'My applications',
   },
   candidateApplicationPreview: {
     path: '/candidate-applications/:id',
@@ -95,6 +97,10 @@ export const Paths: Record<AllPathsType, PathType> = {
   tasks: {
     path: '/tasks',
     headerSignature: 'Tasks',
+  },
+  practicalTaskSolve: {
+    path: '/practice-task-solve/:id',
+    requiredRoles: ['user', 'candidate'], // who can access this
   },
   settings: {
     path: '/settings',

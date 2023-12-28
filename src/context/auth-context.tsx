@@ -69,7 +69,6 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const loginHandler = (authorization: IAuthorizationObject) => {
-    console.log(authorization);
     localStorage.setItem(
       'authorization',
       JSON.stringify({

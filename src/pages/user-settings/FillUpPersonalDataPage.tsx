@@ -9,7 +9,9 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 const FillUpPersonalDataPage = () => {
-  const { data, isError, isLoading } = useQuery<IPersonalDataFetch, IError>('personalData', personalDataGet);
+  const { data, isError, isLoading } = useQuery<IPersonalDataFetch, IError>('personalData', personalDataGet, {
+    cacheTime: 0,
+  });
   const navigate = useNavigate();
 
   const { mutate, isLoading: mutationLoading } = useMutation<any, IError, IPersonalDataInput>(

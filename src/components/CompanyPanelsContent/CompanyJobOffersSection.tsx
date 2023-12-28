@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { IRecruiterPanel } from '../../types/panelPageTypes';
-import { GetPathsLinks, Paths } from '../../constants/paths';
+import { GetPathsLinks } from '../../constants/paths';
 import Button from '../UI/Button';
 import PanelSectionWrapper from '../UI/PanelSectionWrapper';
 
@@ -14,9 +14,9 @@ const CompanyJobOffersSection = ({ jobOffers }: ProposedJobOffersSectionProps) =
   return (
     <PanelSectionWrapper
       headerClickHandler={() => {
-        navigate(Paths.jobOffers.path);
+        //navigate to job company job offers
       }}
-      headerTitle="Job offer">
+      headerTitle="Your job offers">
       {jobOffers.map((jobOffer) => (
         <div
           key={jobOffer.id}
