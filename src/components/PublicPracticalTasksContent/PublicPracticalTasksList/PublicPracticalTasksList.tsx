@@ -1,12 +1,12 @@
 import { IFilteringTechnology, IPublicPracticalTask, ISupportedTechnology } from '@/types/publicTasksTypes';
 import { SetURLSearchParams } from 'react-router-dom';
-import FilterTechnologiesModal from '../UI/FilterTechnologiesModal/FilterTechnologiesModal';
+import FilterTechnologiesModal from '../../UI/FilterTechnologiesModal/FilterTechnologiesModal';
 import { useState } from 'react';
 import { CiEdit } from 'react-icons/ci';
-import Spinner from '../UI/Spinner/Spinner';
-import TaskElement from './TaskElement/TaskElement';
+import Spinner from '../../UI/Spinner/Spinner';
+import PracticalTaskListItem from './PracticalTaskListItem';
 
-type PublicTasksContentProps = {
+type PublicPracticalTasksListProps = {
   tasks: IPublicPracticalTask[];
   isFetching: boolean;
   technologies: string[];
@@ -14,13 +14,13 @@ type PublicTasksContentProps = {
   supportedTechnologies: ISupportedTechnology[];
 };
 
-const PublicTasksContent = ({
+const PublicPracticalTasksList = ({
   tasks,
   isFetching,
   technologies,
   setSearchParams,
   supportedTechnologies,
-}: PublicTasksContentProps) => {
+}: PublicPracticalTasksListProps) => {
   const [technologyModal, setTechnologyModal] = useState(false);
 
   const allFields: IFilteringTechnology[] = supportedTechnologies.map((field) => {
@@ -75,7 +75,7 @@ const PublicTasksContent = ({
           <Spinner />
         ) : (
           tasks.map((task) => (
-            <TaskElement
+            <PracticalTaskListItem
               key={task.id}
               id={task.id}
               question={task.question}
@@ -89,4 +89,4 @@ const PublicTasksContent = ({
   );
 };
 
-export default PublicTasksContent;
+export default PublicPracticalTasksList;

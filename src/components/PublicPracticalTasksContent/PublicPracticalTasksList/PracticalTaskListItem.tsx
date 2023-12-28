@@ -3,14 +3,19 @@ import { IPublicPracticalTask } from '@/types/publicTasksTypes';
 import { FaStar } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
-interface TaskElementProps {
+interface PracticalTaskListItemProps {
   question: string;
   difficultyLevel: number;
   practicalTasksSolutions: IPublicPracticalTask['practicalTaskSolutions'];
   id: number;
 }
 
-const TaskElement = ({ difficultyLevel, practicalTasksSolutions, question, id }: TaskElementProps) => {
+const PracticalTaskListItem = ({
+  difficultyLevel,
+  practicalTasksSolutions,
+  question,
+  id,
+}: PracticalTaskListItemProps) => {
   const technologies = practicalTasksSolutions.map((solution) => solution.compilationLanguage);
   return (
     <Link
@@ -35,4 +40,4 @@ const TaskElement = ({ difficultyLevel, practicalTasksSolutions, question, id }:
   );
 };
 
-export default TaskElement;
+export default PracticalTaskListItem;

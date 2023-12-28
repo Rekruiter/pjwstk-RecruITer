@@ -1,76 +1,47 @@
 import { useSearchParams } from 'react-router-dom';
-import { safeJSONParse } from '../../helpers';
-import { useQuery } from 'react-query';
-import { getPublicPracticalTasks } from '@/api/tasks/publicTasks';
-import Spinner from '@/components/UI/Spinner/Spinner';
-import PublicTasksContent from '@/components/PublicTasksContent/PublicTasksContent';
-import PaginationFooter from '@/components/UI/PaginationFooter/PaginationFooter';
 import { useEffect } from 'react';
-import { getSupportedTechnologies } from '@/api/general/supportedTechnologies';
+import PublicPracticalTasksContent from '@/components/PublicPracticalTasksContent/PublicPracticalTasksContent';
+import PublicTheoreticalTasksContent from '@/components/PublicTheoreticalTasksContent/PublicTheoreticalTasksContent';
+import { cn } from '@/lib/utils';
 
 const TasksListPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const currentPage = searchParams.get('page');
+  const taskType = searchParams.get('taskType');
+
+  const categories = ['practical', 'theoretical'] as const;
 
   useEffect(() => {
-    if (!currentPage) {
+    if (!taskType) {
       setSearchParams((prevParams) => {
-        prevParams.set('page', '1');
+        prevParams.set('taskType', 'practical');
         return prevParams;
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const pickedTechnologies: string = safeJSONParse(searchParams.get('technologies'));
-  const technologies: string[] = pickedTechnologies ? pickedTechnologies.toLowerCase().split(',') : [];
-
-  const queryPage = parseInt(currentPage ?? '1');
-
-  const {
-    isLoading: technologiesLoading,
-    data: supportedTechnologies,
-    isError: isTechnologiesError,
-  } = useQuery('supportedTechnologies', getSupportedTechnologies);
-
-  const { isLoading, isError, data, isFetching } = useQuery(
-    ['tasks', queryPage, technologies],
-    () => getPublicPracticalTasks(queryPage, technologies),
-    {
-      keepPreviousData: true,
-    },
-  );
-
-  if (isLoading || technologiesLoading) {
-    return <Spinner />;
+  if (taskType !== 'practical' && taskType !== 'theoretical') {
+    return null;
   }
-
-  if (isError || isTechnologiesError) {
-    return <p className="m-auto">An error occured, please try again later</p>;
-  }
-
-  const handleChangePage = (pageNumber: number) => {
-    if (pageNumber === queryPage) return;
-    setSearchParams((prevParams) => {
-      prevParams.set('page', pageNumber.toString());
-      return prevParams;
-    });
-  };
 
   return (
-    data &&
-    supportedTechnologies && (
-      <div className="container flex flex-grow flex-col gap-10 bg-light px-6">
-        <PublicTasksContent
-          tasks={data.items}
-          isFetching={isFetching}
-          technologies={technologies}
-          setSearchParams={setSearchParams}
-          supportedTechnologies={supportedTechnologies}
-        />
-        <PaginationFooter totalPageNumber={data.totalPages} currPage={queryPage} callback={handleChangePage} />
+    <div className="container flex flex-grow flex-col gap-2 bg-light p-6">
+      <div className="flex w-full rounded-md bg-dark/5 px-2 sm:px-0">
+        <div
+          className={cn('basis-1/2 rounded-md p-2', {
+            '': taskType === categories[0],
+          })}>
+          <button
+            className={cn('w-full rounded-md p-2 text-dark shadow-sm', {
+              'bg-light text-orange': taskType === categories[0],
+            })}>
+            {categories[0]}
+          </button>
+        </div>
+        <button className="basis-1/2">{categories[1]}</button>
       </div>
-    )
+      {taskType === 'practical' ? <PublicPracticalTasksContent /> : <PublicTheoreticalTasksContent />}
+    </div>
   );
 };
 
