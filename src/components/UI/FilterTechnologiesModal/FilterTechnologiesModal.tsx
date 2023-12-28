@@ -53,7 +53,7 @@ const FilterTechnologiesModal = ({
   const handleUpdateTechnologies = () => {
     setTechnologySearch('');
     handleUpdatePickedTechnologies(
-      pickedTechnologies.filter((technology) => technology.isPicked).map((technology) => technology.name),
+      pickedTechnologies.filter((technology) => technology.isPicked).map((technology) => technology.code),
     );
     handleCloseModal();
   };

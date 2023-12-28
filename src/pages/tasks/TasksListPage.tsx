@@ -6,6 +6,7 @@ import Spinner from '@/components/UI/Spinner/Spinner';
 import PublicTasksContent from '@/components/PublicTasksContent/PublicTasksContent';
 import PaginationFooter from '@/components/UI/PaginationFooter/PaginationFooter';
 import { useEffect } from 'react';
+import { getSupportedTechnologies } from '@/api/general/supportedTechnologies';
 
 const TasksListPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -26,6 +27,12 @@ const TasksListPage = () => {
 
   const queryPage = parseInt(currentPage ?? '1');
 
+  const {
+    isLoading: technologiesLoading,
+    data: supportedTechnologies,
+    isError: isTechnologiesError,
+  } = useQuery('supportedTechnologies', getSupportedTechnologies);
+
   const { isLoading, isError, data, isFetching } = useQuery(
     ['tasks', queryPage, technologies],
     () => getPublicPracticalTasks(queryPage, technologies),
@@ -34,11 +41,11 @@ const TasksListPage = () => {
     },
   );
 
-  if (isLoading) {
+  if (isLoading || technologiesLoading) {
     return <Spinner />;
   }
 
-  if (isError) {
+  if (isError || isTechnologiesError) {
     return <p className="m-auto">An error occured, please try again later</p>;
   }
 
@@ -51,13 +58,15 @@ const TasksListPage = () => {
   };
 
   return (
-    data && (
+    data &&
+    supportedTechnologies && (
       <div className="container flex flex-grow flex-col gap-10 bg-light px-6">
         <PublicTasksContent
           tasks={data.items}
           isFetching={isFetching}
           technologies={technologies}
           setSearchParams={setSearchParams}
+          supportedTechnologies={supportedTechnologies}
         />
         <PaginationFooter totalPageNumber={data.totalPages} currPage={queryPage} callback={handleChangePage} />
       </div>

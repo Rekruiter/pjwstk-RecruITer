@@ -25,6 +25,7 @@ import CompanyPage from './pages/static-pages/CompanyPage';
 import CandidatePanelPage from './pages/panels/CandidatePanelPage';
 import FillUpPersonalDataPage from './pages/user-settings/FillUpPersonalDataPage';
 import PracticalTaskSolvePage from './pages/tasks/PracticalTaskSolvePage';
+import AddJobOfferPage from './pages/job-offers/AddJobOfferPage';
 
 function App() {
   const { role, isLoggedIn } = useContext(AuthContext);
@@ -97,6 +98,10 @@ function App() {
     {
       path: Paths.practicalTaskSolve.path,
       element: PrivateRoute(<PracticalTaskSolvePage />, 'practicalTaskSolve'),
+    },
+    {
+      path: Paths.addJobOffer.path,
+      element: PrivateRoute(<AddJobOfferPage />, 'addJobOffer'),
     },
   ];
 

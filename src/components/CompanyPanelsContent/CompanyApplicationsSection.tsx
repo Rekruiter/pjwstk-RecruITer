@@ -13,7 +13,7 @@ const CompanyApplicationsSection = ({ applications }: CompanyApplicationsSection
   return (
     <PanelSectionWrapper
       headerClickHandler={() => {
-        navigate(Paths.jobOffers.path);
+        navigate(Paths.recruiterApplications.path);
       }}
       headerTitle="Applications">
       {applications.map((application) => (
