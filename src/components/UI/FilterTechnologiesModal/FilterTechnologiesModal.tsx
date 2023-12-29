@@ -1,4 +1,4 @@
-import { IFilteringTechnology } from '@/types/publicTasksTypes';
+import { IFilteringTechnology } from '@/types/tasksTypes';
 import { Transition, Dialog } from '@headlessui/react';
 import { Fragment, useEffect, useRef, useState } from 'react';
 import Button from '../Button';

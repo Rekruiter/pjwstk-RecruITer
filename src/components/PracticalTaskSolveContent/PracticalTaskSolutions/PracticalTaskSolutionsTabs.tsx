@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils';
-import { IPublicPracticalTask } from '@/types/publicTasksTypes';
+import { IPublicPracticalTask } from '@/types/tasksTypes';
 import { Tab } from '@headlessui/react';
 
 interface PracticalTaskSolutionsTabsProps {

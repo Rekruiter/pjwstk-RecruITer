@@ -1,4 +1,4 @@
-import { supportedTechnologiesSchema } from '@/types/publicTasksTypes';
+import { supportedTechnologiesSchema } from '@/types/tasksTypes';
 import axios from '../axios/axios';
 
 export const getSupportedTechnologies = async () => {

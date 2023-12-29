@@ -22,7 +22,7 @@ const FillUpPersonalDataPage = () => {
         toast('Personal data updated successfully', {
           type: 'success',
         });
-        navigate(Paths.settings.path);
+        navigate(Paths.profileSettings.path);
       },
       onError: (err) => {
         toast(err.message, {
