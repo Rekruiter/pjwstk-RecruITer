@@ -28,6 +28,7 @@ import AddJobOfferPage from './pages/job-offers/AddJobOfferPage';
 import TheoreticalTaskSolvePage from './pages/tasks/TheoreticalTaskSolvePage';
 import ProfileSettingsPage from './pages/settings/ProfileSettingsPage';
 import CompanySettingsPage from './pages/settings/CompanySettingsPage';
+import CompanyTasksPage from './pages/tasks/CompanyTasksPage';
 
 function App() {
   const { role, isLoggedIn } = useContext(AuthContext);
@@ -112,6 +113,10 @@ function App() {
     {
       path: Paths.companySettings.path,
       element: PrivateRoute(<CompanySettingsPage />, 'companySettings'),
+    },
+    {
+      path: Paths.manageCompanyTasks.path,
+      element: PrivateRoute(<CompanyTasksPage />, 'manageCompanyTasks'),
     },
   ];
 

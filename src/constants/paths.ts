@@ -33,6 +33,7 @@ const allPaths = [
   'practicalTaskSolve',
   'theoreticalTaskSolve',
   'addJobOffer',
+  'manageCompanyTasks',
 ] as const;
 
 export type AllPathsType = (typeof allPaths)[number];
@@ -125,6 +126,10 @@ export const Paths: Record<AllPathsType, PathType> = {
   addJobOffer: {
     path: '/new-job-offer',
     requiredRoles: ['admin', 'recruiter', 'techRecruiter'],
+  },
+  manageCompanyTasks: {
+    path: '/manage-company-tasks',
+    requiredRoles: ['admin', 'techRecruiter', 'recruiter'],
   },
 };
 
