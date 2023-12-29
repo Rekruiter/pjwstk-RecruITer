@@ -1,5 +1,5 @@
 import { IPublicPracticalTask } from '@/types/publicTasksTypes';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { FaStar } from 'react-icons/fa';
 import Button from '../UI/Button';
 import { useMutation } from 'react-query';
@@ -7,16 +7,24 @@ import { solvePublicPracticalTaskPost } from '@/api/tasks/publicTasks';
 import Spinner from '../UI/Spinner/Spinner';
 import IError from '@/api/Error/Error';
 import { toast } from 'react-toastify';
+import { IoMdArrowBack } from 'react-icons/io';
 import PracticalTaskSolutions from './PracticalTaskSolutions/PracticalTaskSolutions';
+import { useNavigate } from 'react-router-dom';
+import { GetPathsLinks } from '@/constants/paths';
+import AuthContext from '@/context/auth-context';
 
 interface PracticalTaskSolveContentProps {
   task: IPublicPracticalTask;
 }
 
 const PracticalTaskSolveContent = ({ task }: PracticalTaskSolveContentProps) => {
-  const [isHintShown, setIsHintShown] = useState(false);
+  const { role } = useContext(AuthContext);
+  const isCompanyRole = role === 'admin' || role === 'candidate' || role === 'techRecruiter';
+  const [isHintShown, setIsHintShown] = useState(isCompanyRole);
   const [solutionInput, setSolutionInput] = useState('');
-  const [showSolutions, setShowSolutions] = useState(false);
+  const [showSolutions, setShowSolutions] = useState(isCompanyRole);
+
+  const navigate = useNavigate();
 
   const { mutate, isLoading } = useMutation<
     {
@@ -30,8 +38,9 @@ const PracticalTaskSolveContent = ({ task }: PracticalTaskSolveContentProps) => 
       setShowSolutions(true);
     },
     onSuccess(data) {
-      if (data.isSolutionCorrect) {
+      if (!data.isSolutionCorrect) {
         toast.success('Correct answer');
+        navigate(GetPathsLinks.getPracticalTasksList());
       } else {
         toast.error('Wrong answer');
       }
@@ -39,18 +48,22 @@ const PracticalTaskSolveContent = ({ task }: PracticalTaskSolveContentProps) => 
     },
   });
 
-  const handleSolveTask = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.preventDefault();
-    if (isLoading || solutionInput.trim().length === 0) return;
+  const handleSolveTask = () => {
+    if (isLoading || solutionInput.trim().length === 0 || isCompanyRole) return;
     mutate({
       id: task.id,
-      solution: '',
+      solution: solutionInput,
     });
   };
 
   return (
     <div className="container flex flex-col gap-5 rounded-b-xl p-8 md:px-12 lg:px-16">
-      <h3 className="mb-4 text-2xl font-semibold text-dark">Task solving</h3>
+      <div className="mb-4 flex items-center gap-2">
+        <button onClick={() => navigate(-1)}>
+          <IoMdArrowBack className="text-dark" size={24} />
+        </button>
+        <h3 className="text-2xl font-semibold text-dark">Task solving</h3>
+      </div>
       <h4 className="text-base font-semibold text-dark">{task.question}</h4>
       <div className="flex items-center gap-3">
         <div className="inline-flex text-orange">
@@ -76,21 +89,25 @@ const PracticalTaskSolveContent = ({ task }: PracticalTaskSolveContentProps) => 
         </div>
       )}
       {task.input && <p className="text-dark">Input : {task.input}</p>}
+      {!isCompanyRole && (
+        <>
+          <p className="mt-10 text-dark">Your solution</p>
+          <div className="flex flex-wrap gap-5">
+            <input
+              className="w-fit rounded-sm bg-dark/10 p-2 text-dark shadow-md"
+              value={solutionInput}
+              onChange={(e) => setSolutionInput(e.currentTarget.value)}
+            />
+            <Button
+              onClick={handleSolveTask}
+              disabled={solutionInput.trim().length === 0 || isLoading}
+              className="min-w-[120px] disabled:opacity-80">
+              {isLoading ? <Spinner isLight className="h-4 w-4 border-2" /> : 'Submit'}
+            </Button>
+          </div>
+        </>
+      )}
 
-      <p className="mt-10 text-dark">Your solution</p>
-      <div className="flex flex-wrap gap-5">
-        <input
-          className="w-fit rounded-sm bg-dark/10 p-2 text-dark shadow-md"
-          value={solutionInput}
-          onChange={(e) => setSolutionInput(e.currentTarget.value)}
-        />
-        <Button
-          onClick={handleSolveTask}
-          disabled={solutionInput.trim().length === 0 || isLoading}
-          className="min-w-[120px] disabled:opacity-80">
-          {isLoading ? <Spinner isLight className="h-4 w-4 border-2" /> : 'Submit'}
-        </Button>
-      </div>
       {showSolutions && <PracticalTaskSolutions solutions={task.practicalTaskSolutions} />}
     </div>
   );

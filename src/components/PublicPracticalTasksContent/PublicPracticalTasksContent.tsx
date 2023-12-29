@@ -7,15 +7,16 @@ import { useSearchParams } from 'react-router-dom';
 import PublicPracticalTasksList from './PublicPracticalTasksList/PublicPracticalTasksList';
 import PaginationFooter from '../UI/PaginationFooter/PaginationFooter';
 import Spinner from '../UI/Spinner/Spinner';
+import { PathSearchParams } from '@/constants/paths';
 
 const PublicPracticalTasksContent = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const currentPage = searchParams.get('page');
+  const currentPage = searchParams.get(PathSearchParams.pageNumber);
 
   useEffect(() => {
     if (!currentPage) {
       setSearchParams((prevParams) => {
-        prevParams.set('page', '1');
+        prevParams.set(PathSearchParams.pageNumber, '1');
         return prevParams;
       });
     }
@@ -34,7 +35,7 @@ const PublicPracticalTasksContent = () => {
   } = useQuery('supportedTechnologies', getSupportedTechnologies);
 
   const { isLoading, isError, data, isFetching } = useQuery(
-    ['tasks', queryPage, technologies],
+    ['practicalTasks', queryPage, technologies],
     () => getPublicPracticalTasks(queryPage, technologies),
     {
       keepPreviousData: true,
@@ -52,7 +53,7 @@ const PublicPracticalTasksContent = () => {
   const handleChangePage = (pageNumber: number) => {
     if (pageNumber === queryPage) return;
     setSearchParams((prevParams) => {
-      prevParams.set('page', pageNumber.toString());
+      prevParams.set(PathSearchParams.pageNumber, pageNumber.toString());
       return prevParams;
     });
   };

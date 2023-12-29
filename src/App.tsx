@@ -19,13 +19,15 @@ import CandidateApplicationPreviewPage from './pages/applications/CandidateAppli
 import RecruiterApplicationsPage from './pages/applications/RecruiterApplicationsPage';
 import JobOfferListPage from './pages/job-offers/JobOfferListPage';
 import TasksListPage from './pages/tasks/TasksListPage';
-import SettingsPage from './pages/user-settings/SettingsPage';
 import PublicTasksInformationPage from './pages/static-pages/PublicTasksInformationPage';
 import CompanyPage from './pages/static-pages/CompanyPage';
 import CandidatePanelPage from './pages/panels/CandidatePanelPage';
-import FillUpPersonalDataPage from './pages/user-settings/FillUpPersonalDataPage';
+import FillUpPersonalDataPage from './pages/settings/FillUpPersonalDataPage';
 import PracticalTaskSolvePage from './pages/tasks/PracticalTaskSolvePage';
 import AddJobOfferPage from './pages/job-offers/AddJobOfferPage';
+import TheoreticalTaskSolvePage from './pages/tasks/TheoreticalTaskSolvePage';
+import ProfileSettingsPage from './pages/settings/ProfileSettingsPage';
+import CompanySettingsPage from './pages/settings/CompanySettingsPage';
 
 function App() {
   const { role, isLoggedIn } = useContext(AuthContext);
@@ -92,16 +94,24 @@ function App() {
       element: !isLoggedIn ? wrapInLayout(<PublicTasksInformationPage />) : PrivateRoute(<TasksListPage />, 'tasks'),
     },
     {
-      path: Paths.settings.path,
-      element: PrivateRoute(<SettingsPage />, 'settings'),
+      path: Paths.profileSettings.path,
+      element: PrivateRoute(<ProfileSettingsPage />, 'profileSettings'),
     },
     {
       path: Paths.practicalTaskSolve.path,
       element: PrivateRoute(<PracticalTaskSolvePage />, 'practicalTaskSolve'),
     },
     {
+      path: Paths.theoreticalTaskSolve.path,
+      element: PrivateRoute(<TheoreticalTaskSolvePage />, 'theoreticalTaskSolve'),
+    },
+    {
       path: Paths.addJobOffer.path,
       element: PrivateRoute(<AddJobOfferPage />, 'addJobOffer'),
+    },
+    {
+      path: Paths.companySettings.path,
+      element: PrivateRoute(<CompanySettingsPage />, 'companySettings'),
     },
   ];
 

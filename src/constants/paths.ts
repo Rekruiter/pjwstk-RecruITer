@@ -27,9 +27,11 @@ const allPaths = [
   'verifyAccount',
   'fillUpPersonalData',
   'tasks',
-  'settings',
+  'profileSettings',
+  'companySettings',
   'company',
   'practicalTaskSolve',
+  'theoreticalTaskSolve',
   'addJobOffer',
 ] as const;
 
@@ -41,6 +43,14 @@ export const GetPathsLinks = {
   getCandidateApplicationPreview: (id: number) => `/candidate-applications/${id}`,
   getRecruiterApplicationPreview: (id: number) => `/recruiter-applications/${id}`,
   getPracticalTaskSolve: (id: number) => `/practice-task-solve/${id}`,
+  getTheoreticalTaskSolve: (id: number) => `/theoretical-task-solve/${id}`,
+  getPracticalTasksList: () => `/tasks?${PathSearchParams.taskType}=practical`,
+  getTheoreticalTasksList: () => `/tasks?${PathSearchParams.taskType}=practical`,
+};
+
+export const PathSearchParams = {
+  taskType: 'taskType',
+  pageNumber: 'page',
 };
 
 export const Paths: Record<AllPathsType, PathType> = {
@@ -101,10 +111,16 @@ export const Paths: Record<AllPathsType, PathType> = {
   },
   practicalTaskSolve: {
     path: '/practice-task-solve/:id',
-    requiredRoles: ['user', 'candidate'], // who can access this
   },
-  settings: {
-    path: '/settings',
+  theoreticalTaskSolve: {
+    path: '/theoretical-task-solve/:id',
+  },
+  profileSettings: {
+    path: '/profile-settings',
+  },
+  companySettings: {
+    path: '/company-settings',
+    requiredRoles: ['admin', 'techRecruiter', 'recruiter'],
   },
   addJobOffer: {
     path: '/new-job-offer',

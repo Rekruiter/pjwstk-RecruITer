@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { CiEdit } from 'react-icons/ci';
 import Spinner from '../../UI/Spinner/Spinner';
 import PracticalTaskListItem from './PracticalTaskListItem';
+import { PathSearchParams } from '@/constants/paths';
 
 type PublicPracticalTasksListProps = {
   tasks: IPublicPracticalTask[];
@@ -36,20 +37,20 @@ const PublicPracticalTasksList = ({
     if (technologies.length === 0) {
       setSearchParams((prevParams) => {
         prevParams.delete('technologies');
-        prevParams.set('page', '1');
+        prevParams.set(PathSearchParams.pageNumber, '1');
         return prevParams;
       });
       return;
     }
     setSearchParams((prevParams) => {
       prevParams.set('technologies', JSON.stringify(technologies.join(',')));
-      prevParams.set('page', '1');
+      prevParams.set(PathSearchParams.pageNumber, '1');
       return prevParams;
     });
   };
 
   return (
-    <div className="container flex flex-col gap-1 rounded-b-xl p-8 md:px-12 lg:px-16">
+    <div className="flex flex-col gap-1 rounded-b-xl p-8 md:px-12 lg:px-16">
       <h3 className="mb-4 text-2xl font-semibold text-dark">Tasks section</h3>
       <div className="flex items-center gap-2 pb-4">
         <p>Filter by technology: </p>
