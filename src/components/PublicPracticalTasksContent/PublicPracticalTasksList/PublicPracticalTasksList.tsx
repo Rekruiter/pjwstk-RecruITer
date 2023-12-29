@@ -1,12 +1,13 @@
-import { IFilteringTechnology, IPublicPracticalTask, ISupportedTechnology } from '@/types/publicTasksTypes';
+import { IFilteringTechnology, IPublicPracticalTask, ISupportedTechnology } from '@/types/tasksTypes';
 import { SetURLSearchParams } from 'react-router-dom';
-import FilterTechnologiesModal from '../UI/FilterTechnologiesModal/FilterTechnologiesModal';
+import FilterTechnologiesModal from '../../UI/FilterTechnologiesModal/FilterTechnologiesModal';
 import { useState } from 'react';
 import { CiEdit } from 'react-icons/ci';
-import Spinner from '../UI/Spinner/Spinner';
-import TaskElement from './TaskElement/TaskElement';
+import Spinner from '../../UI/Spinner/Spinner';
+import PracticalTaskListItem from './PracticalTaskListItem';
+import { PathSearchParams } from '@/constants/paths';
 
-type PublicTasksContentProps = {
+type PublicPracticalTasksListProps = {
   tasks: IPublicPracticalTask[];
   isFetching: boolean;
   technologies: string[];
@@ -14,13 +15,13 @@ type PublicTasksContentProps = {
   supportedTechnologies: ISupportedTechnology[];
 };
 
-const PublicTasksContent = ({
+const PublicPracticalTasksList = ({
   tasks,
   isFetching,
   technologies,
   setSearchParams,
   supportedTechnologies,
-}: PublicTasksContentProps) => {
+}: PublicPracticalTasksListProps) => {
   const [technologyModal, setTechnologyModal] = useState(false);
 
   const allFields: IFilteringTechnology[] = supportedTechnologies.map((field) => {
@@ -36,20 +37,20 @@ const PublicTasksContent = ({
     if (technologies.length === 0) {
       setSearchParams((prevParams) => {
         prevParams.delete('technologies');
-        prevParams.set('page', '1');
+        prevParams.set(PathSearchParams.pageNumber, '1');
         return prevParams;
       });
       return;
     }
     setSearchParams((prevParams) => {
       prevParams.set('technologies', JSON.stringify(technologies.join(',')));
-      prevParams.set('page', '1');
+      prevParams.set(PathSearchParams.pageNumber, '1');
       return prevParams;
     });
   };
 
   return (
-    <div className="container flex flex-col gap-1 rounded-b-xl p-8 md:px-12 lg:px-16">
+    <div className="flex flex-col gap-1 rounded-b-xl p-8 md:px-12 lg:px-16">
       <h3 className="mb-4 text-2xl font-semibold text-dark">Tasks section</h3>
       <div className="flex items-center gap-2 pb-4">
         <p>Filter by technology: </p>
@@ -75,7 +76,7 @@ const PublicTasksContent = ({
           <Spinner />
         ) : (
           tasks.map((task) => (
-            <TaskElement
+            <PracticalTaskListItem
               key={task.id}
               id={task.id}
               question={task.question}
@@ -89,4 +90,4 @@ const PublicTasksContent = ({
   );
 };
 
-export default PublicTasksContent;
+export default PublicPracticalTasksList;
