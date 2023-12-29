@@ -18,7 +18,7 @@ const PracticalTaskSolvePage = () => {
   }
 
   if (!data) {
-    return <div className="m-auto">practical task not found</div>;
+    return <div className="m-auto">Practical task not found</div>;
   }
 
   return <PracticalTaskSolveContent task={data} />;

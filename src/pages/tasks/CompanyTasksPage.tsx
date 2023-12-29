@@ -1,11 +1,11 @@
-import { useSearchParams } from 'react-router-dom';
-import { useEffect } from 'react';
-import PublicPracticalTasksContent from '@/components/PublicPracticalTasksContent/PublicPracticalTasksContent';
-import PublicTheoreticalTasksContent from '@/components/PublicTheoreticalTasksContent/PublicTheoreticalTasksContent';
-import { cn } from '@/lib/utils';
+import CompanyPracticalTasksContent from '@/components/CompanyPracticalTasksContent/CompanyPracticalTasksContent';
+import CompanyTheoreticalTasksContent from '@/components/CompanyTheoreticalTasksContent/CompanyTheoreticalTasksContent';
 import { PathSearchParams } from '@/constants/paths';
+import { cn } from '@/lib/utils';
+import { useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
-const TasksListPage = () => {
+const CompanyTasksPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const taskType = searchParams.get(PathSearchParams.taskType);
 
@@ -48,19 +48,20 @@ const TasksListPage = () => {
         {capitalizeFirstLetter(category)}
       </button>
     </div>
-  );
+  ); // TODO: Remove repetition
 
   const capitalizeFirstLetter = (element: string) => element.charAt(0).toUpperCase() + element.slice(1).toLowerCase();
 
   return (
-    <div className="container flex flex-grow flex-col gap-2 bg-light p-6">
+    <div className="container flex flex-1 flex-col gap-3 bg-light p-8">
+      <h3 className="mb-4 text-2xl font-semibold text-dark">Company tasks</h3>
       <div className="flex w-full rounded-md bg-dark_blue px-2 sm:px-0">
         <TabElement category={categories[0]} />
         <TabElement category={categories[1]} />
       </div>
-      {taskType === 'practical' ? <PublicPracticalTasksContent /> : <PublicTheoreticalTasksContent />}
+      {taskType === 'practical' ? <CompanyPracticalTasksContent /> : <CompanyTheoreticalTasksContent />}
     </div>
   );
 };
 
-export default TasksListPage;
+export default CompanyTasksPage;

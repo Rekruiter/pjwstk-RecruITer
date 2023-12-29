@@ -13,13 +13,13 @@ const CompanyApplicationsSection = ({ applications }: CompanyApplicationsSection
   return (
     <PanelSectionWrapper
       headerClickHandler={() => {
-        navigate(Paths.jobOffers.path);
+        navigate(Paths.recruiterApplications.path);
       }}
       headerTitle="Applications">
       {applications.map((application) => (
         <div
           key={application.id}
-          className="flex w-full cursor-pointer flex-wrap border p-2 text-light hover:bg-orange"
+          className="flex w-full cursor-pointer flex-wrap rounded-md bg-light/5 p-2 text-light shadow-md hover:bg-orange"
           onClick={() => {
             // navigate to applicatoin
           }}>

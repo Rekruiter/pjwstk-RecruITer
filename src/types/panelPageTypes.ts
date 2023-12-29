@@ -4,10 +4,7 @@ const taskSchema = z.object({
   id: z.number(),
   question: z.string(),
   difficultyLevel: z.number().min(1).max(5),
-});
-
-const practicalTaskSchema = taskSchema.extend({
-  compilationLanguage: z.string().nullable(),
+  isCorrectlySolved: z.boolean(),
 });
 
 const jobOfferSchema = z.object({
@@ -54,7 +51,7 @@ const recruiterUpcomingRecruitmentsSchema = z
 
 export const UserPanelPageSchema = z.object({
   isVerified: z.boolean(),
-  practicalTasks: z.array(practicalTaskSchema).max(5).nullable(),
+  practicalTasks: z.array(taskSchema).max(5).nullable(),
   theoreticalTasks: z.array(taskSchema).max(5).nullable(),
   jobOffers: z
     .array(
@@ -72,7 +69,7 @@ export const UserPanelPageSchema = z.object({
 // CANDIDATE ROLE PANEL SCHEMA
 
 export const CandidatePanelPageSchema = z.object({
-  lastPracticalTasks: z.array(practicalTaskSchema).max(5),
+  lastPracticalTasks: z.array(taskSchema).max(5),
   lastTheoreticalTasks: z.array(taskSchema).max(5),
   jobOffers: z
     .array(

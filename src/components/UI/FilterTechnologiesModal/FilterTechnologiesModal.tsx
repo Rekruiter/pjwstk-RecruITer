@@ -1,4 +1,4 @@
-import { IFilteringTechnology } from '@/types/publicTasksTypes';
+import { IFilteringTechnology } from '@/types/tasksTypes';
 import { Transition, Dialog } from '@headlessui/react';
 import { Fragment, useEffect, useRef, useState } from 'react';
 import Button from '../Button';
@@ -53,7 +53,7 @@ const FilterTechnologiesModal = ({
   const handleUpdateTechnologies = () => {
     setTechnologySearch('');
     handleUpdatePickedTechnologies(
-      pickedTechnologies.filter((technology) => technology.isPicked).map((technology) => technology.name),
+      pickedTechnologies.filter((technology) => technology.isPicked).map((technology) => technology.code),
     );
     handleCloseModal();
   };

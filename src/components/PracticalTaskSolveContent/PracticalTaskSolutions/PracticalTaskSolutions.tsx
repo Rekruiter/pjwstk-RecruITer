@@ -1,4 +1,4 @@
-import { IPublicPracticalTask } from '@/types/publicTasksTypes';
+import { IPublicPracticalTask } from '@/types/tasksTypes';
 import { Listbox, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
 import { LuChevronsUpDown } from 'react-icons/lu';

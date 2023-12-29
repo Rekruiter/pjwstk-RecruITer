@@ -12,7 +12,7 @@ const RecruitmentsPanelSection = ({ recruitments }: RecruitmentsPanelSectionProp
       {recruitments.map((recruitment) => (
         <div
           key={recruitment.id}
-          className="flex w-full cursor-pointer flex-wrap border p-2 text-light hover:bg-orange"
+          className="flex w-full cursor-pointer flex-wrap rounded-md bg-light/5 p-2 text-light shadow-md hover:bg-orange"
           onClick={() => {
             // navigate to recruitment
           }}>
