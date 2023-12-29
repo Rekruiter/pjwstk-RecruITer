@@ -1,4 +1,4 @@
-import { IFilteringTechnology, IPublicPracticalTask, ISupportedTechnology } from '@/types/publicTasksTypes';
+import { IFilteringTechnology, IPublicPracticalTask, ISupportedTechnology } from '@/types/tasksTypes';
 import { SetURLSearchParams } from 'react-router-dom';
 import FilterTechnologiesModal from '../../UI/FilterTechnologiesModal/FilterTechnologiesModal';
 import { useState } from 'react';

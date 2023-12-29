@@ -7,7 +7,7 @@ const PracticalTaskSolutionSchema = z.object({
   bestSolution: z.string().nullable(),
 });
 
-export const PracticalTaskItemSchema = z.object({
+export const publicPracticalTaskItemSchema = z.object({
   id: z.number(),
   practicalTaskSolutions: z.array(PracticalTaskSolutionSchema),
   codeRelatedToQuestion: z.string().nullable(),
@@ -19,7 +19,7 @@ export const PracticalTaskItemSchema = z.object({
   isPrivate: z.boolean(),
 });
 
-export const TheoreticalTaskItemSchema = z.object({
+export const publicTheoreticalTaskItemSchema = z.object({
   id: z.number(),
   question: z.string(),
   difficultyLevel: z.number(),
@@ -33,7 +33,7 @@ export const TheoreticalTaskItemSchema = z.object({
 });
 
 export const publicPracticalTasksSchema = z.object({
-  items: z.array(PracticalTaskItemSchema),
+  items: z.array(publicPracticalTaskItemSchema),
   totalCount: z.number(),
   pageNumber: z.number(),
   pageSize: z.number(),
@@ -41,7 +41,7 @@ export const publicPracticalTasksSchema = z.object({
 });
 
 export const publicTheoreticalTasksSchema = z.object({
-  items: z.array(TheoreticalTaskItemSchema),
+  items: z.array(publicTheoreticalTaskItemSchema),
   totalCount: z.number(),
   pageNumber: z.number(),
   pageSize: z.number(),
@@ -59,7 +59,7 @@ const filteringTechnologySchema = supportedTechnologySchema.extend({
   isPicked: z.boolean(),
 });
 
-export type IPublicPracticalTask = z.infer<typeof PracticalTaskItemSchema>;
+export type IPublicPracticalTask = z.infer<typeof publicPracticalTaskItemSchema>;
 export type IFilteringTechnology = z.infer<typeof filteringTechnologySchema>;
 export type ISupportedTechnology = z.infer<typeof supportedTechnologySchema>;
-export type IPublicTheoreticalTask = z.infer<typeof TheoreticalTaskItemSchema>;
+export type IPublicTheoreticalTask = z.infer<typeof publicTheoreticalTaskItemSchema>;

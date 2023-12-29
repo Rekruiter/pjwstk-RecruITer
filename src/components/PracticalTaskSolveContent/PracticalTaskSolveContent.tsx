@@ -1,4 +1,4 @@
-import { IPublicPracticalTask } from '@/types/publicTasksTypes';
+import { IPublicPracticalTask } from '@/types/tasksTypes';
 import { useContext, useState } from 'react';
 import { FaStar } from 'react-icons/fa';
 import Button from '../UI/Button';

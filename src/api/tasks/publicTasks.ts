@@ -1,10 +1,10 @@
 import axios from '../axios/axios';
 import {
   publicPracticalTasksSchema,
-  PracticalTaskItemSchema,
+  publicPracticalTaskItemSchema,
   publicTheoreticalTasksSchema,
-  TheoreticalTaskItemSchema,
-} from '../../types/publicTasksTypes';
+  publicTheoreticalTaskItemSchema,
+} from '../../types/tasksTypes';
 
 export const getPublicPracticalTasks = async (pageNumber: number, technologiesFilter: string[]) => {
   const { data } = await axios.get(`/practicalTasks?pageNumber=${pageNumber}`, {
@@ -17,7 +17,7 @@ export const getPublicPracticalTasks = async (pageNumber: number, technologiesFi
 
 export const getPublicPracticalTask = async (id: string) => {
   const { data } = await axios.get(`/practicalTasks/${id}`);
-  return PracticalTaskItemSchema.parse(data);
+  return publicPracticalTaskItemSchema.parse(data);
 };
 
 export const solvePublicPracticalTaskPost = async ({ id, solution }: { id: number; solution: string }) => {
@@ -41,5 +41,5 @@ export const getPublicTheoreticalTasks = async (pageNumber: number) => {
 
 export const getPublicTheoreticalTask = async (id: string) => {
   const { data } = await axios.get(`/theoreticalTasks/${id}`);
-  return TheoreticalTaskItemSchema.parse(data);
+  return publicTheoreticalTaskItemSchema.parse(data);
 };

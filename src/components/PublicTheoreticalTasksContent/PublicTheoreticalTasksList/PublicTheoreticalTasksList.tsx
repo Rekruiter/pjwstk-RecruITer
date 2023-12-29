@@ -1,5 +1,5 @@
 import Spinner from '@/components/UI/Spinner/Spinner';
-import { IPublicTheoreticalTask } from '@/types/publicTasksTypes';
+import { IPublicTheoreticalTask } from '@/types/tasksTypes';
 import TheoreticalTaskListItem from './TheoreticalTaskListItem';
 
 interface PublicTheoreticalTasksListProps {

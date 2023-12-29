@@ -1,5 +1,5 @@
 import { GetPathsLinks } from '@/constants/paths';
-import { IPublicPracticalTask } from '@/types/publicTasksTypes';
+import { IPublicPracticalTask } from '@/types/tasksTypes';
 import { FaStar } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 

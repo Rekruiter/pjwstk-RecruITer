@@ -1,7 +1,7 @@
 import IError from '@/api/Error/Error';
 import { solvePublicTheoreticalTaskPost } from '@/api/tasks/publicTasks';
 import { GetPathsLinks } from '@/constants/paths';
-import { IPublicTheoreticalTask } from '@/types/publicTasksTypes';
+import { IPublicTheoreticalTask } from '@/types/tasksTypes';
 import { useContext, useState } from 'react';
 import { FaStar } from 'react-icons/fa';
 import { IoMdArrowBack } from 'react-icons/io';
