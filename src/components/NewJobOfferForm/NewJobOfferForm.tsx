@@ -20,6 +20,7 @@ const NewJobOfferForm = ({ onSubmit, mutationLoading }: NewJobOfferFormProps) =>
     formState: { errors },
     handleSubmit,
     getValues,
+    trigger,
   } = useForm<IJobOfferInput>({
     resolver: zodResolver(JobOfferInputSchema),
   });
@@ -28,7 +29,7 @@ const NewJobOfferForm = ({ onSubmit, mutationLoading }: NewJobOfferFormProps) =>
     e.preventDefault();
     handleSubmit(
       async (data) => {
-        console.log(data);
+        onSubmit(data);
       },
       (e) => {
         console.log(e);
@@ -61,7 +62,7 @@ const NewJobOfferForm = ({ onSubmit, mutationLoading }: NewJobOfferFormProps) =>
           min={MIN_DATE}
           max={MAX_DATE}
         />
-        <RequirementsField register={register} control={control} />
+        <RequirementsField register={register} control={control} getValues={getValues} trigger={trigger} />
       </div>
       {mutationLoading ? (
         <Spinner isLight />

@@ -41,10 +41,10 @@ export const JobOfferInputSchema = z
         level: z
           .number()
           .min(1, {
-            message: 'Level must be in range 1-5',
+            message: 'Level must be picked',
           })
           .max(5, {
-            message: 'Level must be in range 1-5',
+            message: 'Level must be picked',
           }),
       }),
     ),
