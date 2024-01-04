@@ -10,10 +10,10 @@ import {
   useFormState,
 } from 'react-hook-form';
 import { FaStar } from 'react-icons/fa';
+import { FaDeleteLeft } from 'react-icons/fa6';
 
 interface RequirementListItemProps {
   pickedLevel: number;
-  technology: string;
   register: UseFormRegister<IJobOfferInput>;
   remove: UseFieldArrayRemove;
   update: UseFieldArrayUpdate<IJobOfferInput, 'requirements'>;
@@ -31,6 +31,7 @@ const RequirementListItem = ({
   update,
   getValues,
   trigger,
+  remove,
 }: RequirementListItemProps) => {
   const { errors } = useFormState({
     control,
@@ -46,7 +47,11 @@ const RequirementListItem = ({
       level,
       technology: getValues(`requirements.${index}.technology`),
     });
-    trigger(`requirements.${index}`);
+    trigger(`requirements.${index}.level`);
+  };
+
+  const handleRemoveTechnology = () => {
+    remove(index);
   };
 
   return (
@@ -76,6 +81,9 @@ const RequirementListItem = ({
           </div>
           {levelError && <p className="text-error_color">{levelError.message}</p>}
         </div>
+        <button type="button" onClick={handleRemoveTechnology} className="text-light">
+          <FaDeleteLeft size={20} />
+        </button>
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import { wrapInLayout, wrapInPanelLayout } from './getLayoutWrappers';
-import { formatISODateToDDMMYYYYHHMM } from './dateHelpers';
+import { formatISODateToDDMMYYYYHHMM, formatISODateTODDMMYYYY } from './dateHelpers';
 import { safeJSONParse } from './safeJsonParse';
 
-export { wrapInLayout, wrapInPanelLayout, formatISODateToDDMMYYYYHHMM, safeJSONParse };
+export { wrapInLayout, wrapInPanelLayout, formatISODateToDDMMYYYYHHMM, formatISODateTODDMMYYYY, safeJSONParse };

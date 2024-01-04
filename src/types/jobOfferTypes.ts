@@ -48,6 +48,13 @@ export const JobOfferInputSchema = z
           }),
       }),
     ),
+    questions: z.array(
+      z.object({
+        contents: z.string().min(1, {
+          message: 'Question can not be empty',
+        }),
+      }),
+    ),
     seniority: z.string().min(1, {
       message: 'Seniority can not be empty',
     }),
@@ -91,9 +98,22 @@ export const JobOfferSchema = z.object({
     return RequirementsParsingSchema.parse(parsedObject);
   }),
   title: z.string(),
+  questions: z.array(z.string()),
+});
+
+export const ApplyJobOfferSchema = z.object({
+  introduceYourself: z.string().min(1, {
+    message: 'Introduce yourself can not be empty',
+  }),
+  answers: z.array(
+    z.string().min(1, {
+      message: 'Answer can not be empty',
+    }),
+  ),
 });
 
 export const JobOffersListSchema = z.array(JobOfferSchema);
 
 export type IJobOffer = z.infer<typeof JobOfferSchema>;
 export type IJobOfferInput = z.infer<typeof JobOfferInputSchema>;
+export type IApplyJobOffer = z.infer<typeof ApplyJobOfferSchema>;

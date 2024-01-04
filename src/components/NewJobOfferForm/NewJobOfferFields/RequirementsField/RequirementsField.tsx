@@ -21,7 +21,6 @@ const RequirementsField = ({ control, register, getValues, trigger }: Requiremen
       {fields.map((field, index) => (
         <RequirementListItem
           key={field.id}
-          technology={field.technology}
           pickedLevel={field.level}
           register={register}
           remove={remove}

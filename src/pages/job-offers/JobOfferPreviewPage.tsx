@@ -7,6 +7,8 @@ import { GetPathsLinks, Paths } from '../../constants/paths';
 import { FaStar } from 'react-icons/fa';
 import { useContext, useState } from 'react';
 import AuthContext from '@/context/auth-context';
+import { formatISODateTODDMMYYYY } from '@/helpers';
+import JobOfferApplyForm from '@/components/JobOfferApplyForm/JobOfferApplyForm';
 const JobOfferPreviewPage = () => {
   const { id } = useParams() as { id: string };
   const { data, isError, isLoading } = useQuery(['jobOffer', id], () => getJobOffer(id));
@@ -28,7 +30,6 @@ const JobOfferPreviewPage = () => {
   }
 
   const daysLeft = Math.round((new Date(data.dateExpires).getTime() - Date.now()) / (24 * 60 * 60 * 1000));
-  const dateAdded = new Date(data.dateAdded);
 
   const handleOpenLoginModal = (authMethod: 'login' | 'register') => {
     setSearchParams((prevParams) => {
@@ -56,23 +57,21 @@ const JobOfferPreviewPage = () => {
       <p>Description: {data.description}</p>
       <p>Requirements:</p>
       <div className="flex flex-wrap gap-2">
-        {Object.keys(data.requirements).map((key) => (
-          <div className="flex items-center gap-2 border border-dark p-1">
+        {Object.keys(data.requirements).map((key, idx) => (
+          <div key={idx} className="flex items-center gap-2 border border-dark p-1">
             <p>{key}</p>
             <div className="inline-flex text-orange">
               {Array(data.requirements[key])
                 .fill(0)
-                .map(() => (
-                  <FaStar />
+                .map((_, idx) => (
+                  <FaStar key={idx} />
                 ))}
             </div>
           </div>
         ))}
       </div>
       <p>This job ofer expires in {daysLeft} days</p>
-      <p className="pb-10">
-        Available since: {dateAdded.getDate()}-{dateAdded.getMonth()}-{dateAdded.getFullYear()}
-      </p>
+      <p className="pb-10">Available since: {formatISODateTODDMMYYYY(data.dateAdded)}</p>
       {role === 'user' && (
         <div className="flex items-center gap-3">
           <DisabledButton />
@@ -102,7 +101,7 @@ const JobOfferPreviewPage = () => {
           </p>
         </div>
       )}
-      {showApplyForm && <form></form>}
+      {showApplyForm && <JobOfferApplyForm idJobOffer={id} />}
       {role === 'candidate' && (
         <Button className="w-fit" onClick={showApplyForm ? () => {} : () => setShowApplyForm(true)}>
           {' '}

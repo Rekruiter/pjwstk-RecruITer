@@ -7,6 +7,7 @@ import Spinner from '../UI/Spinner/Spinner';
 import { DescriptionField, LocationField, SalaryField, SeniorityField } from './NewJobOfferFields';
 import { MAX_DATE, MIN_DATE } from '@/constants/dateInputValues';
 import RequirementsField from './NewJobOfferFields/RequirementsField/RequirementsField';
+import QuestionsField from './NewJobOfferFields/QuestionsField/QuestionsField';
 
 interface NewJobOfferFormProps {
   onSubmit: (data: IJobOfferInput) => void;
@@ -63,6 +64,7 @@ const NewJobOfferForm = ({ onSubmit, mutationLoading }: NewJobOfferFormProps) =>
           max={MAX_DATE}
         />
         <RequirementsField register={register} control={control} getValues={getValues} trigger={trigger} />
+        <QuestionsField register={register} control={control} errors={errors} />
       </div>
       {mutationLoading ? (
         <Spinner isLight />
