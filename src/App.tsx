@@ -29,6 +29,7 @@ import TheoreticalTaskSolvePage from './pages/tasks/TheoreticalTaskSolvePage';
 import ProfileSettingsPage from './pages/settings/ProfileSettingsPage';
 import CompanySettingsPage from './pages/settings/CompanySettingsPage';
 import CompanyTasksPage from './pages/tasks/CompanyTasksPage';
+import EditJobOfferPage from './pages/job-offers/EditJobOfferPage';
 
 function App() {
   const { role, isLoggedIn } = useContext(AuthContext);
@@ -109,6 +110,10 @@ function App() {
     {
       path: Paths.addJobOffer.path,
       element: PrivateRoute(<AddJobOfferPage />, 'addJobOffer'),
+    },
+    {
+      path: Paths.editJobOffer.path,
+      element: PrivateRoute(<EditJobOfferPage />, 'editJobOffer'),
     },
     {
       path: Paths.companySettings.path,

@@ -33,6 +33,7 @@ const allPaths = [
   'practicalTaskSolve',
   'theoreticalTaskSolve',
   'addJobOffer',
+  'editJobOffer',
   'manageCompanyTasks',
 ] as const;
 
@@ -125,6 +126,10 @@ export const Paths: Record<AllPathsType, PathType> = {
   },
   addJobOffer: {
     path: '/new-job-offer',
+    requiredRoles: ['admin', 'recruiter', 'techRecruiter'],
+  },
+  editJobOffer: {
+    path: '/edit-job-offer/:id',
     requiredRoles: ['admin', 'recruiter', 'techRecruiter'],
   },
   manageCompanyTasks: {

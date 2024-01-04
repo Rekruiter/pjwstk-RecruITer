@@ -7,9 +7,10 @@ import {
 } from '../../types/tasksTypes';
 
 export const getPublicPracticalTasks = async (pageNumber: number, technologiesFilter: string[]) => {
-  const { data } = await axios.get(`/practicalTasks?pageNumber=${pageNumber}`, {
+  const { data } = await axios.get('/practicalTasks', {
     params: {
       technologies: technologiesFilter,
+      pageNumber: pageNumber,
     },
   });
   return publicPracticalTasksSchema.parse(data);
