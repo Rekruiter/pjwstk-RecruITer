@@ -30,5 +30,5 @@ export const resetPasswordConfirmPost = async (inputData: IResetPasswordConfirmF
 };
 
 export const verifyAccountGet = async (token: string) => {
-  await axios.get('/verifyAccount/' + token);
+  await axios.get('/verify/' + token);
 };
