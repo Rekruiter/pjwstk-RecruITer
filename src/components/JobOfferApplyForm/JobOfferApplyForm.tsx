@@ -1,11 +1,9 @@
-import { useQuery } from 'react-query';
-import Spinner from '../UI/Spinner/Spinner';
-
 interface JobOfferApplyFormProps {
   idJobOffer: string;
 }
 
 const JobOfferApplyForm = ({ idJobOffer }: JobOfferApplyFormProps) => {
+  console.log(idJobOffer);
   return <div>JobOfferApplyForm</div>;
 };
 
