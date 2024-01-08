@@ -19,9 +19,11 @@ export const JobOfferInputSchema = z
     minSalary: z.number({
       required_error: 'Min salary is required',
     }),
-    maxSalary: z.number({
-      required_error: 'Max salary is required',
-    }),
+    maxSalary: z
+      .number({
+        required_error: 'Max salary is required',
+      })
+      .nullable(),
     currency: z.string().min(1, {
       message: 'You must pick a currency',
     }),
@@ -59,10 +61,18 @@ export const JobOfferInputSchema = z
       message: 'Seniority can not be empty',
     }),
   })
-  .refine((data) => data.minSalary <= data.maxSalary, {
-    message: 'Min Salary must be lower than max salary',
-    path: ['maxSalary'],
-  });
+  .refine(
+    (data) => {
+      if (!data.maxSalary) {
+        return true;
+      }
+      return data.minSalary <= data.maxSalary;
+    },
+    {
+      message: 'Min Salary must be lower than max salary',
+      path: ['maxSalary'],
+    },
+  );
 
 export const JobOfferSchema = z.object({
   id: z.number(),
@@ -98,7 +108,32 @@ export const JobOfferSchema = z.object({
     return RequirementsParsingSchema.parse(parsedObject);
   }),
   title: z.string(),
-  questions: z.array(z.string()),
+  questions: z
+    .string()
+    .transform((jsonString) => {
+      const parsedObject = JSON.parse(jsonString);
+      return z.array(z.string()).parse(parsedObject);
+    })
+    .nullable(),
+});
+
+const JobOfferPayloadSchema = JobOfferSchema.omit({
+  idCompany: true,
+  companyName: true,
+});
+
+export const JobOffersWithApplicationDetailsSchema = z.object({
+  companyJobOfferDto: JobOfferPayloadSchema,
+  applicationsDetails: z.array(
+    z.object({
+      applicationId: z.number(),
+      candidateName: z.string(),
+      candidateSurname: z.string(),
+      candidateEmail: z.string(),
+      jobOfferTitle: z.string(),
+      isAccepted: z.boolean().nullable(),
+    }),
+  ),
 });
 
 export const ApplyJobOfferSchema = z.object({
@@ -112,8 +147,21 @@ export const ApplyJobOfferSchema = z.object({
   ),
 });
 
+const CompanyJobOfferListElementSchema = z.object({
+  id: z.number(),
+  title: z.string(),
+  location: z.string(),
+  dateAdded: z.string(),
+  dateExpires: z.string(),
+  applicationsCount: z.number(),
+});
+
+export const CompanyJobOfferListSchema = z.array(CompanyJobOfferListElementSchema);
+
 export const JobOffersListSchema = z.array(JobOfferSchema);
 
 export type IJobOffer = z.infer<typeof JobOfferSchema>;
 export type IJobOfferInput = z.infer<typeof JobOfferInputSchema>;
 export type IApplyJobOffer = z.infer<typeof ApplyJobOfferSchema>;
+export type ICompanyJobOfferListElement = z.infer<typeof CompanyJobOfferListElementSchema>;
+export type IJobOfferPayload = z.infer<typeof JobOfferPayloadSchema>;

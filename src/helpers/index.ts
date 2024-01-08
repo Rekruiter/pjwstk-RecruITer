@@ -1,5 +1,14 @@
 import { wrapInLayout, wrapInPanelLayout } from './getLayoutWrappers';
-import { formatISODateToDDMMYYYYHHMM, formatISODateTODDMMYYYY } from './dateHelpers';
+import { formatISODateToDDMMYYYYHHMM, formatISODateTODDMMYYYY, formatISODateTOYYYYMMDD } from './dateHelpers';
 import { safeJSONParse } from './safeJsonParse';
+import { capitalizeFirstLetter } from './stringFormatHelpers';
 
-export { wrapInLayout, wrapInPanelLayout, formatISODateToDDMMYYYYHHMM, formatISODateTODDMMYYYY, safeJSONParse };
+export {
+  wrapInLayout,
+  wrapInPanelLayout,
+  formatISODateToDDMMYYYYHHMM,
+  formatISODateTODDMMYYYY,
+  formatISODateTOYYYYMMDD,
+  safeJSONParse,
+  capitalizeFirstLetter,
+};

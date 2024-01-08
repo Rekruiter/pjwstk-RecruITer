@@ -1,4 +1,4 @@
-import { IJobOfferInput, JobOfferInputSchema } from '@/types/jobOfferTypes';
+import { IJobOfferInput, IJobOfferPayload, JobOfferInputSchema } from '@/types/jobOfferTypes';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import FormFieldWrapper from '../FormHelpers/FormFieldWrapper';
@@ -8,13 +8,15 @@ import { DescriptionField, LocationField, SalaryField, SeniorityField } from './
 import { MAX_DATE, MIN_DATE } from '@/constants/dateInputValues';
 import RequirementsField from './NewJobOfferFields/RequirementsField/RequirementsField';
 import QuestionsField from './NewJobOfferFields/QuestionsField/QuestionsField';
+import { formatISODateTOYYYYMMDD } from '@/helpers';
 
 interface NewJobOfferFormProps {
   onSubmit: (data: IJobOfferInput) => void;
   mutationLoading: boolean;
+  defaultValues?: IJobOfferPayload;
 }
 
-const NewJobOfferForm = ({ onSubmit, mutationLoading }: NewJobOfferFormProps) => {
+const NewJobOfferForm = ({ onSubmit, mutationLoading, defaultValues }: NewJobOfferFormProps) => {
   const {
     register,
     control,
@@ -22,8 +24,33 @@ const NewJobOfferForm = ({ onSubmit, mutationLoading }: NewJobOfferFormProps) =>
     handleSubmit,
     getValues,
     trigger,
+    setValue,
   } = useForm<IJobOfferInput>({
     resolver: zodResolver(JobOfferInputSchema),
+    defaultValues: defaultValues
+      ? {
+          title: defaultValues.title,
+          currency: defaultValues.currency,
+          dateExpires: formatISODateTOYYYYMMDD(defaultValues.dateExpires),
+          description: defaultValues.description,
+          isRemote: defaultValues.isRemote,
+          location: defaultValues.location,
+          maxSalary: defaultValues.maxSalary,
+          minSalary: defaultValues.minSalary,
+          seniority: defaultValues.seniority,
+          requirements: Object.entries(defaultValues.requirements).map(([key, value]) => {
+            return {
+              level: value,
+              technology: key,
+            };
+          }),
+          questions: defaultValues.questions?.map((question) => {
+            return {
+              contents: question,
+            };
+          }),
+        }
+      : undefined,
   });
 
   const formSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
@@ -34,7 +61,6 @@ const NewJobOfferForm = ({ onSubmit, mutationLoading }: NewJobOfferFormProps) =>
       },
       (e) => {
         console.log(e);
-        console.log(getValues());
       },
     )();
   };
@@ -52,7 +78,13 @@ const NewJobOfferForm = ({ onSubmit, mutationLoading }: NewJobOfferFormProps) =>
         />
         <DescriptionField register={register} error={errors.description} />
         <LocationField register={register} errors={errors} />
-        <SalaryField register={register} errors={errors} control={control} />
+        <SalaryField
+          register={register}
+          errors={errors}
+          control={control}
+          defaultMaxSalary={defaultValues?.maxSalary}
+          setValue={setValue}
+        />
         <SeniorityField register={register} error={errors.seniority} control={control} />
         <FormFieldWrapper<IJobOfferInput>
           field="dateExpires"

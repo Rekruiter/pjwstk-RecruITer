@@ -22,10 +22,10 @@ const SeniorityField = ({ register, error, control }: SeniorityFieldProps) => {
           error ? 'border-error_color' : 'border-light'
         } ${!seniorityWatcher ? 'text-dark' : ''}`}>
         <option value="">Pick seniority</option>
-        <option value="PLN">Intern</option>
-        <option value="EUR">Junior</option>
-        <option value="USD">Mid</option>
-        <option value="GBP">Senior</option>
+        <option value="Intern">Intern</option>
+        <option value="Junior">Junior</option>
+        <option value="Mid">Mid</option>
+        <option value="Senior">Senior</option>
       </select>
       {error && <div className="text-error_color">{error.message}</div>}
     </div>
