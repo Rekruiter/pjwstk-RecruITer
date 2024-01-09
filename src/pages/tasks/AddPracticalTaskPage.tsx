@@ -1,5 +1,5 @@
 import { addPracticalTaskPost } from '@/api/tasks/companyTasks';
-import NewPracticalTaskForm from '@/components/NewPracticalTaskForm/NewPracticalTaskForm';
+import NewPracticalTaskForm from '@/components/TasksForms/NewPracticalTaskForm/NewPracticalTaskForm';
 import { GetPathsLinks } from '@/constants/paths';
 import { IPracticalTaskFormInput } from '@/types/tasksTypes';
 import { useMutation, useQueryClient } from 'react-query';
@@ -16,11 +16,13 @@ const AddPracticalTaskPage = () => {
       navigate(GetPathsLinks.getCompanyPracticalTasksList());
       queryClient.refetchQueries('companyPracticalTasks');
     },
-    onError: () => {},
+    onError: () => {
+      // TODO: Add erorr handling
+      toast.error('Error while adding practical task');
+    },
   });
 
   const onSubmit = (data: IPracticalTaskFormInput) => {
-    console.log(data);
     mutate(data);
   };
 

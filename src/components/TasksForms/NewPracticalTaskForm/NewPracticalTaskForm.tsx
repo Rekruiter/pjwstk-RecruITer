@@ -1,12 +1,12 @@
 import { IPracticalTaskFormInput, PracticalTaskFormInputSchema } from '@/types/tasksTypes';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useController, useForm } from 'react-hook-form';
-import Spinner from '../UI/Spinner/Spinner';
-import Button from '../UI/Button';
-import FormFieldWrapper from '../FormHelpers/FormFieldWrapper';
-import FormToggleWrapper from '../FormHelpers/FormToggleWrapper';
+import Spinner from '../../UI/Spinner/Spinner';
+import Button from '../../UI/Button';
+import FormFieldWrapper from '../../FormHelpers/FormFieldWrapper';
+import FormToggleWrapper from '../../FormHelpers/FormToggleWrapper';
 import PracticalTaskSolutionsField from './NewPracticalTaskFields/PracticalTaskSolutionsField/PracticalTaskSolutionsField';
-import DifficultyLevelField from './NewPracticalTaskFields/DifficultyLevelField/DifficultyLevelField';
+import DifficultyLevelField from '../TaskFields/DifficultyLevelField/DifficultyLevelField';
 import CodeRelatedToQuestionField from './NewPracticalTaskFields/CodeRelatedToQuestionField/CodeRelatedToQuestionField';
 
 interface NewPracticalTaskFormProps {
@@ -21,7 +21,6 @@ const NewPracticalTaskForm = ({ mutationLoading, onSubmit, defaultValues }: NewP
     control,
     handleSubmit,
     formState: { errors },
-    getValues,
     clearErrors,
   } = useForm<IPracticalTaskFormInput>({
     resolver: zodResolver(PracticalTaskFormInputSchema),
@@ -40,7 +39,6 @@ const NewPracticalTaskForm = ({ mutationLoading, onSubmit, defaultValues }: NewP
       },
       (e) => {
         console.log(e);
-        console.log(getValues());
       },
     )();
   };
@@ -68,7 +66,7 @@ const NewPracticalTaskForm = ({ mutationLoading, onSubmit, defaultValues }: NewP
           toggledOption="Public"
           onChange={(value: boolean) => field.onChange(!value)}
         />
-        <DifficultyLevelField register={register} error={errors.difficultyLevel} />
+        <DifficultyLevelField<IPracticalTaskFormInput> register={register} error={errors.difficultyLevel} />
         <FormFieldWrapper<IPracticalTaskFormInput>
           field="tag"
           error={errors.tag}

@@ -28,9 +28,9 @@ export const solvePublicPracticalTaskPost = async ({ id, solution }: { id: numbe
   return data;
 };
 
-export const solvePublicTheoreticalTaskPost = async ({ id, solution }: { id: number; solution: string }) => {
+export const solvePublicTheoreticalTaskPost = async ({ id, answer }: { id: number; answer: number }) => {
   const { data } = await axios.post(`/theoreticalTasks/${id}/solutions`, {
-    Solution: solution,
+    answer: answer,
   });
   return data;
 };

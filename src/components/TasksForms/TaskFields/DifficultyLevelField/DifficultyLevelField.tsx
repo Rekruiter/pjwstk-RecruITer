@@ -1,17 +1,16 @@
-import { IPracticalTaskFormInput } from '@/types/tasksTypes';
-import { FieldError, UseFormRegister } from 'react-hook-form';
+import { FieldError, FieldValue, FieldValues, UseFormRegister } from 'react-hook-form';
 
-interface DifficultyLevelFieldProps {
-  register: UseFormRegister<IPracticalTaskFormInput>;
+interface DifficultyLevelFieldProps<T extends FieldValues> {
+  register: UseFormRegister<T>;
   error?: FieldError;
 }
 
-const DifficultyLevelField = ({ register, error }: DifficultyLevelFieldProps) => {
+const DifficultyLevelField = <T extends FieldValues>({ register, error }: DifficultyLevelFieldProps<T>) => {
   return (
     <div className="flex w-[45%] flex-col gap-2 md:w-[30%]">
       <label className="font-semibold text-light">Difficulty level (1-5)</label>
       <input
-        {...register('difficultyLevel', {
+        {...register('difficultyLevel' as FieldValue<T>, {
           setValueAs(value) {
             return value ? Number(value) : undefined;
           },
