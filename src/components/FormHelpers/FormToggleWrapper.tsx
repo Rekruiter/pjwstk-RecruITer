@@ -1,25 +1,22 @@
 import { Switch } from '@headlessui/react';
-import { ControllerRenderProps, FieldPath, FieldValues } from 'react-hook-form';
 
-interface FormToggleWrapperProps<T extends FieldValues, F extends FieldPath<T>> {
+interface FormToggleWrapperProps {
   isToggled: boolean;
-  field: ControllerRenderProps<T, F>;
+  untoggledOption: string;
+  toggledOption: string;
+  label: string;
+  onChange: (value: boolean) => void;
 }
 
-const FormToggleWrapper = <T extends FieldValues, F extends FieldPath<T>>({
-  isToggled,
-  field,
-}: FormToggleWrapperProps<T, F>) => {
+const FormToggleWrapper = ({ isToggled, onChange, toggledOption, untoggledOption, label }: FormToggleWrapperProps) => {
   return (
     <div className="flex flex-col gap-2">
-      <label className="font-semibold text-light">Status</label>
+      <label className="font-semibold text-light">{label}</label>
       <div className="flex items-center gap-2 text-light">
-        <p>Free</p>
+        <p>{untoggledOption}</p>
         <Switch
           checked={isToggled}
-          onChange={(e) => {
-            field.onChange(e ? 'hired' : 'free');
-          }}
+          onChange={(e) => onChange(e)}
           className={`${isToggled ? 'bg-orange' : 'bg-light'}
     relative inline-flex h-[38px] w-[74px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white/75`}>
           <span className="sr-only">Use setting</span>
@@ -30,7 +27,7 @@ const FormToggleWrapper = <T extends FieldValues, F extends FieldPath<T>>({
        shadow-lg ring-0 transition duration-200 ease-in-out`}
           />
         </Switch>
-        <p>Hired</p>
+        <p>{toggledOption}</p>
       </div>
     </div>
   );

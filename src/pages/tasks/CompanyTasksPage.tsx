@@ -1,6 +1,7 @@
 import CompanyPracticalTasksContent from '@/components/CompanyPracticalTasksContent/CompanyPracticalTasksContent';
 import CompanyTheoreticalTasksContent from '@/components/CompanyTheoreticalTasksContent/CompanyTheoreticalTasksContent';
 import { PathSearchParams } from '@/constants/paths';
+import { capitalizeFirstLetter } from '@/helpers';
 import { cn } from '@/lib/utils';
 import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
@@ -48,9 +49,7 @@ const CompanyTasksPage = () => {
         {capitalizeFirstLetter(category)}
       </button>
     </div>
-  ); // TODO: Remove repetition
-
-  const capitalizeFirstLetter = (element: string) => element.charAt(0).toUpperCase() + element.slice(1).toLowerCase();
+  );
 
   return (
     <div className="container flex flex-1 flex-col gap-3 bg-light p-8">
