@@ -29,6 +29,11 @@ import TheoreticalTaskSolvePage from './pages/tasks/TheoreticalTaskSolvePage';
 import ProfileSettingsPage from './pages/settings/ProfileSettingsPage';
 import CompanySettingsPage from './pages/settings/CompanySettingsPage';
 import CompanyTasksPage from './pages/tasks/CompanyTasksPage';
+import EditJobOfferPage from './pages/job-offers/EditJobOfferPage';
+import CompanyJobOfferListPage from './pages/job-offers/CompanyJobOfferListPage';
+import AddPracticalTaskPage from './pages/tasks/AddPracticalTaskPage';
+import AddTheoreticalTaskPage from './pages/tasks/AddTheoreticalTaskPage';
+import JobOfferApplicationsPage from './pages/job-offers/JobOfferApplicationsPage';
 
 function App() {
   const { role, isLoggedIn } = useContext(AuthContext);
@@ -111,12 +116,32 @@ function App() {
       element: PrivateRoute(<AddJobOfferPage />, 'addJobOffer'),
     },
     {
+      path: Paths.editJobOffer.path,
+      element: PrivateRoute(<EditJobOfferPage />, 'editJobOffer'),
+    },
+    {
       path: Paths.companySettings.path,
       element: PrivateRoute(<CompanySettingsPage />, 'companySettings'),
     },
     {
       path: Paths.manageCompanyTasks.path,
       element: PrivateRoute(<CompanyTasksPage />, 'manageCompanyTasks'),
+    },
+    {
+      path: Paths.companyJobOffers.path,
+      element: PrivateRoute(<CompanyJobOfferListPage />, 'companyJobOffers'),
+    },
+    {
+      path: Paths.addPracticalTask.path,
+      element: PrivateRoute(<AddPracticalTaskPage />, 'addPracticalTask'),
+    },
+    {
+      path: Paths.addTheoreticalTask.path,
+      element: PrivateRoute(<AddTheoreticalTaskPage />, 'addTheoreticalTask'),
+    },
+    {
+      path: Paths.jobOfferApplications.path,
+      element: PrivateRoute(<JobOfferApplicationsPage />, 'jobOfferApplications'),
     },
   ];
 

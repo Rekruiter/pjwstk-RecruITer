@@ -61,7 +61,7 @@ const PublicPracticalTasksContent = () => {
   return (
     data &&
     supportedTechnologies && (
-      <div className="container flex flex-grow flex-col gap-10 bg-light px-6">
+      <div className="container flex flex-grow flex-col gap-10 bg-light px-0 md:px-6">
         <PublicPracticalTasksList
           tasks={data.items}
           isFetching={isFetching}

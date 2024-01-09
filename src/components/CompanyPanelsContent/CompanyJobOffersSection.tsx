@@ -14,7 +14,7 @@ const CompanyJobOffersSection = ({ jobOffers }: ProposedJobOffersSectionProps) =
   return (
     <PanelSectionWrapper
       headerClickHandler={() => {
-        //navigate to job company job offers
+        navigate(Paths.companyJobOffers.path);
       }}
       headerTitle="Your job offers">
       {jobOffers.map((jobOffer) => (
