@@ -30,7 +30,7 @@ const EditTheoreticalTaskPage = () => {
     isLoading: taskLoading,
     isError,
   } = useQuery(['TheoreticalTask', id], () => getPublicTheoreticalTask(id), {
-    cacheTime: 0,
+    cacheTime: 1,
   });
 
   const onSubmit = (data: ITheoreticalTaskFormInput) => {

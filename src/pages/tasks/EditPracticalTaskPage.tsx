@@ -30,7 +30,7 @@ const EditPracticalTaskPage = () => {
     isLoading: taskLoading,
     isError,
   } = useQuery(['PracticalTask', id], () => getPublicPracticalTask(id), {
-    cacheTime: 0,
+    cacheTime: 1,
   });
 
   const onSubmit = (data: IPracticalTaskFormInput) => {

@@ -16,11 +16,12 @@ const PracitcalTaskSolutionListItem = ({
   index,
   handleRemove,
   errors,
+  field,
 }: PracitcalTaskSolutionListItemProps) => {
   const [shownSolutions, setShownSolutions] = useState({
-    bestSolution: false,
-    midSolution: false,
-    bruteForceSolution: false,
+    bestSolution: !!field.bestSolution,
+    mediumSolution: !!field.mediumSolution,
+    bruteForceSolution: !!field.bruteForceSolution,
   });
 
   const error = errors ? errors[index] : undefined;
@@ -61,7 +62,7 @@ const PracitcalTaskSolutionListItem = ({
           Add best solution
         </button>
       )}
-      {shownSolutions.midSolution ? (
+      {shownSolutions.mediumSolution ? (
         <div className="flex w-full gap-5">
           <label htmlFor={`practicalTaskSolutions.${index}.mediumSolution`} className="basis-1/6 text-sm text-light">
             Mid solution
@@ -79,7 +80,7 @@ const PracitcalTaskSolutionListItem = ({
       ) : (
         <button
           className="place-self-start rounded-md bg-orange p-1 text-sm text-light"
-          onClick={() => setShownSolutions((prevState) => ({ ...prevState, midSolution: true }))}>
+          onClick={() => setShownSolutions((prevState) => ({ ...prevState, mediumSolution: true }))}>
           Add mid solution
         </button>
       )}
