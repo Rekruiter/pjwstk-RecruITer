@@ -5,8 +5,7 @@ import LoginForm from '../AuthForms/LoginForm';
 import RegisterForm from '../AuthForms/RegisterForm';
 import ForgotPasswordForm from '../AuthForms/ForgotPasswordForm';
 import { IoMdArrowBack } from 'react-icons/io';
-import { useState } from 'react';
-import _debounce from 'lodash.debounce';
+import { useRef, useState } from 'react';
 
 interface AuthModalInterface {
   handleRemoveAuthorization: () => void;
@@ -18,13 +17,18 @@ interface AuthModalInterface {
 const AuthModal = ({ handleRemoveAuthorization, authMethod, changeAuthMethod }: AuthModalInterface) => {
   const [isHiding, setIsHiding] = useState(false);
 
-  const debounceHideLogin = _debounce(() => {
-    handleRemoveAuthorization();
-  }, 500);
+  const timerId = useRef<NodeJS.Timeout | undefined>();
 
   const handleCloseModal = () => {
     setIsHiding(true);
-    debounceHideLogin();
+
+    if (timerId.current) {
+      clearTimeout(timerId.current);
+    }
+
+    timerId.current = setTimeout(() => {
+      handleRemoveAuthorization();
+    }, 500);
   };
 
   return (

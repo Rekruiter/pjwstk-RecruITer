@@ -31,7 +31,7 @@ const EditJobOfferPage = () => {
     isLoading: jobOfferWithDetailsLoading,
     isError: jobOfferWithDetailsError,
   } = useQuery(['jobOfferWithDetails', id], () => getJobOfferWithDetails(id), {
-    cacheTime: 0,
+    cacheTime: 1,
   });
 
   const onSubmit = (data: IJobOfferInput) => {
