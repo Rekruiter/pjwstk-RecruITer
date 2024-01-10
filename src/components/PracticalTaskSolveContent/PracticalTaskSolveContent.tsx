@@ -89,6 +89,7 @@ const PracticalTaskSolveContent = ({ task }: PracticalTaskSolveContentProps) => 
         </div>
       )}
       {task.input && <p className="text-dark">Input : {task.input}</p>}
+      {task.output && <p className="text-dark">Output: {task.output}</p>}
       {!isCompanyRole && (
         <>
           <p className="mt-10 text-dark">Your solution</p>

@@ -1,9 +1,10 @@
 import TheoreticalTaskListItem from '@/components/PublicTheoreticalTasksContent/PublicTheoreticalTasksList/TheoreticalTaskListItem';
 import Spinner from '@/components/UI/Spinner/Spinner';
 import { defaultStyles } from '@/constants/defaultStyles';
-import { Paths } from '@/constants/paths';
+import { GetPathsLinks, Paths } from '@/constants/paths';
 import { cn } from '@/lib/utils';
 import { IPublicTheoreticalTask } from '@/types/tasksTypes';
+import { CiEdit } from 'react-icons/ci';
 import { Link } from 'react-router-dom';
 
 interface CompanyTheoreticalTasksListProps {
@@ -22,7 +23,18 @@ const CompanyTheoreticalTasksList = ({ isFetching, tasks }: CompanyTheoreticalTa
         {isFetching ? (
           <Spinner />
         ) : (
-          tasks.map((task) => <TheoreticalTaskListItem key={task.id} taskData={task} to="/" />) // TODO: add here navigation to edit task
+          tasks.map((task) => (
+            <div className="flex gap-1" key={task.id}>
+              <TheoreticalTaskListItem
+                taskData={task}
+                to={GetPathsLinks.getTheoreticalTaskSolve(task.id)}
+                className="basis-11/12"
+              />
+              <Link to={GetPathsLinks.getTheoreticalTaskEdit(task.id)} className="flex items-center justify-center">
+                <CiEdit size={32} />
+              </Link>
+            </div>
+          )) // TODO: add here navigation to edit task
         )}
       </div>
     </div>

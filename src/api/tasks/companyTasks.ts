@@ -28,3 +28,17 @@ export const addPracticalTaskPost = async (inputData: IPracticalTaskFormInput) =
 export const addTheoreticalTaskPost = async (inputData: ITheoreticalTaskFormInput) => {
   await axios.post('/theoreticalTasks', inputData);
 };
+
+export const editPracticalTaskPut = async ({ id, inputData }: { inputData: IPracticalTaskFormInput; id: string }) => {
+  await axios.put(`/practicalTasks/${id}`, inputData);
+};
+
+export const editTheoreticalTaskPut = async ({
+  id,
+  inputData,
+}: {
+  inputData: ITheoreticalTaskFormInput;
+  id: string;
+}) => {
+  await axios.put(`/theoreticalTasks/${id}`, inputData);
+};

@@ -30,7 +30,7 @@ export const solvePublicPracticalTaskPost = async ({ id, solution }: { id: numbe
 
 export const solvePublicTheoreticalTaskPost = async ({ id, answer }: { id: number; answer: number }) => {
   const { data } = await axios.post(`/theoreticalTasks/${id}/solutions`, {
-    answer: answer,
+    SelectedOption: answer,
   });
   return data;
 };

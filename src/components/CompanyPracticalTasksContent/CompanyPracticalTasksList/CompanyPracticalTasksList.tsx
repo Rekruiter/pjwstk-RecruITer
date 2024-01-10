@@ -1,9 +1,10 @@
 import PracticalTaskListItem from '@/components/PublicPracticalTasksContent/PublicPracticalTasksList/PracticalTaskListItem';
 import Spinner from '@/components/UI/Spinner/Spinner';
 import { defaultStyles } from '@/constants/defaultStyles';
-import { Paths } from '@/constants/paths';
+import { GetPathsLinks, Paths } from '@/constants/paths';
 import { cn } from '@/lib/utils';
 import { IPublicPracticalTask } from '@/types/tasksTypes';
+import { CiEdit } from 'react-icons/ci';
 import { Link } from 'react-router-dom';
 
 interface CompanyPracticalTasksListProps {
@@ -23,14 +24,18 @@ const CompanyPracticalTasksList = ({ isFetching, tasks }: CompanyPracticalTasksL
           <Spinner />
         ) : (
           tasks.map((task) => (
-            <PracticalTaskListItem
-              key={task.id}
-              id={task.id}
-              question={task.question}
-              difficultyLevel={task.difficultyLevel}
-              practicalTasksSolutions={task.practicalTaskSolutions}
-              to="" // TODO: add here navigation to edit task
-            />
+            <div className="flex gap-1" key={task.id}>
+              <PracticalTaskListItem
+                question={task.question}
+                difficultyLevel={task.difficultyLevel}
+                practicalTasksSolutions={task.practicalTaskSolutions}
+                to={GetPathsLinks.getPracticalTaskSolve(task.id)}
+                className="basis-11/12"
+              />
+              <Link to={GetPathsLinks.getPracticalTaskEdit(task.id)} className="flex items-center justify-center">
+                <CiEdit size={32} />
+              </Link>
+            </div>
           ))
         )}
       </div>
