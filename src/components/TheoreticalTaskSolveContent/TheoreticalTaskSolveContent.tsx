@@ -42,7 +42,7 @@ const TheoreticalTaskSolveContent = ({ task }: TheoreticalTaskSolveContentProps)
         id: task.id,
         answer: answer,
       });
-
+      //TODO: DO it in non async way using onError and onSuccess
       if (response.isSolutionCorrect) {
         toast.success('Correct answer');
         navigate(GetPathsLinks.getTheoreticalTasksList());
@@ -107,6 +107,7 @@ const TheoreticalTaskSolveContent = ({ task }: TheoreticalTaskSolveContentProps)
             Show hint
           </Button>
         ))}
+      {task.answer && <p className="text-dark">Answer: {task.answer}</p>}
       <p className="mt-10 text-dark">Your solution</p>
       <div className="flex flex-wrap">
         {options.map((answer, idx) => (

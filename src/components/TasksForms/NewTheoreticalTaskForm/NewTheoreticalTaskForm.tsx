@@ -1,15 +1,17 @@
-import { ITheoreticalTaskFormInput, TheoreticalTaskFormInputSchema } from '@/types/tasksTypes';
+import { IPublicTheoreticalTask, ITheoreticalTaskFormInput, TheoreticalTaskFormInputSchema } from '@/types/tasksTypes';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+import { useController, useForm } from 'react-hook-form';
 import Button from '../../UI/Button';
 import Spinner from '../../UI/Spinner/Spinner';
 import FormFieldWrapper from '../../FormHelpers/FormFieldWrapper';
 import DifficultyLevelField from '../TaskFields/DifficultyLevelField/DifficultyLevelField';
+import FormToggleWrapper from '@/components/FormHelpers/FormToggleWrapper';
+import { cn } from '@/lib/utils';
 
 interface NewTheoreticalTaskFormProps {
   onSubmit: (data: ITheoreticalTaskFormInput) => void;
   mutationLoading: boolean;
-  defaultValues?: any; //TODO: add type here
+  defaultValues?: IPublicTheoreticalTask;
 }
 
 const NewTheoreticalTaskForm = ({ mutationLoading, onSubmit, defaultValues }: NewTheoreticalTaskFormProps) => {
@@ -17,16 +19,31 @@ const NewTheoreticalTaskForm = ({ mutationLoading, onSubmit, defaultValues }: Ne
     register,
     handleSubmit,
     formState: { errors },
+    control,
   } = useForm<ITheoreticalTaskFormInput>({
     resolver: zodResolver(TheoreticalTaskFormInputSchema),
     defaultValues: defaultValues
-      ? defaultValues
+      ? {
+          question: defaultValues.question,
+          difficultyLevel: defaultValues.difficultyLevel,
+          hint: defaultValues.hint ? defaultValues.hint : '',
+          isPrivate: defaultValues.isPrivate,
+          tag: defaultValues.tag,
+          optionA: defaultValues.optionA,
+          optionB: defaultValues.optionB,
+          optionC: defaultValues.optionC ? defaultValues.optionC : '',
+          optionD: defaultValues.optionD ? defaultValues.optionD : '',
+          answer: defaultValues.answer ? defaultValues.answer : 1,
+        }
       : {
           isPrivate: true,
         },
   });
 
   const formSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+    if (mutationLoading) {
+      return;
+    }
     e.preventDefault();
     handleSubmit(
       async (data) => {
@@ -37,6 +54,16 @@ const NewTheoreticalTaskForm = ({ mutationLoading, onSubmit, defaultValues }: Ne
       },
     )();
   };
+
+  const { field } = useController({
+    name: 'isPrivate',
+    control,
+  });
+
+  const { field: answerField } = useController({
+    name: 'answer',
+    control,
+  });
 
   return (
     <form
@@ -49,8 +76,96 @@ const NewTheoreticalTaskForm = ({ mutationLoading, onSubmit, defaultValues }: Ne
           register={register}
           placeholder="Your question here"
         />
+        <FormToggleWrapper
+          label="Visibility"
+          isToggled={!field.value}
+          untoggledOption="Private"
+          toggledOption="Public"
+          onChange={(value: boolean) => field.onChange(!value)}
+        />
         <DifficultyLevelField<ITheoreticalTaskFormInput> register={register} error={errors.difficultyLevel} />
-
+        <FormFieldWrapper<ITheoreticalTaskFormInput>
+          field="tag"
+          error={errors.tag}
+          register={register}
+          placeholder="Question tag here"
+          className="w-[45%] md:w-[30%]"
+        />
+        <FormFieldWrapper<ITheoreticalTaskFormInput>
+          field="hint"
+          error={errors.hint}
+          register={register}
+          placeholder="Hint here"
+          className="w-[45%] md:w-[30%]"
+        />
+        <div className="flex w-full gap-5">
+          <FormFieldWrapper<ITheoreticalTaskFormInput>
+            field="optionA"
+            error={errors.optionA}
+            register={register}
+            placeholder="Write answer here"
+            className="w-3/4"
+          />
+          <button
+            className={cn('mb-1 scale-95 transform place-self-end rounded-md bg-light/20 p-2 text-light shadow-md', {
+              'bg-orange': answerField.value === 1,
+            })}
+            type="button"
+            onClick={() => answerField.onChange(1)}>
+            Correct answer
+          </button>
+        </div>
+        <div className="flex w-full gap-5">
+          <FormFieldWrapper<ITheoreticalTaskFormInput>
+            field="optionB"
+            error={errors.optionB}
+            register={register}
+            placeholder="Write answer here"
+            className="w-3/4"
+          />
+          <button
+            className={cn('mb-1 scale-95 transform place-self-end rounded-md bg-light/20 p-2 text-light shadow-md', {
+              'bg-orange': answerField.value === 2,
+            })}
+            type="button"
+            onClick={() => answerField.onChange(2)}>
+            Correct answer
+          </button>
+        </div>
+        <div className="flex w-full gap-5">
+          <FormFieldWrapper<ITheoreticalTaskFormInput>
+            field="optionC"
+            error={errors.optionC}
+            register={register}
+            placeholder="Write answer here"
+            className="w-3/4"
+          />
+          <button
+            className={cn('mb-1 scale-95 transform place-self-end rounded-md bg-light/20 p-2 text-light shadow-md', {
+              'bg-orange': answerField.value === 3,
+            })}
+            type="button"
+            onClick={() => answerField.onChange(3)}>
+            Correct answer
+          </button>
+        </div>
+        <div className="flex w-full gap-5">
+          <FormFieldWrapper<ITheoreticalTaskFormInput>
+            field="optionD"
+            error={errors.optionD}
+            register={register}
+            placeholder="Write answer here"
+            className="w-3/4"
+          />
+          <button
+            className={cn('mb-1 scale-95 transform place-self-end rounded-md bg-light/20 p-2 text-light shadow-md', {
+              'bg-orange': answerField.value === 4,
+            })}
+            type="button"
+            onClick={() => answerField.onChange(4)}>
+            Correct answer
+          </button>
+        </div>
         {mutationLoading ? (
           <Spinner isLight />
         ) : (

@@ -78,7 +78,6 @@ const PublicPracticalTasksList = ({
           tasks.map((task) => (
             <PracticalTaskListItem
               key={task.id}
-              id={task.id}
               question={task.question}
               difficultyLevel={task.difficultyLevel}
               practicalTasksSolutions={task.practicalTaskSolutions}

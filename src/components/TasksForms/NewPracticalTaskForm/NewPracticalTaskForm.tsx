@@ -1,4 +1,4 @@
-import { IPracticalTaskFormInput, PracticalTaskFormInputSchema } from '@/types/tasksTypes';
+import { IPracticalTaskFormInput, IPublicPracticalTask, PracticalTaskFormInputSchema } from '@/types/tasksTypes';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useController, useForm } from 'react-hook-form';
 import Spinner from '../../UI/Spinner/Spinner';
@@ -12,7 +12,7 @@ import CodeRelatedToQuestionField from './NewPracticalTaskFields/CodeRelatedToQu
 interface NewPracticalTaskFormProps {
   onSubmit: (data: IPracticalTaskFormInput) => void;
   mutationLoading: boolean;
-  defaultValues?: any; //TODO: add type here
+  defaultValues?: IPublicPracticalTask;
 }
 
 const NewPracticalTaskForm = ({ mutationLoading, onSubmit, defaultValues }: NewPracticalTaskFormProps) => {
@@ -25,13 +25,26 @@ const NewPracticalTaskForm = ({ mutationLoading, onSubmit, defaultValues }: NewP
   } = useForm<IPracticalTaskFormInput>({
     resolver: zodResolver(PracticalTaskFormInputSchema),
     defaultValues: defaultValues
-      ? defaultValues
+      ? {
+          question: defaultValues.question,
+          difficultyLevel: defaultValues.difficultyLevel,
+          codeRelatedToQuestion: defaultValues.codeRelatedToQuestion,
+          hint: defaultValues.hint ? defaultValues.hint : '',
+          input: defaultValues.input ? defaultValues.input : '',
+          output: defaultValues.output ? defaultValues.output : '',
+          isPrivate: defaultValues.isPrivate,
+          tag: defaultValues.tag,
+          practicalTaskSolutions: defaultValues.practicalTaskSolutions,
+        }
       : {
           isPrivate: true,
         },
   });
 
   const formSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+    if (mutationLoading) {
+      return;
+    }
     e.preventDefault();
     handleSubmit(
       async (data) => {

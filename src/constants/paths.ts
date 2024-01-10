@@ -34,7 +34,9 @@ const allPaths = [
   'practicalTaskSolve',
   'theoreticalTaskSolve',
   'addPracticalTask',
+  'editPracticalTask',
   'addTheoreticalTask',
+  'editTheoreticalTask',
   'addJobOffer',
   'editJobOffer',
   'manageCompanyTasks',
@@ -56,6 +58,8 @@ export const GetPathsLinks = {
   getJobOfferApplications: (id: number) => `/job-offer-applications/${id}`,
   getCompanyPracticalTasksList: () => `/manage-company-tasks?${PathSearchParams.taskType}=practical`,
   getCompanyTheoreticalTasksList: () => `/manage-company-tasks?${PathSearchParams.taskType}=theoretical`,
+  getPracticalTaskEdit: (id: number) => `/edit-practical-task/${id}`,
+  getTheoreticalTaskEdit: (id: number) => `/edit-theoretical-task/${id}`,
 };
 
 export const PathSearchParams = {
@@ -154,6 +158,14 @@ export const Paths: Record<AllPathsType, PathType> = {
   },
   addTheoreticalTask: {
     path: '/add-theoretical-task',
+    requiredRoles: ['admin', 'techRecruiter', 'recruiter'],
+  },
+  editTheoreticalTask: {
+    path: '/edit-theoretical-task/:id',
+    requiredRoles: ['admin', 'techRecruiter', 'recruiter'],
+  },
+  editPracticalTask: {
+    path: '/edit-practical-task/:id',
     requiredRoles: ['admin', 'techRecruiter', 'recruiter'],
   },
   jobOfferApplications: {

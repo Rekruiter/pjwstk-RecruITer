@@ -23,12 +23,8 @@ const CompanyPracticalTasksContent = () => {
 
   const queryPage = parseInt(currentPage ?? '1');
 
-  const { data, isLoading, isError, isFetching } = useQuery(
-    ['companyPracticalTasks', queryPage],
-    () => getPrivatePracticalTasks(queryPage),
-    {
-      cacheTime: 0,
-    },
+  const { data, isLoading, isError, isFetching } = useQuery(['companyPracticalTasks', queryPage], () =>
+    getPrivatePracticalTasks(queryPage),
   );
 
   if (isLoading) {

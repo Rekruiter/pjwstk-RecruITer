@@ -23,12 +23,8 @@ const CompanyTheoreticalTasksContent = () => {
 
   const queryPage = parseInt(currentPage ?? '1');
 
-  const { data, isLoading, isError, isFetching } = useQuery(
-    ['companyTheoreticalTasks', queryPage],
-    () => getPrivateTheoreticalTasks(queryPage),
-    {
-      cacheTime: 0,
-    },
+  const { data, isLoading, isError, isFetching } = useQuery(['companyTheoreticalTasks', queryPage], () =>
+    getPrivateTheoreticalTasks(queryPage),
   );
 
   if (isLoading) {

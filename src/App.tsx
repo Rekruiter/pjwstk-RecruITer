@@ -34,6 +34,8 @@ import CompanyJobOfferListPage from './pages/job-offers/CompanyJobOfferListPage'
 import AddPracticalTaskPage from './pages/tasks/AddPracticalTaskPage';
 import AddTheoreticalTaskPage from './pages/tasks/AddTheoreticalTaskPage';
 import JobOfferApplicationsPage from './pages/job-offers/JobOfferApplicationsPage';
+import EditPracticalTaskPage from './pages/tasks/EditPracticalTaskPage';
+import EditTheoreticalTaskPage from './pages/tasks/EditTheoreticalTaskPage';
 
 function App() {
   const { role, isLoggedIn } = useContext(AuthContext);
@@ -142,6 +144,14 @@ function App() {
     {
       path: Paths.jobOfferApplications.path,
       element: PrivateRoute(<JobOfferApplicationsPage />, 'jobOfferApplications'),
+    },
+    {
+      path: Paths.editPracticalTask.path,
+      element: PrivateRoute(<EditPracticalTaskPage />, 'editPracticalTask'),
+    },
+    {
+      path: Paths.editTheoreticalTask.path,
+      element: PrivateRoute(<EditTheoreticalTaskPage />, 'editTheoreticalTask'),
     },
   ];
 
