@@ -18,7 +18,7 @@ interface TheoreticalTaskSolveContentProps {
 
 const TheoreticalTaskSolveContent = ({ task }: TheoreticalTaskSolveContentProps) => {
   const { role } = useContext(AuthContext);
-  const isCompanyRole = role === 'admin' || role === 'candidate' || role === 'techRecruiter';
+  const isCompanyRole = role === 'admin' || role === 'recruiter' || role === 'techRecruiter';
   const [isHintShown, setIsHintShown] = useState(isCompanyRole);
   const navigate = useNavigate();
 
@@ -31,18 +31,18 @@ const TheoreticalTaskSolveContent = ({ task }: TheoreticalTaskSolveContentProps)
       isSolutionCorrect: boolean;
     },
     IError,
-    { id: number; solution: string }
+    { id: number; answer: number }
   >(['solveTask', task.id], solvePublicTheoreticalTaskPost);
 
-  const handleSolveTask = async (answer: string) => {
+  const handleSolveTask = async (answer: number) => {
     if (isLoading) return;
 
     try {
       const response = await mutateAsync({
         id: task.id,
-        solution: answer,
+        answer: answer,
       });
-
+      //TODO: DO it in non async way using onError and onSuccess
       if (response.isSolutionCorrect) {
         toast.success('Correct answer');
         navigate(GetPathsLinks.getTheoreticalTasksList());
@@ -56,7 +56,7 @@ const TheoreticalTaskSolveContent = ({ task }: TheoreticalTaskSolveContentProps)
     }
   };
 
-  const AnswerButton = ({ answer }: { answer: string }) => {
+  const AnswerButton = ({ answer, index }: { answer: string; index: number }) => {
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleSubmit = async () => {
@@ -64,14 +64,17 @@ const TheoreticalTaskSolveContent = ({ task }: TheoreticalTaskSolveContentProps)
         return;
       }
       setIsSubmitting(true);
-      await handleSolveTask(answer);
+      await handleSolveTask(index + 1);
       setIsSubmitting(false);
     };
 
     return (
-      <div className="basis-1/2 p-2">
-        <Button onClick={handleSubmit} disabled={isLoading || isCompanyRole} className="disabled:opacity-80">
-          {isSubmitting ? <Spinner isLight className="h-4 w-4 border-2" /> : 'Submit'}
+      <div className="flex basis-1/2 justify-center p-2">
+        <Button
+          onClick={handleSubmit}
+          disabled={isLoading || isCompanyRole}
+          className="min-w-[100px] disabled:opacity-80">
+          {isSubmitting ? <Spinner isLight className="h-4 w-4 border-2" /> : answer}
         </Button>
       </div>
     );
@@ -104,10 +107,11 @@ const TheoreticalTaskSolveContent = ({ task }: TheoreticalTaskSolveContentProps)
             Show hint
           </Button>
         ))}
+      {task.answer && <p className="text-dark">Answer: {task.answer}</p>}
       <p className="mt-10 text-dark">Your solution</p>
-      <div className="flex flex-wrap gap-5">
+      <div className="flex flex-wrap">
         {options.map((answer, idx) => (
-          <AnswerButton key={idx} answer={answer} />
+          <AnswerButton key={idx} answer={answer} index={idx} />
         ))}
       </div>
     </div>

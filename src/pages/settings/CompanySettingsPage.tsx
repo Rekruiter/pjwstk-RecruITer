@@ -13,6 +13,12 @@ const CompanySettingsPage = () => {
           Manage company tasks
         </Link>
         <Link
+          to={Paths.companyJobOffers.path}
+          className="flex w-full rounded-md bg-dark/10 p-3 pl-5 text-xl text-dark shadow-md hover:border-none hover:bg-orange hover:text-light"
+          onClick={() => {}}>
+          Manage job offers
+        </Link>
+        <Link
           to={Paths.addJobOffer.path}
           className="flex w-full rounded-md bg-dark/10 p-3 pl-5 text-xl text-dark shadow-md hover:border-none hover:bg-orange hover:text-light"
           onClick={() => {}}>

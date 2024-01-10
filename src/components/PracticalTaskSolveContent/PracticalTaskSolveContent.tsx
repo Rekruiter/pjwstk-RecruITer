@@ -19,7 +19,7 @@ interface PracticalTaskSolveContentProps {
 
 const PracticalTaskSolveContent = ({ task }: PracticalTaskSolveContentProps) => {
   const { role } = useContext(AuthContext);
-  const isCompanyRole = role === 'admin' || role === 'candidate' || role === 'techRecruiter';
+  const isCompanyRole = role === 'admin' || role === 'recruiter' || role === 'techRecruiter';
   const [isHintShown, setIsHintShown] = useState(isCompanyRole);
   const [solutionInput, setSolutionInput] = useState('');
   const [showSolutions, setShowSolutions] = useState(isCompanyRole);
@@ -38,7 +38,7 @@ const PracticalTaskSolveContent = ({ task }: PracticalTaskSolveContentProps) => 
       setShowSolutions(true);
     },
     onSuccess(data) {
-      if (!data.isSolutionCorrect) {
+      if (data.isSolutionCorrect) {
         toast.success('Correct answer');
         navigate(GetPathsLinks.getPracticalTasksList());
       } else {
@@ -89,6 +89,7 @@ const PracticalTaskSolveContent = ({ task }: PracticalTaskSolveContentProps) => 
         </div>
       )}
       {task.input && <p className="text-dark">Input : {task.input}</p>}
+      {task.output && <p className="text-dark">Output: {task.output}</p>}
       {!isCompanyRole && (
         <>
           <p className="mt-10 text-dark">Your solution</p>

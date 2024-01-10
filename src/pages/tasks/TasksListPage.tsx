@@ -4,6 +4,7 @@ import PublicPracticalTasksContent from '@/components/PublicPracticalTasksConten
 import PublicTheoreticalTasksContent from '@/components/PublicTheoreticalTasksContent/PublicTheoreticalTasksContent';
 import { cn } from '@/lib/utils';
 import { PathSearchParams } from '@/constants/paths';
+import { capitalizeFirstLetter } from '@/helpers';
 
 const TasksListPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -50,10 +51,8 @@ const TasksListPage = () => {
     </div>
   );
 
-  const capitalizeFirstLetter = (element: string) => element.charAt(0).toUpperCase() + element.slice(1).toLowerCase();
-
   return (
-    <div className="container flex flex-grow flex-col gap-2 bg-light p-6">
+    <div className="container flex flex-grow flex-col gap-2 bg-light px-0 py-6 md:px-6">
       <div className="flex w-full rounded-md bg-dark_blue px-2 sm:px-0">
         <TabElement category={categories[0]} />
         <TabElement category={categories[1]} />

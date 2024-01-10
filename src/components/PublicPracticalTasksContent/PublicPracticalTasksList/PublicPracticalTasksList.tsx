@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { CiEdit } from 'react-icons/ci';
 import Spinner from '../../UI/Spinner/Spinner';
 import PracticalTaskListItem from './PracticalTaskListItem';
-import { PathSearchParams } from '@/constants/paths';
+import { GetPathsLinks, PathSearchParams } from '@/constants/paths';
 
 type PublicPracticalTasksListProps = {
   tasks: IPublicPracticalTask[];
@@ -78,10 +78,10 @@ const PublicPracticalTasksList = ({
           tasks.map((task) => (
             <PracticalTaskListItem
               key={task.id}
-              id={task.id}
               question={task.question}
               difficultyLevel={task.difficultyLevel}
               practicalTasksSolutions={task.practicalTaskSolutions}
+              to={GetPathsLinks.getPracticalTaskSolve(task.id)}
             />
           ))
         )}

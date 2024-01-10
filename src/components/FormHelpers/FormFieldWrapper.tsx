@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import { FieldError, FieldValue, FieldValues, UseFormRegister } from 'react-hook-form';
 
 type FormFieldWrapperProps<T extends FieldValues> = {
@@ -10,6 +11,7 @@ type FormFieldWrapperProps<T extends FieldValues> = {
   label?: string;
   min?: string | number;
   max?: string | number;
+  className?: string;
 };
 
 const FormFieldWrapper = <T extends FieldValues>({
@@ -22,10 +24,11 @@ const FormFieldWrapper = <T extends FieldValues>({
   label,
   max,
   min,
+  className,
 }: FormFieldWrapperProps<T>) => {
   const labelName = field.toString();
   return (
-    <div className="flex w-full flex-col gap-2">
+    <div className={cn('flex w-full flex-col gap-2', className)}>
       <label className="font-semibold text-light">{label ?? labelName[0].toUpperCase() + labelName.slice(1)}</label>
       <input
         {...register(field as FieldValue<T>)}

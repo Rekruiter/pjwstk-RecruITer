@@ -7,9 +7,10 @@ import {
 } from '../../types/tasksTypes';
 
 export const getPublicPracticalTasks = async (pageNumber: number, technologiesFilter: string[]) => {
-  const { data } = await axios.get(`/practicalTasks?pageNumber=${pageNumber}`, {
+  const { data } = await axios.get('/practicalTasks', {
     params: {
       technologies: technologiesFilter,
+      pageNumber: pageNumber,
     },
   });
   return publicPracticalTasksSchema.parse(data);
@@ -27,9 +28,9 @@ export const solvePublicPracticalTaskPost = async ({ id, solution }: { id: numbe
   return data;
 };
 
-export const solvePublicTheoreticalTaskPost = async ({ id, solution }: { id: number; solution: string }) => {
+export const solvePublicTheoreticalTaskPost = async ({ id, answer }: { id: number; answer: number }) => {
   const { data } = await axios.post(`/theoreticalTasks/${id}/solutions`, {
-    Solution: solution,
+    SelectedOption: answer,
   });
   return data;
 };

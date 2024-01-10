@@ -107,7 +107,15 @@ const PersonalDataForm = ({ data, handlePersonalDataPost, mutationLoading }: Per
             min={MIN_DATE}
             max={MAX_DATE}
           />
-          <FormToggleWrapper<IPersonalDataForm, 'status'> field={field} isToggled={field.value === 'hired'} />
+          <FormToggleWrapper
+            label="Status"
+            isToggled={field.value === 'hired'}
+            untoggledOption="Free"
+            toggledOption="Hired"
+            onChange={(value: boolean) => {
+              field.onChange(value ? 'hired' : 'free');
+            }}
+          />
           <TechnologiesField control={control} />
           <ForeignLanguagesField control={control} />
           <PortfolioLinksField control={control} register={register} />

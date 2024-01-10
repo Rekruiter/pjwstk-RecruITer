@@ -17,6 +17,7 @@ const allPaths = [
   'home',
   'notFound',
   'jobOffers',
+  'companyJobOffers',
   'newJobOffer',
   'jobOfferPreview',
   'candidateApplications',
@@ -32,8 +33,14 @@ const allPaths = [
   'company',
   'practicalTaskSolve',
   'theoreticalTaskSolve',
+  'addPracticalTask',
+  'editPracticalTask',
+  'addTheoreticalTask',
+  'editTheoreticalTask',
   'addJobOffer',
+  'editJobOffer',
   'manageCompanyTasks',
+  'jobOfferApplications',
 ] as const;
 
 export type AllPathsType = (typeof allPaths)[number];
@@ -47,6 +54,12 @@ export const GetPathsLinks = {
   getTheoreticalTaskSolve: (id: number) => `/theoretical-task-solve/${id}`,
   getPracticalTasksList: () => `/tasks?${PathSearchParams.taskType}=practical`,
   getTheoreticalTasksList: () => `/tasks?${PathSearchParams.taskType}=practical`,
+  getJobOfferEdit: (id: number) => `/edit-job-offer/${id}`,
+  getJobOfferApplications: (id: number) => `/job-offer-applications/${id}`,
+  getCompanyPracticalTasksList: () => `/manage-company-tasks?${PathSearchParams.taskType}=practical`,
+  getCompanyTheoreticalTasksList: () => `/manage-company-tasks?${PathSearchParams.taskType}=theoretical`,
+  getPracticalTaskEdit: (id: number) => `/edit-practical-task/${id}`,
+  getTheoreticalTaskEdit: (id: number) => `/edit-theoretical-task/${id}`,
 };
 
 export const PathSearchParams = {
@@ -70,6 +83,10 @@ export const Paths: Record<AllPathsType, PathType> = {
   jobOffers: {
     path: '/job-offers',
     headerSignature: 'Job offers',
+  },
+  companyJobOffers: {
+    path: '/company-job-offers',
+    requiredRoles: ['admin', 'recruiter', 'techRecruiter'],
   },
   newJobOffer: {
     path: '/job-offers/new',
@@ -127,8 +144,32 @@ export const Paths: Record<AllPathsType, PathType> = {
     path: '/new-job-offer',
     requiredRoles: ['admin', 'recruiter', 'techRecruiter'],
   },
+  editJobOffer: {
+    path: '/edit-job-offer/:id',
+    requiredRoles: ['admin', 'recruiter', 'techRecruiter'],
+  },
   manageCompanyTasks: {
     path: '/manage-company-tasks',
+    requiredRoles: ['admin', 'techRecruiter', 'recruiter'],
+  },
+  addPracticalTask: {
+    path: '/add-practical-task',
+    requiredRoles: ['admin', 'techRecruiter', 'recruiter'],
+  },
+  addTheoreticalTask: {
+    path: '/add-theoretical-task',
+    requiredRoles: ['admin', 'techRecruiter', 'recruiter'],
+  },
+  editTheoreticalTask: {
+    path: '/edit-theoretical-task/:id',
+    requiredRoles: ['admin', 'techRecruiter', 'recruiter'],
+  },
+  editPracticalTask: {
+    path: '/edit-practical-task/:id',
+    requiredRoles: ['admin', 'techRecruiter', 'recruiter'],
+  },
+  jobOfferApplications: {
+    path: '/job-offer-applications/:id',
     requiredRoles: ['admin', 'techRecruiter', 'recruiter'],
   },
 };

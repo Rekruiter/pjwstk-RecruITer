@@ -1,4 +1,9 @@
-import { JobOfferSchema, JobOffersListSchema } from '../../types/jobOfferTypes';
+import {
+  CompanyJobOfferListSchema,
+  JobOfferSchema,
+  JobOffersListSchema,
+  JobOffersWithApplicationDetailsSchema,
+} from '../../types/jobOfferTypes';
 import axios from '../axios/axios';
 
 export const getJobOfferList = async () => {
@@ -12,4 +17,14 @@ export const getJobOffer = async (id: string) => {
     return null;
   }
   return JobOfferSchema.parse(data);
+};
+
+export const getJobOfferWithDetails = async (id: string) => {
+  const { data } = await axios.get(`/jobOfferWithApplicationDetails/${id}`);
+  return JobOffersWithApplicationDetailsSchema.parse(data);
+};
+
+export const getCompanyJobOfferList = async () => {
+  const { data } = await axios.get('/companyJobOffers');
+  return CompanyJobOfferListSchema.parse(data);
 };
