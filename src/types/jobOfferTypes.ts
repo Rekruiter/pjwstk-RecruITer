@@ -165,3 +165,4 @@ export type IJobOfferInput = z.infer<typeof JobOfferInputSchema>;
 export type IApplyJobOffer = z.infer<typeof ApplyJobOfferSchema>;
 export type ICompanyJobOfferListElement = z.infer<typeof CompanyJobOfferListElementSchema>;
 export type IJobOfferPayload = z.infer<typeof JobOfferPayloadSchema>;
+export type IJobOffersWithApplicationDetailsSchema = z.infer<typeof JobOffersWithApplicationDetailsSchema>;

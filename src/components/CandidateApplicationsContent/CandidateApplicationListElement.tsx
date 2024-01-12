@@ -1,8 +1,8 @@
-import { ICandidateApplication } from '../../types/applicationTypes';
+import { IApplication } from '../../types/applicationTypes';
 
 interface CandidateApplicationListElementProps {
   handleOpenApplication: (id: number) => void;
-  applicationData: ICandidateApplication;
+  applicationData: IApplication;
 }
 
 const CandidateApplicationListElement = ({

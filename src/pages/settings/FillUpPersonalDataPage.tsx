@@ -10,7 +10,7 @@ import { toast } from 'react-toastify';
 
 const FillUpPersonalDataPage = () => {
   const { data, isError, isLoading } = useQuery<IPersonalDataFetch, IError>('personalData', personalDataGet, {
-    cacheTime: 0,
+    cacheTime: 1,
   });
   const navigate = useNavigate();
 
