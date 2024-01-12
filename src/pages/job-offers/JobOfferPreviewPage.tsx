@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query';
-import { Link, useParams, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { getJobOffer } from '../../api/jobOffers/jobOffers';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import Button from '../../components/UI/Button';
@@ -9,9 +9,12 @@ import { useContext, useState } from 'react';
 import AuthContext from '@/context/auth-context';
 import { formatISODateTODDMMYYYY } from '@/helpers';
 import JobOfferApplyForm from '@/components/JobOfferApplyForm/JobOfferApplyForm';
+import { IoMdArrowBack } from 'react-icons/io';
 const JobOfferPreviewPage = () => {
   const { id } = useParams() as { id: string };
   const { data, isError, isLoading } = useQuery(['jobOffer', id], () => getJobOffer(id));
+
+  const navigate = useNavigate();
 
   const [, setSearchParams] = useSearchParams();
   const [showApplyForm, setShowApplyForm] = useState(false);
@@ -46,7 +49,12 @@ const JobOfferPreviewPage = () => {
 
   return (
     <div className="container flex flex-1 flex-col gap-3 bg-light p-8">
-      <h2 className="w-fit rounded-xl text-center text-title_bold text-dark">{data.title}</h2>
+      <div className="mb-4 flex items-center gap-2">
+        <button onClick={() => navigate(-1)}>
+          <IoMdArrowBack className="text-dark" size={24} />
+        </button>
+        <h3 className="text-2xl font-semibold text-dark">{data.title}</h3>
+      </div>
       <Link className="cursor-pointer hover:text-orange" to={GetPathsLinks.getJobOffersWithFilters(data.idCompany)}>
         {data.companyName}
       </Link>
