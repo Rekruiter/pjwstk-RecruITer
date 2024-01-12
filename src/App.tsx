@@ -14,9 +14,7 @@ import UserPanelPage from './pages/panels/UserPanelPage';
 import ResetPasswordConfirmPage from './pages/landing-pages/ResetPasswordConfirmPage';
 import VerifyAccountPage from './pages/landing-pages/VerifyAccountPage';
 import { wrapInEmptyLayout } from './helpers/getLayoutWrappers';
-import CandidateApplicationsPage from './pages/applications/CandidateApplicationsPage';
 import CandidateApplicationPreviewPage from './pages/applications/CandidateApplicationPreviewPage';
-import RecruiterApplicationsPage from './pages/applications/RecruiterApplicationsPage';
 import JobOfferListPage from './pages/job-offers/JobOfferListPage';
 import TasksListPage from './pages/tasks/TasksListPage';
 import PublicTasksInformationPage from './pages/static-pages/PublicTasksInformationPage';
@@ -36,6 +34,8 @@ import AddTheoreticalTaskPage from './pages/tasks/AddTheoreticalTaskPage';
 import JobOfferApplicationsPage from './pages/job-offers/JobOfferApplicationsPage';
 import EditPracticalTaskPage from './pages/tasks/EditPracticalTaskPage';
 import EditTheoreticalTaskPage from './pages/tasks/EditTheoreticalTaskPage';
+import ApplicationListPage from './pages/applications/ApplicationListPage';
+import RecruiterApplicationPreviewPage from './pages/applications/RecruiterApplicationPreviewPage';
 
 function App() {
   const { role, isLoggedIn } = useContext(AuthContext);
@@ -87,7 +87,7 @@ function App() {
     },
     {
       path: Paths.candidateApplications.path,
-      element: PrivateRoute(<CandidateApplicationsPage />, 'candidateApplications'),
+      element: PrivateRoute(<ApplicationListPage type="candidate" />, 'candidateApplications'),
     },
     {
       path: Paths.candidateApplicationPreview.path,
@@ -95,7 +95,7 @@ function App() {
     },
     {
       path: Paths.recruiterApplications.path,
-      element: PrivateRoute(<RecruiterApplicationsPage />, 'recruiterApplications'),
+      element: PrivateRoute(<ApplicationListPage type="recruiter" />, 'recruiterApplications'),
     },
     {
       path: Paths.tasks.path,
@@ -152,6 +152,10 @@ function App() {
     {
       path: Paths.editTheoreticalTask.path,
       element: PrivateRoute(<EditTheoreticalTaskPage />, 'editTheoreticalTask'),
+    },
+    {
+      path: Paths.recruiterApplicationPreview.path,
+      element: PrivateRoute(<RecruiterApplicationPreviewPage />, 'recruiterApplicationPreview'),
     },
   ];
 

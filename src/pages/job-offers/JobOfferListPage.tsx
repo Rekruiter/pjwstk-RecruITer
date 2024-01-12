@@ -46,7 +46,7 @@ const JobOfferListPage = () => {
         {data?.map((jobOffer) => (
           <JobOfferListElement handleOpenJobOffer={handleOpenJobOffer} jobOfferData={jobOffer} key={jobOffer.id} />
         ))}
-        {!data && <p className="mx-auto w-fit py-10">No results found</p>}
+        {!data && <p className="mx-auto w-fit py-10 text-dark">No results found</p>}
       </div>
     </div>
   );

@@ -23,7 +23,7 @@ const allPaths = [
   'candidateApplications',
   'candidateApplicationPreview',
   'recruiterApplications',
-  'recruiterApplicationsPreview',
+  'recruiterApplicationPreview',
   'resetPasswordConfirm',
   'verifyAccount',
   'fillUpPersonalData',
@@ -109,7 +109,7 @@ export const Paths: Record<AllPathsType, PathType> = {
     headerSignature: 'Applications',
     requiredRoles: ['recruiter', 'techRecruiter', 'admin'],
   },
-  recruiterApplicationsPreview: {
+  recruiterApplicationPreview: {
     path: '/recruiter-applications/:id',
     requiredRoles: ['recruiter', 'techRecruiter', 'admin'],
   },
