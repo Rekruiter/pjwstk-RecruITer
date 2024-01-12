@@ -3,7 +3,7 @@ import * as z from 'zod';
 // const maxFileSize = 5000000;
 // const ACCEPTED_CV_TYPES = ['application/pdf', 'image/jpg', 'image/png'];
 
-const jobHistoriesObjectSchema = z.object({
+export const jobHistoriesObjectSchema = z.object({
   position: z.string(),
   nameOfCompany: z.string(),
   startDate: z.string(),

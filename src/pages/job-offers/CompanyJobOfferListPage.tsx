@@ -28,7 +28,7 @@ const CompanyJobOfferListPage = () => {
         {data && data.length !== 0 ? (
           <CompanyJobOffersList jobOffers={data} />
         ) : (
-          <p className="mx-auto w-fit py-10">No results found</p>
+          <p className="mx-auto w-fit py-10 text-dark">No results found</p>
         )}
       </div>
     </div>
