@@ -15,6 +15,7 @@ interface ApplicationListPageProps {
 const ApplicationListPage = ({ type }: ApplicationListPageProps) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
+  //TODO: Add is Hisotrical switch.
   const include = searchParams.get('include');
   const pageNumber = searchParams.get(PathSearchParams.pageNumber);
   const historical = searchParams.get('historical');

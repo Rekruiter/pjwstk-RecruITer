@@ -33,7 +33,6 @@ const JobOfferApplyForm = ({ idJobOffer, questions }: JobOfferApplyFormProps) =>
     register,
     handleSubmit,
     formState: { errors },
-    control,
     getValues,
   } = useForm<IApplyJobOffer>({
     resolver: zodResolver(ApplyJobOfferSchema),
