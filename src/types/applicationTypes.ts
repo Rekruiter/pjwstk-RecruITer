@@ -18,25 +18,33 @@ export const RecruiterApplicationSchema = z.object({
   candidateId: z.number(),
   jobOfferId: z.number(),
   jobOfferTitle: z.string(),
-  jobOfferTechnologies: z.string().transform((jsonString) => {
-    const parsedObject = JSON.parse(jsonString);
-    return z.record(z.number().min(1).max(5)).parse(parsedObject);
-  }),
+  jobOfferTechnologies: z.array(
+    z.object({
+      technologyName: z.string(),
+      level: z.number(),
+    }),
+  ),
   status: z.boolean().nullable(),
-  answers: z
-    .string()
-    .transform((jsonString) => {
-      const parsedObject = JSON.parse(jsonString);
-      return z.record(z.string()).parse(parsedObject);
-    })
-    .nullable(),
+  answers: z.array(
+    z.object({
+      question: z.string(),
+      answerToQuestion: z.string(),
+    }),
+  ),
   dateOfBirth: z.string().refine((date) => !isNaN(Date.parse(date)), {
     message: 'Invalid date format',
   }),
-  foreginLanguages: z.number(), // TODO: Replace with foreign
-  technologies: z.number(),
+  foreignLanguages: z.array(z.string()),
+  technologies: z.array(z.string()),
   jobHistories: z.array(jobHistoriesObjectSchema),
-  portfolioLinks: z.array(z.string()),
+  portfolioLinks: z.array(
+    z.object({
+      id: z.number(),
+      idCandidate: z.number(),
+      name: z.string(),
+      linkUrl: z.string(),
+    }),
+  ),
   introduction: z.string().nullable(),
 });
 
@@ -48,6 +56,9 @@ export const CandidateApplicationSchema = z.object({
   status: z.boolean().nullable(),
 });
 
-export const ApplicationListSchema = z.array(ApplicationSchema);
+export const GetApplicationListSchema = z.object({
+  applications: z.array(ApplicationSchema),
+  totalPages: z.number(),
+});
 
 export type IApplication = z.infer<typeof ApplicationSchema>;
