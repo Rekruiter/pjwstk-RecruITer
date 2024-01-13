@@ -138,13 +138,21 @@ export const JobOffersWithApplicationDetailsSchema = z.object({
 
 export const ApplyJobOfferSchema = z.object({
   introduceYourself: z.string().min(1, {
-    message: 'Introduce yourself can not be empty',
+    message: 'Introduce yourself is required',
   }),
   answers: z.array(
-    z.string().min(1, {
-      message: 'Answer can not be empty',
+    z.object({
+      question: z.string().min(1, {
+        message: 'Question can not be empty',
+      }),
+      answerToQuestion: z.string().min(1, {
+        message: 'Answer is required',
+      }),
     }),
   ),
+  expectedSalary: z.number({
+    required_error: 'Expected salary is required',
+  }),
 });
 
 const CompanyJobOfferListElementSchema = z.object({

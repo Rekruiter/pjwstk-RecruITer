@@ -10,7 +10,7 @@ const PaginationFooter = ({ totalPageNumber, currPage, callback }: PaginationFoo
   const pages = totalPageNumber > 5 ? 5 : totalPageNumber;
 
   return (
-    <div className="flex w-full justify-center p-2">
+    <div className="flex w-full justify-center place-self-end self-end p-2">
       {Array.from(
         {
           length: pages,

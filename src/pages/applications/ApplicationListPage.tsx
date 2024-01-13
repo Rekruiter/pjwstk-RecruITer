@@ -5,6 +5,7 @@ import { useSearchParams } from 'react-router-dom';
 import { PathSearchParams } from '../../constants/paths';
 import { useEffect } from 'react';
 import ApplicationListElement from '@/components/ApplicationsListContent/ApplicationListElement';
+import PaginationFooter from '@/components/UI/PaginationFooter/PaginationFooter';
 
 const INCLUDE_OPTIONS = ['new', 'accepted', 'rejected', 'all'];
 interface ApplicationListPageProps {
@@ -55,7 +56,7 @@ const ApplicationListPage = ({ type }: ApplicationListPageProps) => {
     isLoading,
     isError,
   } = useQuery(
-    ['recruiterApplications', queryPage, queryInclude, queryHistorical],
+    ['applicationList', queryPage, queryInclude, queryHistorical],
     () => getApplicationList(queryPage, queryInclude, queryHistorical),
     {
       staleTime: 10,
@@ -74,18 +75,28 @@ const ApplicationListPage = ({ type }: ApplicationListPageProps) => {
   if (applicationsData) {
     content = (
       <>
-        {applicationsData?.map((application) => (
+        {applicationsData.applications.map((application) => (
           <ApplicationListElement key={application.applicationId} applicationData={application} type={type} />
         ))}
         {!applicationsData ||
-          (applicationsData.length === 0 && <p className="mx-auto w-fit py-10 text-dark">No results found</p>)}
+          (applicationsData.applications.length === 0 && (
+            <p className="mx-auto w-fit py-10 text-dark">No results found</p>
+          ))}
       </>
     );
   }
 
+  const handleChangePage = (pageNumber: number) => {
+    if (pageNumber === queryPage) return;
+    setSearchParams((prevParams) => {
+      prevParams.set(PathSearchParams.pageNumber, pageNumber.toString());
+      return prevParams;
+    });
+  };
+
   return (
-    <div className="flex flex-col justify-center">
-      <div className="container flex flex-col gap-10 rounded-b-xl p-8 md:px-12 lg:px-16">
+    <div className="container flex flex-grow flex-col justify-between p-8 md:px-12 lg:px-16">
+      <div className="flex flex-col gap-10 rounded-b-xl">
         <div className="flex justify-center gap-10 p-2 pb-5 text-dark">
           <button
             className={`${include === 'new' ? 'underline decoration-orange underline-offset-8' : ''}`}
@@ -130,6 +141,13 @@ const ApplicationListPage = ({ type }: ApplicationListPageProps) => {
         </div>
         <div className="flex flex-col">{content}</div>
       </div>
+      {applicationsData?.totalPages && (
+        <PaginationFooter
+          totalPageNumber={applicationsData.totalPages}
+          currPage={queryPage}
+          callback={handleChangePage}
+        />
+      )}
     </div>
   );
 };
