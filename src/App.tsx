@@ -36,6 +36,8 @@ import EditPracticalTaskPage from './pages/tasks/EditPracticalTaskPage';
 import EditTheoreticalTaskPage from './pages/tasks/EditTheoreticalTaskPage';
 import ApplicationListPage from './pages/applications/ApplicationListPage';
 import RecruiterApplicationPreviewPage from './pages/applications/RecruiterApplicationPreviewPage';
+import RecruitmentListPage from './pages/recruitments/RecruitmentListPage';
+import PrepareRecruitmentPage from './pages/recruitments/PrepareRecruitmentPage';
 
 function App() {
   const { role, isLoggedIn } = useContext(AuthContext);
@@ -156,6 +158,14 @@ function App() {
     {
       path: Paths.recruiterApplicationPreview.path,
       element: PrivateRoute(<RecruiterApplicationPreviewPage />, 'recruiterApplicationPreview'),
+    },
+    {
+      path: Paths.recruiterRecruitments.path,
+      element: PrivateRoute(<RecruitmentListPage />, 'recruiterRecruitments'),
+    },
+    {
+      path: Paths.prepareRecruitment.path,
+      element: PrivateRoute(<PrepareRecruitmentPage />, 'prepareRecruitment'),
     },
   ];
 

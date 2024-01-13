@@ -20,8 +20,6 @@ const calculateAge = (dateOfBirth: string) => {
   return age;
 };
 
-//TODO: FIX WITH NEW SCHEMA.
-
 const RecruiterApplicationPreviewPage = () => {
   const [showConfirmModal, setShowConfirmModal] = useState<'accept' | 'reject' | null>(null);
   const { id } = useParams() as { id: string };
@@ -103,6 +101,7 @@ const RecruiterApplicationPreviewPage = () => {
               {data.candidateName} {data.candidateSurname}
             </p>
             <p className="text-md">{data.candidateEmail}</p>
+            <p className="text-md">{data.phoneNumber}</p>
             <p className="text-md">{new Date(data.dateOfBirth).toLocaleDateString()}</p>
             <p className="text-md">{calculateAge(data.dateOfBirth)} Years Old</p>
             <div className="text-md flex gap-5">

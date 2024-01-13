@@ -15,6 +15,7 @@ export const RecruiterApplicationSchema = z.object({
   candidateName: z.string(),
   candidateSurname: z.string(),
   candidateEmail: z.string(),
+  phoneNumber: z.string(),
   candidateId: z.number(),
   jobOfferId: z.number(),
   jobOfferTitle: z.string(),

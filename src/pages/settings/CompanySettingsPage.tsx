@@ -18,12 +18,6 @@ const CompanySettingsPage = () => {
           onClick={() => {}}>
           Manage job offers
         </Link>
-        <Link
-          to={Paths.addJobOffer.path}
-          className="flex w-full rounded-md bg-dark/10 p-3 pl-5 text-xl text-dark shadow-md hover:border-none hover:bg-orange hover:text-light"
-          onClick={() => {}}>
-          Add new job offer
-        </Link>
       </div>
     </div>
   );
