@@ -1,5 +1,6 @@
 import {
   IInviteCandidateForRecruitment,
+  IManageTasksForRecruitment,
   RecruiterRecruitmentListSchema,
   RecruiterRecruitmentSchema,
 } from '@/types/recruitmentsTypes';
@@ -7,7 +8,7 @@ import axios from '../axios/axios';
 
 export const acceptOrRejectRecruitment = async (inputData: { isAccepted: boolean; id: number }) => {
   const { id, ...rest } = inputData;
-  await axios.put(`/recruitmentInvitations/${id}/acceptOrReject`, rest);
+  await axios.post(`/recruitmentInvitations/${id}/acceptOrReject`, rest);
 };
 
 export const getRecruiterRecruitmentList = async () => {
@@ -27,4 +28,11 @@ export const planTechnicalRecruitment = async (inputData: IInviteCandidateForRec
     dateTechnical: new Date(DateTechnical).toISOString(),
   };
   await axios.post(`/recruitments/${id}/planTechnicalRecruitment`, input);
+};
+
+export const updateRecruitmentTasks = async (inputData: IManageTasksForRecruitment & { id: number }) => {
+  const { id, ...rest } = inputData;
+  await axios.put(`/recruitments/${id}/updateTasks`, {
+    TaskIds: rest.tasks.map((task) => task.idTask),
+  });
 };

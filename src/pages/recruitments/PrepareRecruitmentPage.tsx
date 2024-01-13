@@ -1,11 +1,14 @@
 import { getRecruiterRecruitment } from '@/api/recruitments/recruitments';
 import InviteCandidateModal from '@/components/PrepareRecruitmentContent/InviteCandidateModal';
+import ManageTasksModal from '@/components/PrepareRecruitmentContent/ManageTasksModal';
 import Button from '@/components/UI/Button';
 import Spinner from '@/components/UI/Spinner/Spinner';
+import { GetPathsLinks } from '@/constants/paths';
+import { formatISODateToDDMMYYYYHHMM } from '@/helpers';
 import { useState } from 'react';
 import { IoMdArrowBack } from 'react-icons/io';
 import { useQuery } from 'react-query';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 const getRecruitmentStateMessage = (recruitmentState: number) => {
   switch (recruitmentState) {
@@ -26,9 +29,9 @@ const PrepareRecruitmentPage = () => {
   const { id } = useParams() as { id: string };
 
   const [showInvitationModal, setShowInvitationModal] = useState(false);
-  // const [showManageTasksModal, setShowManageTasksModal] = useState(false);
+  const [showManageTasksModal, setShowManageTasksModal] = useState(false);
 
-  const { data, isLoading, isError } = useQuery(['recruitment', id], () => getRecruiterRecruitment(id));
+  const { data, isLoading, isError } = useQuery(`recruitment-${id}`, () => getRecruiterRecruitment(id));
 
   const navigate = useNavigate();
 
@@ -54,6 +57,10 @@ const PrepareRecruitmentPage = () => {
       </div>
       <div className="text-md flex flex-col gap-2 text-dark">
         <p>Job offer: {data.jobOfferTitle}</p>
+        <Link className="text-orange underline" to={GetPathsLinks.getRecruiterApplicationPreview(data.applicationId)}>
+          Check application
+        </Link>
+        <p>Recruitment started: {formatISODateToDDMMYYYYHHMM(data.date)}</p>
         <p>
           Candidate: {data.candidateName} {data.candidateSurname}
         </p>
@@ -61,9 +68,18 @@ const PrepareRecruitmentPage = () => {
           Recruiter: {data.recruiterName} {data.recruiterSurname}
         </p>
         <p>Status: {getRecruitmentStateMessage(data.state)}</p>
-        {/* <Button className="w-fit p-2 text-sm" onClick={() => setShowManageTasksModal(true)}>
+        {data.dateTechnical && <p>Technical Interview Date: {formatISODateToDDMMYYYYHHMM(data.dateTechnical)}</p>}
+        <Button className="w-fit p-2 text-sm" onClick={() => setShowManageTasksModal(true)}>
           Manage tasks
-        </Button> */}
+        </Button>
+        {showManageTasksModal && (
+          <ManageTasksModal
+            recruitmentId={data.id}
+            handleCloseModal={() => setShowManageTasksModal(false)}
+            defaultPracticalTasks={data.practicalTasks}
+            defaultTheoreticalTasks={data.theoreticalTasks}
+          />
+        )}
         <p>Practical tasks: </p>
         <p>Theoreitcal tasks: </p>
         {data.state !== 5 && (
