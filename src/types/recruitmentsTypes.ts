@@ -2,6 +2,7 @@ import * as z from 'zod';
 
 export const RecruiterRecruitmentSchema = z.object({
   id: z.number(),
+  applicationId: z.number(),
   date: z.string(),
   dateTechnical: z.string().nullable(),
   state: z.number(),
@@ -16,8 +17,18 @@ export const RecruiterRecruitmentSchema = z.object({
       idTask: z.number(),
     }),
   ),
-  practicalTasks: z.array(z.object({})),
-  theoreticalTasks: z.array(z.object({})),
+  practicalTasks: z.array(
+    z.object({
+      id: z.number(),
+      question: z.string(),
+    }),
+  ),
+  theoreticalTasks: z.array(
+    z.object({
+      id: z.number(),
+      question: z.string(),
+    }),
+  ),
 });
 
 export const InviteCandidateForRecruitmentSchema = z.object({
@@ -34,7 +45,17 @@ export const InviteCandidateForRecruitmentSchema = z.object({
     }),
 });
 
+export const ManageTasksForRecruitmentSchema = z.object({
+  tasks: z.array(
+    z.object({
+      idTask: z.number(),
+      question: z.string(),
+    }),
+  ),
+});
+
 export const RecruiterRecruitmentListSchema = z.array(RecruiterRecruitmentSchema);
 
 export type IRecruiterRecruitment = z.infer<typeof RecruiterRecruitmentSchema>;
 export type IInviteCandidateForRecruitment = z.infer<typeof InviteCandidateForRecruitmentSchema>;
+export type IManageTasksForRecruitment = z.infer<typeof ManageTasksForRecruitmentSchema>;

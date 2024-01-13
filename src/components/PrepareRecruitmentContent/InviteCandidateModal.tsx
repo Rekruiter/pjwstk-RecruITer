@@ -36,9 +36,9 @@ const InviteCandidateModal = ({ recruitmentId, handleCloseModal }: InviteCandida
     planTechnicalRecruitment,
     {
       onSuccess: () => {
+        queryClient.refetchQueries(`recruitment-${recruitmentId}`);
         toast.success('Candidate invited for recruitment');
         handleCloseModal();
-        queryClient.refetchQueries(['recruitment', recruitmentId]);
       },
       onError: () => {
         toast.error('An error occured, please try again later');

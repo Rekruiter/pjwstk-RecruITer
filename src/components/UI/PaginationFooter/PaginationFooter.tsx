@@ -4,9 +4,10 @@ interface PaginationFooterProps {
   totalPageNumber: number;
   currPage: number;
   callback: (pageNumber: number) => void;
+  classNameHeight?: number;
 }
 
-const PaginationFooter = ({ totalPageNumber, currPage, callback }: PaginationFooterProps) => {
+const PaginationFooter = ({ totalPageNumber, currPage, callback, classNameHeight = 10 }: PaginationFooterProps) => {
   const pages = totalPageNumber > 5 ? 5 : totalPageNumber;
 
   return (
@@ -22,7 +23,7 @@ const PaginationFooter = ({ totalPageNumber, currPage, callback }: PaginationFoo
           disabled={pageNumber === currPage}
           onClick={() => callback(pageNumber)}
           className={cn(
-            'aspect-square h-10 border p-2',
+            `aspect-square h-${classNameHeight} border`,
             pageNumber === currPage
               ? 'border-orange text-orange'
               : 'border-dark text-dark hover:border-none hover:bg-orange hover:text-light',
@@ -35,7 +36,7 @@ const PaginationFooter = ({ totalPageNumber, currPage, callback }: PaginationFoo
           disabled={totalPageNumber === currPage}
           onClick={() => callback(totalPageNumber)}
           className={cn(
-            'aspect-square h-10 border p-2',
+            `aspect-square h-${classNameHeight} border p-2`,
             totalPageNumber === currPage
               ? 'border-orange text-orange'
               : 'border-dark text-dark hover:border-none hover:bg-orange hover:text-light',

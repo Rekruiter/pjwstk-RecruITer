@@ -28,6 +28,7 @@ const getRecruitmentLinkPath = (recruitmentState: number, recruitmentId: number)
   switch (recruitmentState) {
     case 1:
     case 2:
+    case 3:
       return GetPathsLinks.getPrepareRecruitment(recruitmentId);
     default:
       return '';
