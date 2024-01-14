@@ -80,11 +80,11 @@ const RecruiterApplicationPreviewPage = () => {
             {data.jobOfferTitle}
           </Link>
           <div className="flex flex-wrap gap-2">
-            {Object.keys(data.jobOfferTechnologies).map((key, idx) => (
+            {data.jobOfferTechnologies.map((tech, idx) => (
               <div key={idx} className="flex items-center gap-2 border border-dark p-1">
-                <p>{key}</p>
+                <p>{tech.technologyName}</p>
                 <div className="inline-flex text-orange">
-                  {Array(data.jobOfferTechnologies[key])
+                  {Array(tech.level)
                     .fill(0)
                     .map((_, idx) => (
                       <FaStar key={idx} />
@@ -101,13 +101,34 @@ const RecruiterApplicationPreviewPage = () => {
               {data.candidateName} {data.candidateSurname}
             </p>
             <p className="text-md">{data.candidateEmail}</p>
+            <p className="text-md">{data.phoneNumber}</p>
             <p className="text-md">{new Date(data.dateOfBirth).toLocaleDateString()}</p>
             <p className="text-md">{calculateAge(data.dateOfBirth)} Years Old</p>
-            <p className="text-md">{data.foreginLanguages} tutaj foreign languages</p>
-            <p className="text-md">{data.technologies} tutaj known technologies</p>
-            <div className="flex flex-col gap-1 text-sm underline">
-              {data.portfolioLinks.map((link, idx) => (
-                <p key={idx}>{link}</p>
+            <div className="text-md flex gap-5">
+              <p>Foreign languages:</p>
+              <div className="flex flex-wrap gap-2">
+                {data.foreignLanguages.map((language) => (
+                  <p>{language}</p>
+                ))}
+              </div>
+            </div>
+            <div className="text-md flex gap-5">
+              <p>Known technologies</p>
+              <div className="flex flex-wrap gap-2">
+                {data.technologies.map((tech) => (
+                  <p>{tech}</p>
+                ))}
+              </div>
+            </div>
+            <div className="flex flex-col gap-2">
+              <p>Portfolio links:</p>
+              {data.portfolioLinks.map((link) => (
+                <div key={link.id} className="flex flex-col gap-1">
+                  <p>{link.name}</p>
+                  <a href={link.linkUrl} className="hover:text-orange hover:underline">
+                    {link.linkUrl}
+                  </a>
+                </div>
               ))}
             </div>
           </div>
@@ -122,13 +143,12 @@ const RecruiterApplicationPreviewPage = () => {
             <div className="flex flex-col gap-1">
               <p className="basis-1/3">Question answers: </p>
               <div className="flex flex-col gap-2">
-                {data.answers &&
-                  Object.entries(data.answers).map(([key, value], index) => (
-                    <div key={index} className="flex flex-col gap-1">
-                      <p className="font-medium">{key}</p>
-                      <p className="font-normal">{value}</p>
-                    </div>
-                  ))}
+                {data.answers.map((answer, idx) => (
+                  <div key={idx} className="flex flex-col gap-1">
+                    <p className="font-medium">{answer.question}</p>
+                    <p className="font-normal">{answer.answerToQuestion}</p>
+                  </div>
+                ))}
               </div>
             </div>
           </div>

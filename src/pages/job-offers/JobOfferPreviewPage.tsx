@@ -48,7 +48,7 @@ const JobOfferPreviewPage = () => {
   );
 
   return (
-    <div className="container flex flex-1 flex-col gap-3 bg-light p-8">
+    <div className="text container flex flex-1 flex-col gap-3 bg-light p-8">
       <div className="mb-4 flex items-center gap-2">
         <button onClick={() => navigate(-1)}>
           <IoMdArrowBack className="text-dark" size={24} />
@@ -62,7 +62,14 @@ const JobOfferPreviewPage = () => {
         Salary: {data.minSalary}
         {data.maxSalary !== null && `-${data.maxSalary}`} {data.currency}
       </p>
-      <p>Description: {data.description}</p>
+      <p>
+        Description:{' '}
+        {data.description.split('\n').map((line) => (
+          <>
+            {line} <br />
+          </>
+        ))}
+      </p>
       <p>Requirements:</p>
       <div className="flex flex-wrap gap-2">
         {Object.keys(data.requirements).map((key, idx) => (
@@ -109,10 +116,9 @@ const JobOfferPreviewPage = () => {
           </p>
         </div>
       )}
-      {showApplyForm && <JobOfferApplyForm idJobOffer={id} />}
-      {role === 'candidate' && (
-        <Button className="w-fit" onClick={showApplyForm ? () => {} : () => setShowApplyForm(true)}>
-          {' '}
+      {showApplyForm && <JobOfferApplyForm idJobOffer={id} questions={data.questions} />}
+      {role === 'candidate' && !showApplyForm && (
+        <Button className="w-fit" onClick={() => setShowApplyForm(true)}>
           Apply
         </Button>
       )}

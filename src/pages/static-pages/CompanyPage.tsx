@@ -13,6 +13,7 @@ const CompanyPage = () => {
   if (isLoggedIn) {
     return <Navigate to={Paths.home.path} />;
   }
+
   return (
     <section className="container flex w-full flex-col self-center bg-light p-2 sm:p-6 md:p-4">
       <div className="flex w-full flex-col gap-12 rounded-md px-0 py-5 pb-24 text-dark md:px-5 lg:px-16">

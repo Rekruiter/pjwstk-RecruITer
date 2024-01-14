@@ -1,5 +1,5 @@
 import {
-  ApplicationListSchema,
+  GetApplicationListSchema,
   CandidateApplicationSchema,
   RecruiterApplicationSchema,
 } from '../../types/applicationTypes';
@@ -13,7 +13,7 @@ export const getApplicationList = async (pageNumber: number, include: string, in
       includeHistorical: includeHistorical,
     },
   });
-  return ApplicationListSchema.parse(data);
+  return GetApplicationListSchema.parse(data);
 };
 
 export const getCandidateApplication = async (id: string) => {

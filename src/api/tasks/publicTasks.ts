@@ -6,7 +6,7 @@ import {
   publicTheoreticalTaskItemSchema,
 } from '../../types/tasksTypes';
 
-export const getPublicPracticalTasks = async (pageNumber: number, technologiesFilter: string[]) => {
+export const getPublicPracticalTasks = async (pageNumber: number, technologiesFilter?: string[]) => {
   const { data } = await axios.get('/practicalTasks', {
     params: {
       technologies: technologiesFilter,

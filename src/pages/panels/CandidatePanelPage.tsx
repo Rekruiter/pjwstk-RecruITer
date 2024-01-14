@@ -27,8 +27,8 @@ const CandidatePanelPage = () => {
           />
         </div>
         <div className="flex w-full flex-col gap-5 md:flex-row">
-          <CandidateUpcomingRecruitments recruitments={data.upcomingRecruitments} />
           <CandidateRecruitmentInvitations recruitmentInvitations={data.recruitmentInvitations} />
+          <CandidateUpcomingRecruitments recruitments={data.upcomingRecruitments} />
         </div>
       </div>
     </div>

@@ -52,17 +52,19 @@ const AuthorizedDropdownMenu = ({ onLogout, name }: AuthorizedDropdownMenuProps)
                 </button>
               )}
             </Menu.Item> */}
-            <Menu.Item as={'div'} className="flex justify-center">
-              {({ active }) => (
-                <button
-                  onClick={() => navigate(Paths.profileSettings.path)}
-                  className={`${
-                    active ? 'bg-orange text-white' : 'text-dark'
-                  } w-11/12 rounded-md py-2 text-sm hover:scale-105`}>
-                  My profile
-                </button>
-              )}
-            </Menu.Item>
+            {(role === 'candidate' || role === 'user') && (
+              <Menu.Item as={'div'} className="flex justify-center">
+                {({ active }) => (
+                  <button
+                    onClick={() => navigate(Paths.profileSettings.path)}
+                    className={`${
+                      active ? 'bg-orange text-white' : 'text-dark'
+                    } w-11/12 rounded-md py-2 text-sm hover:scale-105`}>
+                    My profile
+                  </button>
+                )}
+              </Menu.Item>
+            )}
             {(role === 'admin' || role === 'techRecruiter' || role === 'recruiter') && (
               <Menu.Item as={'div'} className="flex justify-center">
                 {({ active }) => (

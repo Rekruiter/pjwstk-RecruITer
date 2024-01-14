@@ -5,17 +5,12 @@ import PanelSectionWrapper from '../UI/PanelSectionWrapper';
 import { Paths } from '@/constants/paths';
 
 interface CandidateUpcomingRecruitmentsProps {
-  recruitments: ICandidatePanel['recruitmentInvitations'];
+  recruitments: ICandidatePanel['upcomingRecruitments'];
 }
 
 const CandidateUpcomingRecruitments = ({ recruitments }: CandidateUpcomingRecruitmentsProps) => {
   return (
-    <PanelSectionWrapper
-      headerClickHandler={() => {
-        // navigate to recruitment invitations
-      }}
-      headerTitle="Recruitment invitations"
-      className="sm:basis-3/5">
+    <PanelSectionWrapper headerTitle="Upcoming recruitments" className="sm:basis-3/5">
       {recruitments.length === 0 && (
         <p className="m-auto text-light">
           Navigate to{' '}
@@ -26,17 +21,12 @@ const CandidateUpcomingRecruitments = ({ recruitments }: CandidateUpcomingRecrui
         </p>
       )}
       {recruitments.map((recruitment) => (
-        <div
-          key={recruitment.id}
-          className="flex w-full cursor-pointer flex-wrap border p-2 text-light hover:bg-orange"
-          onClick={() => {
-            // navigate to recruitment
-          }}>
-          <div className="basis-full">
+        <div key={recruitment.id} className="flex w-full flex-wrap border p-2 text-light hover:bg-orange">
+          <div className="basis-3/4">
             <p className="line-clamp-1 overflow-hidden font-medium">{recruitment.jobTitle}</p>
-          </div>
-          <p className="basis-full font-semibold">{recruitment.companyName}</p>
-          <p className="md:text-cener">{formatISODateToDDMMYYYYHHMM(recruitment.date)}</p>
+            <p className="font-semibold">{recruitment.companyName}</p>
+            <p>{formatISODateToDDMMYYYYHHMM(recruitment.date)}</p>
+          </div>{' '}
         </div>
       ))}
     </PanelSectionWrapper>
