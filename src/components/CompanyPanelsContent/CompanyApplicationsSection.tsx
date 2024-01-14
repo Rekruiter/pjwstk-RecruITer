@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { IRecruiterPanel } from '../../types/panelPageTypes';
 import PanelSectionWrapper from '../UI/PanelSectionWrapper';
-import { Paths } from '../../constants/paths';
+import { GetPathsLinks, Paths } from '../../constants/paths';
 
 interface CompanyApplicationsSectionProps {
   applications: IRecruiterPanel['applications'];
@@ -21,7 +21,7 @@ const CompanyApplicationsSection = ({ applications }: CompanyApplicationsSection
           key={application.id}
           className="flex w-full cursor-pointer flex-wrap rounded-md bg-light/5 p-2 text-light shadow-md hover:bg-orange"
           onClick={() => {
-            // navigate to applicatoin
+            navigate(GetPathsLinks.getRecruiterApplicationPreview(application.id));
           }}>
           <div className="basis-full">
             <p className="line-clamp-1 overflow-hidden">

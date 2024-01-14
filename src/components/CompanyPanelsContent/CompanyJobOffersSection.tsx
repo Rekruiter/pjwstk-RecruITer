@@ -22,7 +22,7 @@ const CompanyJobOffersSection = ({ jobOffers }: ProposedJobOffersSectionProps) =
           key={jobOffer.id}
           className="flex w-full cursor-pointer flex-wrap rounded-md bg-light/5 p-2 text-light shadow-md hover:bg-orange"
           onClick={() => {
-            navigate(GetPathsLinks.getJobOfferPreview(jobOffer.id));
+            navigate(GetPathsLinks.getJobOfferApplications(jobOffer.id));
           }}>
           <div className="basis-full md:basis-3/4">
             <p className="line-clamp-1 overflow-hidden">{jobOffer.title}</p>

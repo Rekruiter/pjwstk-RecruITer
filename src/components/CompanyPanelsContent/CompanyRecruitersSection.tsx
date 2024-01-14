@@ -14,10 +14,7 @@ const CompanyRecruitersSection = ({ recruiters }: CompanyRecruitersSectionProps)
       {recruiters.map((recruiter) => (
         <div
           key={recruiter.id}
-          className="flex w-full cursor-pointer flex-wrap rounded-md bg-light/5 p-2 text-light shadow-md hover:bg-orange"
-          onClick={() => {
-            //navigate to edit recruiter page
-          }}>
+          className="flex w-full flex-wrap rounded-md bg-light/5 p-2 text-light shadow-md hover:bg-orange">
           <div className="basis-full">
             <p className="line-clamp-1 overflow-hidden font-medium">
               {recruiter.name} {recruiter.surname}

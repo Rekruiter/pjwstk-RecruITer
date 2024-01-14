@@ -52,18 +52,20 @@ const ManageTasksModal = ({
     </div>
   );
 
-  const practicalTasks = defaultPracticalTasks.map((task) => {
-    return {
-      idTask: task.id,
-      question: task.question,
-    };
-  });
-  const theoreitcalTasks = defaultTheoreticalTasks.map((task) => {
-    return {
-      idTask: task.id,
-      question: task.question,
-    };
-  });
+  const practicalTasks =
+    defaultPracticalTasks?.map((task) => {
+      return {
+        idTask: task.id,
+        question: task.question,
+      };
+    }) ?? [];
+  const theoreitcalTasks =
+    defaultTheoreticalTasks?.map((task) => {
+      return {
+        idTask: task.id,
+        question: task.question,
+      };
+    }) ?? [];
 
   const [companyTaskPage, setCompanyTaskPage] = useState(1);
   const [publicTaskPage, setPublicTaskPage] = useState(1);

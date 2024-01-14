@@ -1,19 +1,20 @@
-import { useForm } from 'react-hook-form';
-import { IResetPasswordConfirmFormInput, ResetPasswordConfirmFormInputSchema } from '../../types/authFormTypes';
+import { createRecruiterPost } from '@/api/authorization/authorization';
+import { IResetPasswordConfirmFormInput, ResetPasswordConfirmFormInputSchema } from '@/types/authFormTypes';
 import { zodResolver } from '@hookform/resolvers/zod';
-import FormFieldWrapper from '../FormHelpers/FormFieldWrapper';
-import Button from '../UI/Button';
+import React from 'react';
+import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
-import { resetPasswordConfirmPost } from '../../api/authorization/authorization';
-import Spinner from '../UI/Spinner/Spinner';
 import { useNavigate, useParams } from 'react-router-dom';
+import Button from '../UI/Button';
+import FormFieldWrapper from '../FormHelpers/FormFieldWrapper';
+import Spinner from '../UI/Spinner/Spinner';
 
-const ResetPasswordForm = () => {
+const CreateRecruiterForm = () => {
   const { token } = useParams() as { token: string };
 
   const { mutate, error, isLoading, isSuccess } = useMutation<any, Error, IResetPasswordConfirmFormInput>(
     'resetPassword',
-    (input: IResetPasswordConfirmFormInput) => resetPasswordConfirmPost(input, token),
+    (input: IResetPasswordConfirmFormInput) => createRecruiterPost(input, token),
   );
 
   const navigate = useNavigate();
@@ -42,7 +43,7 @@ const ResetPasswordForm = () => {
   if (isSuccess) {
     return (
       <div className="m-auto flex flex-col items-center gap-1 text-dark">
-        <h3 className="text-lg font-semibold text-success_color">Your password has been reset successfully</h3>
+        <h3 className="text-lg font-semibold text-success_color">Your password has been set successfully</h3>
         <Button
           onClick={() =>
             navigate('/?authorization=login', {
@@ -61,16 +62,6 @@ const ResetPasswordForm = () => {
       <div className="m-auto flex flex-col items-center gap-1 text-dark">
         <h3 className="text-lg font-semibold text-error_color">Oh no !</h3>
         <p>{error.message}</p>
-        <p>In order to try again: </p>
-        <Button
-          onClick={() =>
-            navigate('/?authorization=login', {
-              replace: true,
-            })
-          }
-          className="mt-2">
-          Navigate to reset password section
-        </Button>
       </div>
     );
   }
@@ -97,11 +88,11 @@ const ResetPasswordForm = () => {
         <Spinner isLight />
       ) : (
         <Button type="submit" className="mt-5">
-          Reset Password
+          Create account
         </Button>
       )}
     </form>
   );
 };
 
-export default ResetPasswordForm;
+export default CreateRecruiterForm;
