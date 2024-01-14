@@ -9,6 +9,7 @@ import { useState } from 'react';
 import { IoMdArrowBack } from 'react-icons/io';
 import { useQuery } from 'react-query';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import { MdOutlinePreview } from 'react-icons/md';
 
 const getRecruitmentStateMessage = (recruitmentState: number) => {
   switch (recruitmentState) {
@@ -81,7 +82,35 @@ const PrepareRecruitmentPage = () => {
           />
         )}
         <p>Practical tasks: </p>
+        {data.practicalTasks?.map((task) => (
+          <div key={task.id} className="flex justify-between bg-dark/5 p-2 shadow-md">
+            <div className="flex flex-col">
+              <p>
+                <span className="font-medium">Question: </span>
+                {task.question}
+              </p>
+              <p>{task.companyId === null ? 'Public task' : 'Company task'}</p>
+            </div>
+            <Link to={GetPathsLinks.getPracticalTaskSolve(task.id)} className="flex items-center">
+              <MdOutlinePreview size={24} />
+            </Link>
+          </div>
+        ))}
         <p>Theoreitcal tasks: </p>
+        {data.theoreticalTasks?.map((task) => (
+          <div key={task.id} className="flex justify-between bg-dark/5 p-2 shadow-md">
+            <div className="flex flex-col">
+              <p>
+                <span className="font-medium">Question: </span>
+                {task.question}
+              </p>
+              <p>{task.companyId === null ? 'Public task' : 'Company task'}</p>
+            </div>
+            <Link to={GetPathsLinks.getTheoreticalTaskSolve(task.id)} className="flex items-center">
+              <MdOutlinePreview size={24} />
+            </Link>
+          </div>
+        ))}
         {data.state !== 5 && (
           <Button onClick={() => setShowInvitationModal(true)}>
             {data.state === 1 ? 'Invite candidate' : 'Reinvite candidate'}

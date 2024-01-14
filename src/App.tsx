@@ -41,6 +41,7 @@ import PrepareRecruitmentPage from './pages/recruitments/PrepareRecruitmentPage'
 import RecruitersListPage from './pages/recruiters/RecruitersListPage';
 import EditRecruiterPage from './pages/recruiters/EditRecruiterPage';
 import AddRecruiterPage from './pages/recruiters/AddRecruiterPage';
+import CreateRecruiterPage from './pages/landing-pages/CreateRecruiterPage';
 
 function App() {
   const { role, isLoggedIn } = useContext(AuthContext);
@@ -89,6 +90,10 @@ function App() {
     {
       path: Paths.verifyAccount.path,
       element: wrapInEmptyLayout(<VerifyAccountPage />),
+    },
+    {
+      path: Paths.createRecruiter.path,
+      element: wrapInEmptyLayout(<CreateRecruiterPage />),
     },
     {
       path: Paths.candidateApplications.path,

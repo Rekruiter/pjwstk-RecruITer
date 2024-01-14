@@ -47,6 +47,7 @@ export const RecruiterApplicationSchema = z.object({
     }),
   ),
   introduction: z.string().nullable(),
+  expectedSalary: z.number().nullable(),
 });
 
 export const CandidateApplicationSchema = z.object({

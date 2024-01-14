@@ -1,6 +1,6 @@
 import * as z from 'zod';
 
-const PracticalTaskSolutionSchema = z.object({
+export const PracticalTaskSolutionSchema = z.object({
   compilationLanguage: z.string().min(1, { message: 'Compilation language is required' }),
   bruteForceSolution: z.string().nullable(),
   mediumSolution: z.string().nullable(),

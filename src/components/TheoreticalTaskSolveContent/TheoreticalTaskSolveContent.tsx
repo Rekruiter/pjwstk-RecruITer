@@ -73,11 +73,24 @@ const TheoreticalTaskSolveContent = ({ task }: TheoreticalTaskSolveContentProps)
         <Button
           onClick={handleSubmit}
           disabled={isLoading || isCompanyRole}
-          className="min-w-[100px] disabled:opacity-80">
+          className="min-w-[200px] disabled:opacity-80">
           {isSubmitting ? <Spinner isLight className="h-4 w-4 border-2" /> : answer}
         </Button>
       </div>
     );
+  };
+
+  const getAnswer = (index: number) => {
+    switch (index) {
+      case 1:
+        return task.optionA;
+      case 2:
+        return task.optionB;
+      case 3:
+        return task.optionC;
+      case 4:
+        return task.optionD;
+    }
   };
 
   return (
@@ -107,7 +120,7 @@ const TheoreticalTaskSolveContent = ({ task }: TheoreticalTaskSolveContentProps)
             Show hint
           </Button>
         ))}
-      {task.answer && <p className="text-dark">Answer: {task.answer}</p>}
+      {task.answer && <p className="text-dark">Answer: {getAnswer(task.answer)}</p>}
       <p className="mt-10 text-dark">Your solution</p>
       <div className="flex flex-wrap">
         {options.map((answer, idx) => (

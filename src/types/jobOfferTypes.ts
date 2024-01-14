@@ -132,6 +132,7 @@ export const JobOffersWithApplicationDetailsSchema = z.object({
       candidateEmail: z.string(),
       jobOfferTitle: z.string(),
       isAccepted: z.boolean().nullable(),
+      expectedSalary: z.number().nullable(),
     }),
   ),
 });

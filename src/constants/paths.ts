@@ -26,6 +26,7 @@ const allPaths = [
   'recruiterApplicationPreview',
   'resetPasswordConfirm',
   'verifyAccount',
+  'createRecruiter',
   'fillUpPersonalData',
   'tasks',
   'profileSettings',
@@ -121,10 +122,13 @@ export const Paths: Record<AllPathsType, PathType> = {
     requiredRoles: ['recruiter', 'techRecruiter', 'admin'],
   },
   resetPasswordConfirm: {
-    path: '/reset/:token',
+    path: '/verifyReset/:token',
   },
   verifyAccount: {
     path: '/verify/:token',
+  },
+  createRecruiter: {
+    path: '/createRecruiter/:token',
   },
   fillUpPersonalData: {
     path: '/personal-data',
