@@ -1,4 +1,5 @@
 import * as z from 'zod';
+import { PracticalTaskSolutionSchema } from './tasksTypes';
 
 export const RecruiterRecruitmentSchema = z.object({
   id: z.number(),
@@ -17,18 +18,41 @@ export const RecruiterRecruitmentSchema = z.object({
       idTask: z.number(),
     }),
   ),
-  practicalTasks: z.array(
-    z.object({
-      id: z.number(),
-      question: z.string(),
-    }),
-  ),
-  theoreticalTasks: z.array(
-    z.object({
-      id: z.number(),
-      question: z.string(),
-    }),
-  ),
+  practicalTasks: z
+    .array(
+      z.object({
+        id: z.number(),
+        companyId: z.number().nullable(),
+        question: z.string(),
+        practicalTaskSolutions: z.array(PracticalTaskSolutionSchema),
+        codeRelatedToQuestion: z.string().nullable(),
+        input: z.string().nullable(),
+        output: z.string().nullable(),
+        difficultyLevel: z.number().min(1).max(5),
+        tag: z.string().nullable(),
+        hint: z.string().nullable(),
+        isPrivate: z.boolean(),
+      }),
+    )
+    .nullable(),
+  theoreticalTasks: z
+    .array(
+      z.object({
+        id: z.number(),
+        companyId: z.number(),
+        question: z.string(),
+        answer: z.number(),
+        optionA: z.string(),
+        optionB: z.string(),
+        optionC: z.string().nullable(),
+        optionD: z.string().nullable(),
+        difficultyLevel: z.number().min(1).max(5),
+        tag: z.string().nullable(),
+        hint: z.string().nullable(),
+        isPrivate: z.boolean(),
+      }),
+    )
+    .nullable(),
 });
 
 export const InviteCandidateForRecruitmentSchema = z.object({
