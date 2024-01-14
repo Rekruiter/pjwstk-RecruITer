@@ -8,7 +8,7 @@ interface RecruitmentsPanelSectionProps {
 
 const RecruitmentsPanelSection = ({ recruitments }: RecruitmentsPanelSectionProps) => {
   return (
-    <PanelSectionWrapper headerClickHandler={() => {}} headerTitle="Your Recruitments">
+    <PanelSectionWrapper headerTitle="Your Recruitments">
       {recruitments.map((recruitment) => (
         <div
           key={recruitment.id}

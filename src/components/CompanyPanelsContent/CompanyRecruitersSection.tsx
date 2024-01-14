@@ -1,17 +1,16 @@
+import { useNavigate } from 'react-router-dom';
 import { IAdminPanel } from '../../types/panelPageTypes';
 import PanelSectionWrapper from '../UI/PanelSectionWrapper';
+import { Paths } from '@/constants/paths';
 
 interface CompanyRecruitersSectionProps {
   recruiters: IAdminPanel['recruiters'];
 }
 
 const CompanyRecruitersSection = ({ recruiters }: CompanyRecruitersSectionProps) => {
+  const navigate = useNavigate();
   return (
-    <PanelSectionWrapper
-      headerTitle="Your recruiters"
-      headerClickHandler={() => {
-        //navigate to all recruiters
-      }}>
+    <PanelSectionWrapper headerTitle="Your recruiters" headerClickHandler={() => navigate(Paths.recruiters.path)}>
       {recruiters.map((recruiter) => (
         <div
           key={recruiter.id}
