@@ -1,18 +1,15 @@
 import { planTechnicalRecruitment } from '@/api/recruitments/recruitments';
 import { cn } from '@/lib/utils';
-import { ITechnicalRecruiter } from '@/types/recruiterTypes';
 import { IInviteCandidateForRecruitment, InviteCandidateForRecruitmentSchema } from '@/types/recruitmentsTypes';
 import { Dialog, Transition } from '@headlessui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import React, { Fragment } from 'react';
 import { useForm } from 'react-hook-form';
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
 import Button from '../UI/Button';
-import Spinner from '../UI/Spinner/Spinner';
-// import { getTechnicalRecruiters } from '@/api/recruiters/recruiters';
-// import Spinner from '@/components/UI/Spinner/Spinner';
-// import { useQuery } from 'react-query';
+import { getTechnicalRecruiters } from '@/api/recruiters/recruiters';
+import Spinner from '@/components/UI/Spinner/Spinner';
 
 interface InviteCandidateModalProps {
   recruitmentId: number;
@@ -20,17 +17,10 @@ interface InviteCandidateModalProps {
 }
 
 const InviteCandidateModal = ({ recruitmentId, handleCloseModal }: InviteCandidateModalProps) => {
-  //   const { data, isError, isLoading } = useQuery('technicalRecruiters', getTechnicalRecruiters);
-
-  //   if (isLoading) {
-  //     return <Spinner />;
-  //   }
-
-  //   if (isError) {
-  //     return <p className="m-auto">An error occured, please try again later</p>;
-  //   }
+  const { data, isError, isLoading } = useQuery('technicalRecruiters', getTechnicalRecruiters);
 
   const queryClient = useQueryClient();
+
   const { mutate, isLoading: mutationLoading } = useMutation(
     ['inviteCandidateForRecruitment', recruitmentId],
     planTechnicalRecruitment,
@@ -46,16 +36,6 @@ const InviteCandidateModal = ({ recruitmentId, handleCloseModal }: InviteCandida
     },
   );
 
-  const recruiterData: ITechnicalRecruiter[] = [
-    {
-      id: 5,
-      name: 'Jan',
-      surname: 'Kowalski',
-      email: 'dsadasda',
-      technologies: ['Java', 'Python'],
-    },
-  ];
-
   const {
     register,
     handleSubmit,
@@ -63,6 +43,14 @@ const InviteCandidateModal = ({ recruitmentId, handleCloseModal }: InviteCandida
   } = useForm<IInviteCandidateForRecruitment>({
     resolver: zodResolver(InviteCandidateForRecruitmentSchema),
   });
+
+  if (isLoading) {
+    return <Spinner />;
+  }
+
+  if (isError) {
+    return <p className="m-auto">An error occured, please try again later</p>;
+  }
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -122,7 +110,7 @@ const InviteCandidateModal = ({ recruitmentId, handleCloseModal }: InviteCandida
                       'border border-error_color': errors.idRecruiter,
                     })}>
                     <option value={''}>Pick a recruiter</option>
-                    {recruiterData.map((recruiter) => (
+                    {data?.map((recruiter) => (
                       <option key={recruiter.id} value={recruiter.id}>
                         {recruiter.name} {recruiter.surname}
                       </option>
