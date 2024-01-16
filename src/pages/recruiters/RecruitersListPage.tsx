@@ -22,7 +22,7 @@ const RecruitersListPage = () => {
     <div className="container flex flex-col gap-5 p-6">
       <h2 className="text-2xl font-bold text-dark">Company Recruiters</h2>
       <Link to={Paths.addRecruiter.path} className={cn(defaultStyles.orangeButton, 'w-fit')}>
-        Add new job offer
+        Add new recruiter
       </Link>
       <div className="flex flex-col gap-3">
         {data?.map((recruiter) => (
