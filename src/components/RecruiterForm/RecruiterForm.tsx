@@ -6,6 +6,7 @@ import Button from '../UI/Button';
 import Spinner from '../UI/Spinner/Spinner';
 import FormFieldWrapper from '../FormHelpers/FormFieldWrapper';
 import RecruiterTechnologiesField from './RecruiterFormFields/RecruiterTechnologiesField';
+import { formatISODateTOYYYYMMDD } from '@/helpers';
 
 interface RecruiterFormProps {
   onSubmit: (data: IRecruiterInputForm) => void;
@@ -22,13 +23,17 @@ const RecruiterForm = ({ mutationLoading, onSubmit, defaultValues }: RecruiterFo
     control,
   } = useForm<IRecruiterInputForm>({
     resolver: zodResolver(RecruiterInputFormSchema),
-    defaultValues: {
-      name: defaultValues?.name,
-      surname: defaultValues?.surname,
-      email: defaultValues?.email,
-      position: defaultValues?.position,
-      technologies: defaultValues?.technologies,
-    },
+    defaultValues: defaultValues
+      ? {
+          name: defaultValues.name,
+          surname: defaultValues.surname,
+          email: defaultValues.email,
+          position: defaultValues.position,
+          technologies: defaultValues.technologies,
+          phoneNumber: defaultValues.phoneNumber,
+          hiredate: defaultValues.hiredate ? formatISODateTOYYYYMMDD(defaultValues.hiredate) : '2024-01-01',
+        }
+      : {},
   });
 
   const formSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
@@ -64,6 +69,14 @@ const RecruiterForm = ({ mutationLoading, onSubmit, defaultValues }: RecruiterFo
           placeholder="Recruiter's surname"
         />
         <FormFieldWrapper<IRecruiterInputForm>
+          field="phoneNumber"
+          register={register}
+          error={errors.phoneNumber}
+          placeholder='Recruiter"s phone number'
+          label="Phone number"
+          autocomplete="tel"
+        />
+        <FormFieldWrapper<IRecruiterInputForm>
           field="email"
           error={errors.email}
           register={register}
@@ -80,6 +93,12 @@ const RecruiterForm = ({ mutationLoading, onSubmit, defaultValues }: RecruiterFo
           setValue={setValue}
           control={control}
           errors={errors.technologies}
+        />
+        <FormFieldWrapper<IRecruiterInputForm>
+          field="hiredate"
+          error={errors.hiredate}
+          register={register}
+          type="date"
         />
         {mutationLoading ? (
           <Spinner isLight />

@@ -16,7 +16,7 @@ const ApplicationListElement = ({ applicationData, type }: ApplicationListElemen
           : GetPathsLinks.getRecruiterApplicationPreview(applicationData.applicationId)
       }
       className={
-        'group flex max-w-full cursor-pointer flex-wrap justify-between break-all border bg-light px-5 py-2 text-dark hover:bg-orange sm:flex-nowrap sm:justify-normal'
+        'group flex max-w-full cursor-pointer flex-wrap justify-between break-all border bg-dark/5 px-5 py-2 text-dark shadow-md hover:bg-orange sm:flex-nowrap sm:justify-normal'
       }>
       <div className="min-w-[5.5rem] basis-1/2 gap-2 group-hover:text-light">
         {Object.entries(applicationData).map(
