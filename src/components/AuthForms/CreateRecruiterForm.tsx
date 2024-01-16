@@ -13,7 +13,7 @@ const CreateRecruiterForm = () => {
   const { token } = useParams() as { token: string };
 
   const { mutate, error, isLoading, isSuccess } = useMutation<any, Error, IResetPasswordConfirmFormInput>(
-    'resetPassword',
+    'createRecruiterPassword',
     (input: IResetPasswordConfirmFormInput) => createRecruiterPost(input, token),
   );
 

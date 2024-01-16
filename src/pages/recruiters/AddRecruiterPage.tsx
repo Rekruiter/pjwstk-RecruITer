@@ -34,7 +34,7 @@ const AddRecruiterPage = () => {
         <button onClick={() => navigate(-1)}>
           <IoMdArrowBack className="text-dark" size={24} />
         </button>
-        <h3 className="text-2xl font-semibold text-dark">Edit Recruiter</h3>
+        <h3 className="text-2xl font-semibold text-dark">Add Recruiter</h3>
       </div>
       <RecruiterForm onSubmit={onSubmit} mutationLoading={mutationLoading} />
     </div>

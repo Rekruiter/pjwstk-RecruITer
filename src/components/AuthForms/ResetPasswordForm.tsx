@@ -11,8 +11,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 const ResetPasswordForm = () => {
   const { token } = useParams() as { token: string };
 
-  console.log(token);
-
   const { mutate, error, isLoading, isSuccess } = useMutation<any, Error, IResetPasswordConfirmFormInput>(
     'resetPassword',
     (input: IResetPasswordConfirmFormInput) => resetPasswordConfirmPost(input, token),

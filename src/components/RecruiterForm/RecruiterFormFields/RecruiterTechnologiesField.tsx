@@ -33,7 +33,7 @@ const RecruiterTechnologiesField = ({ register, setValue, control, errors }: Rec
               <div key={index}>
                 <div className="flex justify-between gap-5">
                   <input
-                    {...register(`technologies.${index}`)}
+                    {...register(`technologies.${index}.name`)}
                     type="text"
                     className={`h-11 w-full rounded border-2 bg-white px-2 py-2 text-base ${
                       errors && errors[index] ? 'border-error_color' : 'border-light'
@@ -50,13 +50,20 @@ const RecruiterTechnologiesField = ({ register, setValue, control, errors }: Rec
                     <FaDeleteLeft size={20} />
                   </button>
                 </div>
-                {errors && errors[index] && <div className="text-error_color">{errors[index]?.message}</div>}
+                {errors && errors[index] && <div className="text-error_color">{errors[index]?.name?.message}</div>}
               </div>
             ))}
           </div>
           <button
             type="button"
-            onClick={() => setValue('technologies', [...technologiesWatcher, ''])}
+            onClick={() =>
+              setValue('technologies', [
+                ...technologiesWatcher,
+                {
+                  name: '',
+                },
+              ])
+            }
             className="place-self-start rounded-md bg-light_blue px-2 py-1 text-dark">
             Add technology
           </button>

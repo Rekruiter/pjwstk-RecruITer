@@ -140,7 +140,7 @@ const ApplicationListPage = ({ type }: ApplicationListPageProps) => {
             All
           </button>
         </div>
-        <div className="flex flex-col">{content}</div>
+        <div className="flex flex-col gap-2">{content}</div>
       </div>
       {applicationsData?.totalPages && (
         <PaginationFooter
