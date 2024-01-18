@@ -1,7 +1,11 @@
 import { Paths } from '@/constants/paths';
+import AuthContext from '@/context/auth-context';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 const CompanySettingsPage = () => {
+  const { role } = useContext(AuthContext);
+
   return (
     <div className="container flex flex-col gap-24 p-6">
       <h2 className="text-2xl font-bold text-dark">Company settings</h2>
@@ -18,12 +22,23 @@ const CompanySettingsPage = () => {
           onClick={() => {}}>
           Manage job offers
         </Link>
-        <Link
-          to={Paths.recruiters.path}
-          className="flex w-full rounded-md bg-dark/10 p-3 pl-5 text-xl text-dark shadow-md hover:border-none hover:bg-orange hover:text-light"
-          onClick={() => {}}>
-          Manage recruiters
-        </Link>
+
+        {role === 'admin' && (
+          <>
+            <Link
+              to={Paths.recruiters.path}
+              className="flex w-full rounded-md bg-dark/10 p-3 pl-5 text-xl text-dark shadow-md hover:border-none hover:bg-orange hover:text-light"
+              onClick={() => {}}>
+              Manage recruiters
+            </Link>
+            <Link
+              to={Paths.companyStatistics.path}
+              className="flex w-full rounded-md bg-dark/10 p-3 pl-5 text-xl text-dark shadow-md hover:border-none hover:bg-orange hover:text-light"
+              onClick={() => {}}>
+              Check company statistics
+            </Link>
+          </>
+        )}
       </div>
     </div>
   );
