@@ -47,6 +47,7 @@ const allPaths = [
   'recruiters',
   'addRecruiter',
   'editRecruiter',
+  'companyStatistics',
 ] as const;
 
 export type AllPathsType = (typeof allPaths)[number];
@@ -202,6 +203,10 @@ export const Paths: Record<AllPathsType, PathType> = {
   },
   editRecruiter: {
     path: '/edit-recruiter/:id',
+    requiredRoles: ['admin'],
+  },
+  companyStatistics: {
+    path: '/company-statistics',
     requiredRoles: ['admin'],
   },
 };

@@ -25,14 +25,10 @@ export const createRecruiter = async (inputData: IRecruiterInputForm) => {
   await axios.post(`/recruiters`, inputData);
 };
 
-type IRecruiterInputFormWithoutHiredate = {
-  [K in keyof IRecruiterInputForm]: K extends 'hiredate' ? string | undefined : IRecruiterInputForm[K];
-};
-//TEMPORARY SOLUTION
+export const updateRecruiter = async (inputData: IRecruiterInputForm & { id: string }) => {
+  const { id, hiredate, ...input } = inputData;
 
-export const updateRecruiter = async (inputData: IRecruiterInputFormWithoutHiredate & { id: string }) => {
-  const { id, ...input } = inputData;
-  delete input.hiredate;
+  const newDate = new Date(hiredate).toISOString();
 
-  await axios.put(`/recruiters/${id}`, input);
+  await axios.put(`/recruiters/${id}`, { newDate, ...input });
 };
