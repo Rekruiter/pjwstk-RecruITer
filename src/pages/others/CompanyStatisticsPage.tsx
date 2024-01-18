@@ -28,8 +28,15 @@ const CompanyStatisticsPage = () => {
 
   return (
     <div className="container flex flex-col gap-10 p-6">
-      <h2 className="text-2xl font-bold text-dark">Company statistics</h2>
-      <Datepicker value={value} onChange={handleValueChange} containerClassName="w-1/2 shadow-md" primaryColor="blue" />
+      <h2 className="text-2xl font-bold text-dark">Company logs</h2>
+      <div className="w-full">
+        <Datepicker
+          value={value}
+          onChange={handleValueChange}
+          containerClassName="w-1/2 shadow-md relative"
+          primaryColor="blue"
+        />
+      </div>
       <div className="flex flex-col gap-3">
         <div className="overflow-x-auto">
           <table className="w-full table-auto text-sm">
