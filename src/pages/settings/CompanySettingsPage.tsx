@@ -35,7 +35,7 @@ const CompanySettingsPage = () => {
               to={Paths.companyStatistics.path}
               className="flex w-full rounded-md bg-dark/10 p-3 pl-5 text-xl text-dark shadow-md hover:border-none hover:bg-orange hover:text-light"
               onClick={() => {}}>
-              Check company statistics
+              Check company logs
             </Link>
           </>
         )}
