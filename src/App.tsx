@@ -43,6 +43,8 @@ import EditRecruiterPage from './pages/recruiters/EditRecruiterPage';
 import AddRecruiterPage from './pages/recruiters/AddRecruiterPage';
 import CreateRecruiterPage from './pages/landing-pages/CreateRecruiterPage';
 import CompanyStatisticsPage from './pages/others/CompanyStatisticsPage';
+import RecruitmentPreviewRecruiter from './pages/recruitments/RecruitmentPreviewRecruiter';
+import RecruitmentPreviewCandidate from './pages/recruitments/RecruitmentPreviewCandidate';
 
 function App() {
   const { role, isLoggedIn } = useContext(AuthContext);
@@ -191,6 +193,14 @@ function App() {
     {
       path: Paths.companyStatistics.path,
       element: PrivateRoute(<CompanyStatisticsPage />, 'companyStatistics'),
+    },
+    {
+      path: Paths.recruitmentPreviewRecruiter.path,
+      element: PrivateRoute(<RecruitmentPreviewRecruiter />, 'recruitmentPreviewRecruiter'),
+    },
+    {
+      path: Paths.recruitmentPreviewCandidate.path,
+      element: PrivateRoute(<RecruitmentPreviewCandidate />, 'recruitmentPreviewCandidate'),
     },
   ];
 

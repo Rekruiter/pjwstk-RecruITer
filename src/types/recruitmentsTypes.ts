@@ -78,6 +78,17 @@ export const ManageTasksForRecruitmentSchema = z.object({
   ),
 });
 
+export const RecruitmentCandidateSchema = z.object({
+  id: z.number(),
+  date: z.string(),
+  dateTechnical: z.string().nullable(),
+  jobOfferTitle: z.string(),
+  companyName: z.string(),
+  recruiterName: z.string().nullable(),
+  recruiterSurname: z.string().nullable(),
+  applicationId: z.number(),
+});
+
 export const RecruiterRecruitmentListSchema = z.array(RecruiterRecruitmentSchema);
 
 export type IRecruiterRecruitment = z.infer<typeof RecruiterRecruitmentSchema>;
