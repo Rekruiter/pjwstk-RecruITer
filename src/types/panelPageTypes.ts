@@ -38,14 +38,12 @@ const candidateUpcomingRecruitmentsSchema = z.array(
   }),
 );
 
-const recruiterUpcomingRecruitmentsSchema = z
-  .array(
-    recruitmentSchema.extend({
-      candidateName: z.string(),
-      candidateSurname: z.string(),
-    }),
-  )
-  .max(5);
+const recruiterUpcomingRecruitmentsSchema = z.array(
+  recruitmentSchema.extend({
+    candidateName: z.string(),
+    candidateSurname: z.string(),
+  }),
+);
 
 // USER ROLE PANEL SCHEMA
 

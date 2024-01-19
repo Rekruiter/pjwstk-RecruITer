@@ -14,9 +14,10 @@ import Spinner from '@/components/UI/Spinner/Spinner';
 interface InviteCandidateModalProps {
   recruitmentId: number;
   handleCloseModal: () => void;
+  isInvitable: boolean;
 }
 
-const InviteCandidateModal = ({ recruitmentId, handleCloseModal }: InviteCandidateModalProps) => {
+const InviteCandidateModal = ({ recruitmentId, handleCloseModal, isInvitable }: InviteCandidateModalProps) => {
   const { data, isError, isLoading } = useQuery('technicalRecruiters', getTechnicalRecruiters);
 
   const queryClient = useQueryClient();
@@ -27,6 +28,7 @@ const InviteCandidateModal = ({ recruitmentId, handleCloseModal }: InviteCandida
     {
       onSuccess: () => {
         queryClient.refetchQueries(`recruitment-${recruitmentId}`);
+        queryClient.invalidateQueries('recruitments');
         toast.success('Candidate invited for recruitment');
         handleCloseModal();
       },
@@ -54,7 +56,7 @@ const InviteCandidateModal = ({ recruitmentId, handleCloseModal }: InviteCandida
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (mutationLoading) return;
+    if (mutationLoading || !isInvitable) return;
     handleSubmit(
       async (data) => {
         mutate({

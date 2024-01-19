@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { formatISODateToDDMMYYYYHHMM } from '../../helpers';
 import { ICandidatePanel } from '../../types/panelPageTypes';
 import PanelSectionWrapper from '../UI/PanelSectionWrapper';
-import { Paths } from '@/constants/paths';
+import { GetPathsLinks, Paths } from '@/constants/paths';
 
 interface CandidateUpcomingRecruitmentsProps {
   recruitments: ICandidatePanel['upcomingRecruitments'];
@@ -21,13 +21,16 @@ const CandidateUpcomingRecruitments = ({ recruitments }: CandidateUpcomingRecrui
         </p>
       )}
       {recruitments.map((recruitment) => (
-        <div key={recruitment.id} className="flex w-full flex-wrap border p-2 text-light hover:bg-orange">
+        <Link
+          to={GetPathsLinks.getRecruitmentPreviewCandidate(recruitment.id)}
+          key={recruitment.id}
+          className="flex w-full flex-wrap border p-2 text-light hover:bg-orange">
           <div className="basis-3/4">
             <p className="line-clamp-1 overflow-hidden font-medium">{recruitment.jobTitle}</p>
             <p className="font-semibold">{recruitment.companyName}</p>
             <p>{formatISODateToDDMMYYYYHHMM(recruitment.date)}</p>
           </div>{' '}
-        </div>
+        </Link>
       ))}
     </PanelSectionWrapper>
   );
