@@ -10,6 +10,7 @@ import { IoMdArrowBack } from 'react-icons/io';
 import { useQuery } from 'react-query';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { MdOutlinePreview } from 'react-icons/md';
+import SendFeedbackComponent from '@/components/PrepareRecruitmentContent/SendFeedbackComponent';
 
 const getRecruitmentStateMessage = (recruitmentState: number) => {
   switch (recruitmentState) {
@@ -47,7 +48,6 @@ const PrepareRecruitmentPage = () => {
   if (!data) {
     return null;
   }
-
   return (
     <div className="container flex flex-col gap-5 rounded-b-xl p-8 md:px-12 lg:px-16">
       <div className="mb-4 flex items-center gap-2">
@@ -70,15 +70,18 @@ const PrepareRecruitmentPage = () => {
         </p>
         <p>Status: {getRecruitmentStateMessage(data.state)}</p>
         {data.dateTechnical && <p>Technical Interview Date: {formatISODateToDDMMYYYYHHMM(data.dateTechnical)}</p>}
-        <Button className="w-fit p-2 text-sm" onClick={() => setShowManageTasksModal(true)}>
-          Manage tasks
-        </Button>
+        {(data.state === 2 || data.state === 3) && (
+          <Button className="w-fit p-2 text-sm" onClick={() => setShowManageTasksModal(true)}>
+            Manage tasks
+          </Button>
+        )}
         {showManageTasksModal && (
           <ManageTasksModal
             recruitmentId={data.id}
             handleCloseModal={() => setShowManageTasksModal(false)}
             defaultPracticalTasks={data.practicalTasks}
             defaultTheoreticalTasks={data.theoreticalTasks}
+            isTasksEditable={data.state === 2 || data.state === 3}
           />
         )}
         <p>Practical tasks: </p>
@@ -117,8 +120,14 @@ const PrepareRecruitmentPage = () => {
           </Button>
         )}
         {showInvitationModal && (
-          <InviteCandidateModal recruitmentId={data.id} handleCloseModal={() => setShowInvitationModal(false)} />
+          <InviteCandidateModal
+            recruitmentId={data.id}
+            handleCloseModal={() => setShowInvitationModal(false)}
+            isInvitable={data.state !== 5}
+          />
         )}
+
+        {data.state === 5 && <SendFeedbackComponent isSendable={data.state === 5} recruitmentId={id} />}
       </div>
     </div>
   );

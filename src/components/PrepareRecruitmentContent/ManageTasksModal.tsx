@@ -25,6 +25,7 @@ interface ManageTasksModalProps {
   handleCloseModal: () => void;
   defaultPracticalTasks: IRecruiterRecruitment['practicalTasks'];
   defaultTheoreticalTasks: IRecruiterRecruitment['theoreticalTasks'];
+  isTasksEditable: boolean;
 }
 
 const ManageTasksModal = ({
@@ -32,6 +33,7 @@ const ManageTasksModal = ({
   recruitmentId,
   defaultPracticalTasks,
   defaultTheoreticalTasks,
+  isTasksEditable,
 }: ManageTasksModalProps) => {
   const [pickedTab, setPickedTab] = useState<'practical' | 'theoretical'>('practical');
 
@@ -111,7 +113,7 @@ const ManageTasksModal = ({
   });
 
   const onSubmit = () => {
-    if (mutationLoading) {
+    if (mutationLoading || !isTasksEditable) {
       return;
     }
     handleSubmit(

@@ -14,9 +14,10 @@ import Spinner from '@/components/UI/Spinner/Spinner';
 interface InviteCandidateModalProps {
   recruitmentId: number;
   handleCloseModal: () => void;
+  isInvitable: boolean;
 }
 
-const InviteCandidateModal = ({ recruitmentId, handleCloseModal }: InviteCandidateModalProps) => {
+const InviteCandidateModal = ({ recruitmentId, handleCloseModal, isInvitable }: InviteCandidateModalProps) => {
   const { data, isError, isLoading } = useQuery('technicalRecruiters', getTechnicalRecruiters);
 
   const queryClient = useQueryClient();
@@ -27,6 +28,7 @@ const InviteCandidateModal = ({ recruitmentId, handleCloseModal }: InviteCandida
     {
       onSuccess: () => {
         queryClient.refetchQueries(`recruitment-${recruitmentId}`);
+        queryClient.invalidateQueries('recruitments');
         toast.success('Candidate invited for recruitment');
         handleCloseModal();
       },
@@ -40,6 +42,7 @@ const InviteCandidateModal = ({ recruitmentId, handleCloseModal }: InviteCandida
     register,
     handleSubmit,
     formState: { errors },
+    watch,
   } = useForm<IInviteCandidateForRecruitment>({
     resolver: zodResolver(InviteCandidateForRecruitmentSchema),
   });
@@ -54,7 +57,7 @@ const InviteCandidateModal = ({ recruitmentId, handleCloseModal }: InviteCandida
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (mutationLoading) return;
+    if (mutationLoading || !isInvitable) return;
     handleSubmit(
       async (data) => {
         mutate({
@@ -67,6 +70,11 @@ const InviteCandidateModal = ({ recruitmentId, handleCloseModal }: InviteCandida
       },
     )();
   };
+
+  const pickedRecruiterWatch = watch('idRecruiter');
+
+  const pickedRecruiter =
+    pickedRecruiterWatch !== null ? data?.find((recruiter) => recruiter.id == pickedRecruiterWatch) : undefined;
 
   return (
     <Transition appear show={true} as={Fragment}>
@@ -96,6 +104,22 @@ const InviteCandidateModal = ({ recruitmentId, handleCloseModal }: InviteCandida
                 <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-dark">
                   Inviting candidate for recruitment
                 </Dialog.Title>
+                {pickedRecruiter && (
+                  <div className="mt-5 flex flex-col gap-1 bg-dark/5 p-2 text-dark shadow-md">
+                    <p className="mb-2 font-semibold">Recruiter information</p>
+                    <p>Name: {pickedRecruiter.name}</p>
+                    <p>Surname: {pickedRecruiter.surname}</p>
+                    <p>Position: {pickedRecruiter.position}</p>
+                    <p>Phone number: {pickedRecruiter.phoneNumber}</p>
+                    <p>Email: {pickedRecruiter.email}</p>
+                    <p>Known technologies:</p>
+                    <div className="flex flex-wrap gap-3 p-2">
+                      {pickedRecruiter.technologies.map((technology) => (
+                        <p className="rounded-sm bg-dark_blue/80 p-1 text-light shadow-md">{technology.name}</p>
+                      ))}
+                    </div>
+                  </div>
+                )}
                 <form onSubmit={onSubmit} className="mt-5 flex flex-col gap-4">
                   <label htmlFor="idRecruiter" className="font-semibold text-dark">
                     Recruiter
@@ -112,7 +136,7 @@ const InviteCandidateModal = ({ recruitmentId, handleCloseModal }: InviteCandida
                     <option value={''}>Pick a recruiter</option>
                     {data?.map((recruiter) => (
                       <option key={recruiter.id} value={recruiter.id}>
-                        {recruiter.name} {recruiter.surname}
+                        {recruiter.name} {recruiter.surname} {recruiter.position}
                       </option>
                     ))}
                   </select>

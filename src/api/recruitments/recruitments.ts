@@ -3,6 +3,7 @@ import {
   IManageTasksForRecruitment,
   RecruiterRecruitmentListSchema,
   RecruiterRecruitmentSchema,
+  RecruitmentLinkSchema,
 } from '@/types/recruitmentsTypes';
 import axios from '../axios/axios';
 
@@ -35,4 +36,27 @@ export const updateRecruitmentTasks = async (inputData: IManageTasksForRecruitme
   await axios.put(`/recruitments/${id}/updateTasks`, {
     TaskIds: rest.tasks.map((task) => task.idTask),
   });
+};
+
+export const sendRecruitmentFeedback = async (inputData: { id: string; feedback: string }) => {
+  await axios.post(`/recruitments/${inputData.id}/feedback`, {
+    feedback: inputData.feedback,
+  });
+};
+
+export const getRecruitmentLink = async (id: string) => {
+  const { data } = await axios.get(`/recruitments/${id}/getLink`);
+
+  if (!data) {
+    return undefined;
+  }
+  RecruitmentLinkSchema.parse(data);
+};
+
+export const endRecruitment = async (id: string) => {
+  await axios.post(`/recruitments/${id}/end`);
+};
+
+export const startRecruitment = async (id: string) => {
+  await axios.post(`/recruitments/${id}/generateLink`);
 };

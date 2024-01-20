@@ -15,9 +15,12 @@ const jobOfferSchema = z.object({
 
 const recruitmentSchema = z.object({
   id: z.number(),
-  date: z.string().refine((date) => !isNaN(Date.parse(date)), {
-    message: 'Invalid date format',
-  }),
+  date: z
+    .string()
+    .refine((date) => !isNaN(Date.parse(date)), {
+      message: 'Invalid date format',
+    })
+    .transform((date) => `${date}Z`),
 });
 
 const recruiterApplicationsSchema = z.array(
@@ -38,14 +41,12 @@ const candidateUpcomingRecruitmentsSchema = z.array(
   }),
 );
 
-const recruiterUpcomingRecruitmentsSchema = z
-  .array(
-    recruitmentSchema.extend({
-      candidateName: z.string(),
-      candidateSurname: z.string(),
-    }),
-  )
-  .max(5);
+const recruiterUpcomingRecruitmentsSchema = z.array(
+  recruitmentSchema.extend({
+    candidateName: z.string(),
+    candidateSurname: z.string(),
+  }),
+);
 
 // USER ROLE PANEL SCHEMA
 

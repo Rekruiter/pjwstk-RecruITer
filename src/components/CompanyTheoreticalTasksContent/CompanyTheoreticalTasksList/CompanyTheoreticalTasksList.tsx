@@ -34,7 +34,7 @@ const CompanyTheoreticalTasksList = ({ isFetching, tasks }: CompanyTheoreticalTa
                 <CiEdit size={32} />
               </Link>
             </div>
-          )) // TODO: add here navigation to edit task
+          ))
         )}
       </div>
     </div>

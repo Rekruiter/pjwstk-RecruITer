@@ -48,6 +48,8 @@ const allPaths = [
   'addRecruiter',
   'editRecruiter',
   'companyStatistics',
+  'recruitmentPreviewCandidate',
+  'recruitmentPreviewRecruiter',
 ] as const;
 
 export type AllPathsType = (typeof allPaths)[number];
@@ -69,6 +71,8 @@ export const GetPathsLinks = {
   getTheoreticalTaskEdit: (id: number) => `/edit-theoretical-task/${id}`,
   getPrepareRecruitment: (id: number) => `/prepare-recruitment/${id}`,
   getEditRecruiter: (id: number) => `/edit-recruiter/${id}`,
+  getRecruitmentPreviewCandidate: (id: number) => `/recruitment-preview-candidate/${id}`,
+  getRecruitmentPreviewRecruiter: (id: number) => `/recruitment-preview-recruiter/${id}`,
 };
 
 export const PathSearchParams = {
@@ -208,6 +212,14 @@ export const Paths: Record<AllPathsType, PathType> = {
   companyStatistics: {
     path: '/company-statistics',
     requiredRoles: ['admin'],
+  },
+  recruitmentPreviewCandidate: {
+    path: '/recruitment-preview-candidate/:id',
+    requiredRoles: ['candidate'],
+  },
+  recruitmentPreviewRecruiter: {
+    path: '/recruitment-preview-recruiter/:id',
+    requiredRoles: ['admin', 'techRecruiter', 'recruiter'],
   },
 };
 
