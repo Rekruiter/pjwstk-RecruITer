@@ -5,7 +5,7 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 import Button from '../../components/UI/Button';
 import { GetPathsLinks, Paths } from '../../constants/paths';
 import { FaStar } from 'react-icons/fa';
-import { useContext, useState } from 'react';
+import { Fragment, useContext, useState } from 'react';
 import AuthContext from '@/context/auth-context';
 import { formatISODateTODDMMYYYY } from '@/helpers';
 import JobOfferApplyForm from '@/components/JobOfferApplyForm/JobOfferApplyForm';
@@ -64,10 +64,10 @@ const JobOfferPreviewPage = () => {
       </p>
       <p>
         Description:{' '}
-        {data.description.split('\n').map((line) => (
-          <>
+        {data.description.split('\n').map((line, idx) => (
+          <Fragment key={idx}>
             {line} <br />
-          </>
+          </Fragment>
         ))}
       </p>
       <p>Requirements:</p>

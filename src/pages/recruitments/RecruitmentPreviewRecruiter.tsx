@@ -1,8 +1,20 @@
-import { getRecruiterRecruitment } from '@/api/recruitments/recruitments';
+import {
+  endRecruitment,
+  getRecruiterRecruitment,
+  sendRecruitmentFeedback,
+  startRecruitment,
+} from '@/api/recruitments/recruitments';
+import FeedbackModal from '@/components/PrepareRecruitmentContent/FeedbackModal';
+import Button from '@/components/UI/Button';
+import ConfirmModal from '@/components/UI/ConfirmModal/ConfirmModal';
 import Spinner from '@/components/UI/Spinner/Spinner';
+import { Paths } from '@/constants/paths';
+import { IRecruitmentFeedback } from '@/types/recruitmentsTypes';
+import { useState } from 'react';
 import { IoMdArrowBack } from 'react-icons/io';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const RecruitmentPreviewRecruiter = () => {
   const { id } = useParams() as {
@@ -10,7 +22,73 @@ const RecruitmentPreviewRecruiter = () => {
   };
   const navigate = useNavigate();
 
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [showFeedbackModal, setShowFeedbackModal] = useState(false);
+
+  const queryClient = useQueryClient();
   const { data, isLoading, isError } = useQuery(`recruitment-${id}`, () => getRecruiterRecruitment(id));
+
+  console.log(data);
+  const { mutate: endRecruitmentMutate, isLoading: endRecruitmentLoading } = useMutation(
+    ['endRecruitment', id],
+    endRecruitment,
+    {
+      onSuccess: () => {
+        toast.success('Recruitment ended');
+        setShowFeedbackModal(true);
+      },
+      onError: () => {
+        toast.error('An error occured, please try again later');
+      },
+    },
+  );
+
+  const { mutate: startRecruitmentMutate, isLoading: startRecruitmentLoading } = useMutation(
+    ['startRecruitment', id],
+    startRecruitment,
+    {
+      onSuccess: () => {
+        toast.success('Recruitment started');
+        queryClient.refetchQueries(`recruitment-${id}`);
+      },
+      onError: () => {
+        toast.error('An error occured, please try again later');
+      },
+    },
+  );
+
+  const { mutate: sendFeedbackMutate, isLoading: sendFeedbackLoading } = useMutation(
+    ['sendRecruitmentFeedback', id],
+    sendRecruitmentFeedback,
+    {
+      onSuccess: () => {
+        toast.success('Feedback sent');
+        navigate(Paths.home.path);
+      },
+      onError: () => {
+        toast.error('Failed to send feedback');
+      },
+    },
+  );
+
+  const temporaryHasLink = true;
+
+  const handleSendFeedback = (data: IRecruitmentFeedback) => {
+    sendFeedbackMutate({
+      id: id,
+      feedback: data.feedback,
+    });
+  };
+
+  const handleStartRecruitment = () => {
+    if (startRecruitmentLoading || temporaryHasLink) return;
+    startRecruitmentMutate(id);
+  };
+
+  const handleEndRecruitment = () => {
+    if (endRecruitmentLoading || !temporaryHasLink) return;
+    endRecruitmentMutate(id);
+  };
 
   if (isLoading) {
     return <Spinner />;
@@ -70,8 +148,40 @@ const RecruitmentPreviewRecruiter = () => {
               </li>
             ))}
           </ul>
-          {/* TODO: if data has meeting link add button end recruitment. */}
+          {temporaryHasLink ? (
+            <Button className="w-fit" onClick={() => setShowConfirmModal(true)}>
+              End recruitment
+            </Button>
+          ) : (
+            <Button className="w-fit" onClick={handleStartRecruitment}>
+              {startRecruitmentLoading ? <Spinner isLight className="h-6 w-6 border-4" /> : 'Start recruitment'}
+            </Button>
+          )}
+          {showConfirmModal && (
+            <ConfirmModal
+              handleCloseModal={() => setShowConfirmModal(false)}
+              title={`Are you sure you want to end recruitment?`}>
+              <div className="mt-10 flex justify-center gap-5">
+                <Button className="bg-success_color" disabled={endRecruitmentLoading} onClick={handleEndRecruitment}>
+                  {endRecruitmentLoading ? <Spinner isLight className="h-6 w-6 border-4" /> : 'Confirm'}
+                </Button>
+                <Button className="bg-error_color" onClick={() => setShowConfirmModal(false)}>
+                  Cancel
+                </Button>
+              </div>
+            </ConfirmModal>
+          )}
         </div>
+      )}
+      {showFeedbackModal && (
+        <FeedbackModal
+          isSendable={true}
+          isLoading={sendFeedbackLoading}
+          handleSendFeedback={handleSendFeedback}
+          showSkipButton={() => {
+            navigate(Paths.home.path);
+          }}
+        />
       )}
     </div>
   );

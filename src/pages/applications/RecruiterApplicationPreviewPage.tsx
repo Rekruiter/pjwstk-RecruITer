@@ -107,16 +107,16 @@ const RecruiterApplicationPreviewPage = () => {
             <div className="text-md flex gap-5">
               <p>Foreign languages:</p>
               <div className="flex flex-wrap gap-2">
-                {data.foreignLanguages.map((language) => (
-                  <p>{language}</p>
+                {data.foreignLanguages.map((language, idx) => (
+                  <p key={idx}>{language}</p>
                 ))}
               </div>
             </div>
             <div className="text-md flex gap-5">
               <p>Known technologies</p>
               <div className="flex flex-wrap gap-2">
-                {data.technologies.map((tech) => (
-                  <p>{tech}</p>
+                {data.technologies.map((tech, idx) => (
+                  <p key={idx}>{tech}</p>
                 ))}
               </div>
             </div>

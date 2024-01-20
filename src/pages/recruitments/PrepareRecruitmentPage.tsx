@@ -10,6 +10,7 @@ import { IoMdArrowBack } from 'react-icons/io';
 import { useQuery } from 'react-query';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { MdOutlinePreview } from 'react-icons/md';
+import SendFeedbackComponent from '@/components/PrepareRecruitmentContent/SendFeedbackComponent';
 
 const getRecruitmentStateMessage = (recruitmentState: number) => {
   switch (recruitmentState) {
@@ -47,7 +48,6 @@ const PrepareRecruitmentPage = () => {
   if (!data) {
     return null;
   }
-  //TODO: Add navigation to recruitment page.
   return (
     <div className="container flex flex-col gap-5 rounded-b-xl p-8 md:px-12 lg:px-16">
       <div className="mb-4 flex items-center gap-2">
@@ -126,8 +126,8 @@ const PrepareRecruitmentPage = () => {
             isInvitable={data.state !== 5}
           />
         )}
-        {data.state === 5 && <Button>Send feedback</Button>}
-        {/* TODO: Add send feedback button with mutation */}
+
+        {data.state === 5 && <SendFeedbackComponent isSendable={data.state === 5} recruitmentId={id} />}
       </div>
     </div>
   );

@@ -15,9 +15,12 @@ const jobOfferSchema = z.object({
 
 const recruitmentSchema = z.object({
   id: z.number(),
-  date: z.string().refine((date) => !isNaN(Date.parse(date)), {
-    message: 'Invalid date format',
-  }),
+  date: z
+    .string()
+    .refine((date) => !isNaN(Date.parse(date)), {
+      message: 'Invalid date format',
+    })
+    .transform((date) => `${date}Z`),
 });
 
 const recruiterApplicationsSchema = z.array(
