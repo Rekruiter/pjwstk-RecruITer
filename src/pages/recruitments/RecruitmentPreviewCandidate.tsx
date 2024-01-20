@@ -1,4 +1,5 @@
 import { getRecruitmentPreviewCandidate } from '@/api/recruitments/recruitmentPreviews';
+import { getRecruitmentLink } from '@/api/recruitments/recruitments';
 import Spinner from '@/components/UI/Spinner/Spinner';
 import { useEffect } from 'react';
 import { IoMdArrowBack } from 'react-icons/io';
@@ -11,18 +12,27 @@ const RecruitmentPreviewCandidate = () => {
   };
   const navigate = useNavigate();
 
-  const { data, isLoading, isError, refetch } = useQuery(`recruitmentPreviewCandidate-${id}`, () =>
+  const { data, isLoading, isError } = useQuery(`recruitmentPreviewCandidate-${id}`, () =>
     getRecruitmentPreviewCandidate(id),
   );
 
+  const {
+    data: meetingLink,
+    isError: meetingLinkError,
+    refetch,
+  } = useQuery(`meetingLink-${id}`, () => getRecruitmentLink(id));
+
   useEffect(() => {
-    if (!data || !data.dateTechnical) return;
+    if (!data || !data.dateTechnical || meetingLink) return;
 
     const dateTechnical = data.dateTechnical;
     if (!dateTechnical) return;
 
     const intervalId = setInterval(() => {
-      if (Date.now() > new Date(dateTechnical).getTime() - 30 * 60 * 1000) {
+      if (
+        Date.now() > new Date(dateTechnical).getTime() - 30 * 60 * 1000 &&
+        Date.now() < new Date(dateTechnical).getTime() + 120 * 60 * 1000
+      ) {
         refetch();
       }
     }, 10000);
@@ -30,13 +40,13 @@ const RecruitmentPreviewCandidate = () => {
     return () => {
       clearInterval(intervalId);
     };
-  }, [data, refetch]);
+  }, [data, meetingLink, refetch]);
 
   if (isLoading) {
     return <Spinner />;
   }
 
-  if (isError) {
+  if (isError || meetingLinkError) {
     return <p className="m-auto">An error occured, please try again later</p>;
   }
 

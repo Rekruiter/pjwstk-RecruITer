@@ -85,24 +85,30 @@ export const JobOfferSchema = z.object({
   location: z.string(),
   isRemote: z.boolean(),
   seniority: z.string(),
-  dateAdded: z.string().refine(
-    (date) => {
-      const timestamp = Date.parse(date);
-      return !isNaN(timestamp);
-    },
-    {
-      message: 'Invalid date format',
-    },
-  ),
-  dateExpires: z.string().refine(
-    (date) => {
-      const timestamp = Date.parse(date);
-      return !isNaN(timestamp);
-    },
-    {
-      message: 'Invalid date format',
-    },
-  ),
+  dateAdded: z
+    .string()
+    .refine(
+      (date) => {
+        const timestamp = Date.parse(date);
+        return !isNaN(timestamp);
+      },
+      {
+        message: 'Invalid date format',
+      },
+    )
+    .transform((date) => `${date}Z`),
+  dateExpires: z
+    .string()
+    .refine(
+      (date) => {
+        const timestamp = Date.parse(date);
+        return !isNaN(timestamp);
+      },
+      {
+        message: 'Invalid date format',
+      },
+    )
+    .transform((date) => `${date}Z`),
   requirements: z.string().transform((jsonString) => {
     const parsedObject = JSON.parse(jsonString);
     return RequirementsParsingSchema.parse(parsedObject);
@@ -167,7 +173,13 @@ const CompanyJobOfferListElementSchema = z.object({
 
 export const CompanyJobOfferListSchema = z.array(CompanyJobOfferListElementSchema);
 
-export const JobOffersListSchema = z.array(JobOfferSchema);
+export const JobOffersListSchema = z.object({
+  items: z.array(JobOfferSchema),
+  totalCount: z.number(),
+  pageNumber: z.number(),
+  pageSize: z.number(),
+  totalPages: z.number(),
+});
 
 export type IJobOffer = z.infer<typeof JobOfferSchema>;
 export type IJobOfferInput = z.infer<typeof JobOfferInputSchema>;
