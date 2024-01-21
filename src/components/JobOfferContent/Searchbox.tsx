@@ -15,8 +15,10 @@ const Searchbox = ({ supportedTechnologies, setSearchParams, search }: Searchbox
   const [searchInput, setSearchInput] = useState(searchParam);
 
   const hints =
-    searchInput && searchInput !== searchParam
-      ? supportedTechnologies?.filter((technology) => technology.name.toLowerCase().includes(searchInput.toLowerCase()))
+    searchInput.trim() && searchInput !== searchParam
+      ? supportedTechnologies?.filter((technology) =>
+          technology.name.toLowerCase().includes(searchInput.trim().toLowerCase()),
+        )
       : [];
 
   const handleSearchButton = (searchPhrase?: string) => {
@@ -28,12 +30,13 @@ const Searchbox = ({ supportedTechnologies, setSearchParams, search }: Searchbox
   };
 
   useEffect(() => {
-    if (searchParam && searchInput === ' ') {
-      setSearchInput(searchParam);
+    if (searchInput === '   ') {
+      setSearchInput(searchParam ?? '');
     }
   }, [searchInput, searchParam]);
 
   const handleRemoveSearchParam = () => {
+    setSearchInput('');
     setSearchParams((prevParams) => {
       prevParams.delete('search');
       return prevParams;
@@ -44,11 +47,12 @@ const Searchbox = ({ supportedTechnologies, setSearchParams, search }: Searchbox
     <div className="relative flex min-h-[40px] basis-1/3 items-center gap-4 rounded-lg bg-white px-3.5 text-dark">
       <IoIosSearch size={24} />
       <input
-        className="h-full w-full text-lg outline-0"
+        className="h-full w-full text-lg text-dark outline-0"
         type="text"
         value={searchInput}
         onKeyDown={(e) => {
           if (e.key === 'Enter') {
+            e.currentTarget.blur();
             if (!searchInput.trim()) {
               handleRemoveSearchParam();
               return;
@@ -59,7 +63,7 @@ const Searchbox = ({ supportedTechnologies, setSearchParams, search }: Searchbox
         onChange={(e) => {
           setSearchInput(e.target.value);
         }}
-        onBlur={() => setTimeout(() => setSearchInput(' '), 100)}
+        onBlur={() => setTimeout(() => setSearchInput('   '), 100)}
       />
       {hints && hints.length > 0 && (
         <div className="absolute left-0 top-[50px] z-20 w-full rounded-md bg-dark_blue p-3">
@@ -83,7 +87,15 @@ const Searchbox = ({ supportedTechnologies, setSearchParams, search }: Searchbox
           <IoCloseSharp />
         </button>
       ) : (
-        <button onClick={() => handleSearchButton()} className="text-sm text-dark">
+        <button
+          onClick={() => {
+            if (!searchInput.trim()) {
+              handleRemoveSearchParam();
+              return;
+            }
+            handleSearchButton();
+          }}
+          className="text-sm text-dark">
           Search
         </button>
       )}
