@@ -6,11 +6,20 @@ import {
 } from '../../types/jobOfferTypes';
 import axios from '../axios/axios';
 
-export const getJobOfferList = async (pageNumber: number, search?: string) => {
+export const getJobOfferList = async (
+  pageNumber: number,
+  search?: string,
+  locations?: string[],
+  seniorities?: string[],
+  isRemote?: boolean,
+) => {
   const { data } = await axios.get('/jobOffers', {
     params: {
       pageNumber: pageNumber,
       search: search,
+      locations: locations,
+      seniorities: seniorities,
+      isRemote: isRemote,
     },
   });
   return JobOffersListSchema.parse(data);

@@ -8,6 +8,9 @@ import { useEffect } from 'react';
 import PaginationFooter from '@/components/UI/PaginationFooter/PaginationFooter';
 import { getSupportedTechnologies } from '@/api/general/supportedTechnologies';
 import Searchbox from '@/components/JobOfferContent/Searchbox';
+import LocationFilter from '@/components/JobOfferContent/LocationFilter';
+import { safeJSONParse } from '@/helpers';
+import SeniorityFilter from '@/components/JobOfferContent/SeniorityFilter';
 
 const JobOfferListPage = () => {
   const navigate = useNavigate();
@@ -15,9 +18,9 @@ const JobOfferListPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const search = searchParams.get('search');
-  const location = searchParams.get('location');
-  const seniority = searchParams.get('seniority');
-  const isRemote = searchParams.get('isRemote');
+  const location = searchParams.get(PathSearchParams.location);
+  const seniorities = searchParams.get(PathSearchParams.seniorities);
+  const isRemote = searchParams.get(PathSearchParams.isRemote);
   const pageNumber = searchParams.get(PathSearchParams.pageNumber);
 
   useEffect(() => {
@@ -35,13 +38,19 @@ const JobOfferListPage = () => {
 
   const queryPage = parseInt(pageNumber ?? '1');
   const querySearch = search ?? undefined;
-  const queryLocation = location ?? '';
-  const querySeniority = seniority ?? '';
-  const queryRemote = isRemote ? Boolean(isRemote) : '';
+
+  const locationParam: string | null = safeJSONParse(location);
+  const queryLocations: string[] = locationParam ? locationParam.split(',') : [];
+
+  const senioritiesParam: string | null = safeJSONParse(seniorities);
+  const querySeniorities: string[] = senioritiesParam ? senioritiesParam.split(',') : [];
+
+  const isRemoteParam: boolean | null = safeJSONParse(isRemote);
+  const queryRemote: boolean = Boolean(isRemoteParam);
 
   const { data, isLoading, isError } = useQuery(
-    ['jobOffers', queryPage, querySearch, queryLocation, querySeniority, queryRemote],
-    () => getJobOfferList(queryPage, querySearch),
+    ['jobOffers', queryPage, querySearch, queryLocations, querySeniorities, queryRemote],
+    () => getJobOfferList(queryPage, querySearch, queryLocations, querySeniorities, queryRemote),
     {
       staleTime: 10,
     },
@@ -87,22 +96,17 @@ const JobOfferListPage = () => {
     );
   }
 
-  // const locations: string[] = location ? location.toLowerCase().split(',') : [];
-
   return (
-    <div className="flex flex-col">
+    <>
       <div className="sticky top-24 w-full bg-dark_blue text-light shadow-xl">
-        <div className="container mb-2 flex items-center justify-between p-6 md:px-20 lg:px-32">
+        <div className="container flex items-start justify-between gap-20 p-6 md:px-20 lg:px-32">
           <Searchbox supportedTechnologies={supportedTechnologies} setSearchParams={setSearchParams} search={search} />
-          <div className="flex flex-col gap-1">
-            <button>Location</button>
-            <div className="flex flex-wrap gap-2"></div>
-          </div>
-          <p>Seniority</p>
+          <LocationFilter pickedLocations={queryLocations} setSearchParams={setSearchParams} isRemote={queryRemote} />
+          <SeniorityFilter pickedSeniorities={querySeniorities} setSearchParams={setSearchParams} />
         </div>
       </div>
       {content}
-    </div>
+    </>
   );
 };
 
