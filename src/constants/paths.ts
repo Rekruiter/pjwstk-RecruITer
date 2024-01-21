@@ -78,6 +78,9 @@ export const GetPathsLinks = {
 export const PathSearchParams = {
   taskType: 'taskType',
   pageNumber: 'page',
+  location: 'location',
+  seniorities: 'seniorities',
+  isRemote: 'isRemote',
 };
 
 export const Paths: Record<AllPathsType, PathType> = {
