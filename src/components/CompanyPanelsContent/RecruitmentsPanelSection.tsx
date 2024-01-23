@@ -3,14 +3,18 @@ import { formatISODateToDDMMYYYYHHMM } from '../../helpers';
 import { IRecruiterPanel } from '../../types/panelPageTypes';
 import PanelSectionWrapper from '../UI/PanelSectionWrapper';
 import { GetPathsLinks } from '@/constants/paths';
+import { useContext } from 'react';
+import AuthContext from '@/context/auth-context';
 
 interface RecruitmentsPanelSectionProps {
   recruitments: IRecruiterPanel['recruitments'];
 }
 
 const RecruitmentsPanelSection = ({ recruitments }: RecruitmentsPanelSectionProps) => {
+  const { role } = useContext(AuthContext);
+
   return (
-    <PanelSectionWrapper headerTitle="Your Recruitments">
+    <PanelSectionWrapper headerTitle={role === 'admin' ? 'Company recruitments' : 'Your Recruitments'}>
       {recruitments.map((recruitment) => (
         <Link
           to={GetPathsLinks.getRecruitmentPreviewRecruiter(recruitment.id)}
@@ -21,8 +25,8 @@ const RecruitmentsPanelSection = ({ recruitments }: RecruitmentsPanelSectionProp
               {recruitment.candidateName} {recruitment.candidateSurname}
             </p>
           </div>
-          <p className="basis-full font-semibold">Junior Java developer with analytic skills</p>
-          <p className="md:text-cener">{formatISODateToDDMMYYYYHHMM(recruitment.date)}</p>
+          <p className="basis-full font-semibold">Job offer title</p>
+          <p className="md:text-cener">{formatISODateToDDMMYYYYHHMM(recruitment.dateTechnical)}</p>
         </Link>
       ))}
     </PanelSectionWrapper>

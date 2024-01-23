@@ -12,7 +12,7 @@ const QuestionAnswersField = ({ errors, register, getValues }: QuestionAnswersFi
 
   return (
     <div className="flex flex-col gap-5">
-      <label className="font-semibold text-dark">Answer questions</label>
+      {fields.length !== 0 && <label className="font-semibold text-dark">Answer questions</label>}
       {fields.map((field, idx) => (
         <div key={idx} className="flex flex-col gap-2">
           <label className="text-sm font-medium text-dark">{field.question}</label>

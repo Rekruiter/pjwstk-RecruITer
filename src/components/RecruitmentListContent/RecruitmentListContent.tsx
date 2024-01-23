@@ -1,5 +1,5 @@
 import { GetPathsLinks } from '@/constants/paths';
-import { formatISODateToDDMMYYYYHHMM } from '@/helpers';
+import { formatISODateToDDMMYYYYHHMM, getRecruitmentStateMessage } from '@/helpers';
 import { cn } from '@/lib/utils';
 import { IRecruiterRecruitment } from '@/types/recruitmentsTypes';
 import { useState } from 'react';
@@ -8,21 +8,6 @@ import { Link } from 'react-router-dom';
 interface RecruitmentListContentProps {
   recruitments: IRecruiterRecruitment[];
 }
-
-const getRecruitmentStateMessage = (recruitmentState: number) => {
-  switch (recruitmentState) {
-    case 1:
-      return 'Preparation';
-    case 2:
-      return 'Invitation sent';
-    case 3:
-      return 'Invitation accepted';
-    case 4:
-      return 'Invitation rejected';
-    case 5:
-      return 'Finished';
-  }
-};
 
 const getRecruitmentLinkPath = (recruitmentState: number, recruitmentId: number) => {
   switch (recruitmentState) {
