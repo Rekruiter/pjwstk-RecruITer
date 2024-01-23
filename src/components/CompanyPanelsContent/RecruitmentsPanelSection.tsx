@@ -25,7 +25,7 @@ const RecruitmentsPanelSection = ({ recruitments }: RecruitmentsPanelSectionProp
               {recruitment.candidateName} {recruitment.candidateSurname}
             </p>
           </div>
-          <p className="basis-full font-semibold">Job offer title</p>
+          <p className="basis-full font-semibold">{recruitment.jobOfferTitle}</p>
           <p className="md:text-cener">{formatISODateToDDMMYYYYHHMM(recruitment.dateTechnical)}</p>
         </Link>
       ))}
