@@ -46,7 +46,7 @@ const CandidateRecruitmentInvitations = ({ recruitmentInvitations }: CandidateRe
           <div className="basis-3/4">
             <p className="line-clamp-1 overflow-hidden font-medium">{recruitment.jobTitle}</p>
             <p className="font-semibold">{recruitment.companyName}</p>
-            <p>{formatISODateToDDMMYYYYHHMM(recruitment.date)}</p>
+            <p>{formatISODateToDDMMYYYYHHMM(recruitment.dateTechnical)}</p>
           </div>
           {isLoading}
           {isLoading && variables?.id === recruitment.id ? (
