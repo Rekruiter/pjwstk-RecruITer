@@ -34,7 +34,7 @@ const PaginationFooter = ({
       : currPage + 1;
 
   return (
-    <div className="flex w-full justify-center gap-2 p-2">
+    <div className="mb-6 mt-auto flex w-full justify-center gap-2 p-2">
       <button
         key={1}
         disabled={1 === currPage}

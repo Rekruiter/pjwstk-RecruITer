@@ -9,17 +9,6 @@ interface RecruitmentListContentProps {
   recruitments: IRecruiterRecruitment[];
 }
 
-const getRecruitmentLinkPath = (recruitmentState: number, recruitmentId: number) => {
-  switch (recruitmentState) {
-    case 1:
-    case 2:
-    case 3:
-      return GetPathsLinks.getPrepareRecruitment(recruitmentId);
-    default:
-      return '';
-  }
-};
-
 const RecruitmentListContent = ({ recruitments }: RecruitmentListContentProps) => {
   const [recruitmentState, setRecruitmentState] = useState<1 | 2 | 3 | 4 | 5>(1);
 
@@ -50,7 +39,7 @@ const RecruitmentListContent = ({ recruitments }: RecruitmentListContentProps) =
         {filteredRecruitments.map((recruitment) => (
           <Link
             key={recruitment.id}
-            to={getRecruitmentLinkPath(recruitment.state, recruitment.id)}
+            to={GetPathsLinks.getPrepareRecruitment(recruitment.id)}
             className={cn(
               'group flex cursor-pointer flex-col gap-2 rounded-md bg-dark/5 p-2 text-dark shadow-sm hover:bg-orange hover:text-light',
             )}>

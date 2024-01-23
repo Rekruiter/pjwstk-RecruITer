@@ -8,7 +8,7 @@ import axios from '../axios/axios';
 export const getApplicationList = async (pageNumber: number, include: string, includeHistorical: boolean) => {
   const { data } = await axios.get('/applications', {
     params: {
-      pageNumber: pageNumber,
+      page: pageNumber,
       include: include,
       includeHistorical: includeHistorical,
     },

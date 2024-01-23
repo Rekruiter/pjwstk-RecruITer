@@ -25,9 +25,9 @@ const AdminPanelPage = () => {
   if (!data) return null;
 
   return (
-    <div className="container flex flex-grow flex-col gap-10 bg-light p-6">
-      <h3 className="text-3xl text-dark">Welcome {name}</h3>
-      <div className="flex min-h-[50vh] flex-col gap-5 rounded-lg bg-light_blue p-5 xl:p-10">
+    <div className="container flex flex-col gap-8 p-6">
+      <h2 className="text-2xl font-bold text-dark">Welcome {name}</h2>
+      <div className="flex min-h-[50vh] flex-col gap-3 rounded-lg bg-light_blue p-2 xl:p-6">
         <div className="w-full text-2xl text-dark">{data.companyName}</div>
         <div className="flex w-full flex-col gap-5 md:flex-row">
           <CompanyJobOffersSection jobOffers={data.jobOffers} />

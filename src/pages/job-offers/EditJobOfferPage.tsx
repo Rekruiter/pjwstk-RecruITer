@@ -4,6 +4,7 @@ import NewJobOfferForm from '@/components/NewJobOfferForm/NewJobOfferForm';
 import Spinner from '@/components/UI/Spinner/Spinner';
 import { Paths } from '@/constants/paths';
 import { IJobOfferInput } from '@/types/jobOfferTypes';
+import { IoMdArrowBack } from 'react-icons/io';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -48,7 +49,12 @@ const EditJobOfferPage = () => {
 
   return (
     <div className="container flex flex-1 flex-col gap-3 bg-light p-8">
-      <h3 className="mb-4 text-2xl font-semibold text-dark">Edit job offer</h3>
+      <div className="mb-4 flex items-center gap-2">
+        <button onClick={() => navigate(-1)}>
+          <IoMdArrowBack className="text-dark" size={24} />
+        </button>
+        <h3 className="text-2xl font-semibold text-dark">Edit job offer</h3>
+      </div>
       {jobOfferWithDetails && (
         <NewJobOfferForm
           onSubmit={onSubmit}
