@@ -10,7 +10,10 @@ interface CompanyRecruitersSectionProps {
 const CompanyRecruitersSection = ({ recruiters }: CompanyRecruitersSectionProps) => {
   const navigate = useNavigate();
   return (
-    <PanelSectionWrapper headerTitle="Your recruiters" headerClickHandler={() => navigate(Paths.recruiters.path)}>
+    <PanelSectionWrapper
+      headerTitle="Your recruiters"
+      headerClickHandler={() => navigate(Paths.recruiters.path)}
+      className="max-h-[425px] overflow-y-auto">
       {recruiters.map((recruiter) => (
         <div
           key={recruiter.id}

@@ -13,9 +13,11 @@ export const RecruiterRecruitmentSchema = z.object({
   jobOfferTitle: z.string(),
   companyName: z.string(),
   candidateName: z.string(),
+  meetingLink: z.string().nullable(),
   candidateSurname: z.string(),
   recruiterName: z.string().nullable(),
   recruiterSurname: z.string().nullable(),
+  isFeedbackSend: z.boolean().nullable(),
   recruitmentTasks: z.array(
     z.object({
       idTask: z.number(),
@@ -89,6 +91,7 @@ export const RecruitmentCandidateSchema = z.object({
     .transform((date) => `${date}Z`)
     .nullable(),
   jobOfferTitle: z.string(),
+  state: z.number(),
   companyName: z.string(),
   recruiterName: z.string().nullable(),
   recruiterSurname: z.string().nullable(),

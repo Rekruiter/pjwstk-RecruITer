@@ -28,8 +28,8 @@ const CandidateUpcomingRecruitments = ({ recruitments }: CandidateUpcomingRecrui
           <div className="basis-3/4">
             <p className="line-clamp-1 overflow-hidden font-medium">{recruitment.jobTitle}</p>
             <p className="font-semibold">{recruitment.companyName}</p>
-            <p>{formatISODateToDDMMYYYYHHMM(recruitment.date)}</p>
-          </div>{' '}
+            <p>{formatISODateToDDMMYYYYHHMM(recruitment.dateTechnical)}</p>
+          </div>
         </Link>
       ))}
     </PanelSectionWrapper>

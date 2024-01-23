@@ -9,6 +9,7 @@ import Button from '@/components/UI/Button';
 import ConfirmModal from '@/components/UI/ConfirmModal/ConfirmModal';
 import Spinner from '@/components/UI/Spinner/Spinner';
 import { Paths } from '@/constants/paths';
+import { getRecruitmentStateMessage } from '@/helpers';
 import { IRecruitmentFeedback } from '@/types/recruitmentsTypes';
 import { useState } from 'react';
 import { IoMdArrowBack } from 'react-icons/io';
@@ -28,7 +29,6 @@ const RecruitmentPreviewRecruiter = () => {
   const queryClient = useQueryClient();
   const { data, isLoading, isError } = useQuery(`recruitment-${id}`, () => getRecruiterRecruitment(id));
 
-  console.log(data);
   const { mutate: endRecruitmentMutate, isLoading: endRecruitmentLoading } = useMutation(
     ['endRecruitment', id],
     endRecruitment,
@@ -71,8 +71,6 @@ const RecruitmentPreviewRecruiter = () => {
     },
   );
 
-  const temporaryHasLink = true;
-
   const handleSendFeedback = (data: IRecruitmentFeedback) => {
     sendFeedbackMutate({
       id: id,
@@ -81,12 +79,12 @@ const RecruitmentPreviewRecruiter = () => {
   };
 
   const handleStartRecruitment = () => {
-    if (startRecruitmentLoading || temporaryHasLink) return;
+    if (startRecruitmentLoading || data?.meetingLink) return;
     startRecruitmentMutate(id);
   };
 
   const handleEndRecruitment = () => {
-    if (endRecruitmentLoading || !temporaryHasLink) return;
+    if (endRecruitmentLoading || !data?.meetingLink) return;
     endRecruitmentMutate(id);
   };
 
@@ -98,6 +96,8 @@ const RecruitmentPreviewRecruiter = () => {
     return <p className="m-auto">An error occured, please try again later</p>;
   }
 
+  //TODO: DODAC SEARCH TASKS MODAL
+
   return (
     <div className="container flex flex-col gap-5 rounded-b-xl p-8 md:px-12 lg:px-16">
       <div className="mb-4 flex items-center gap-2">
@@ -108,25 +108,21 @@ const RecruitmentPreviewRecruiter = () => {
       </div>
       {data && (
         <div className="flex flex-col gap-2">
-          <h2>
+          <h2 className="text-xl font-semibold text-gray-700">
             {data.jobOfferTitle} at {data.companyName}
           </h2>
-          <p>
+          <p className="text-lg text-gray-700">
             Candidate: {data.candidateName} {data.candidateSurname}
           </p>
-          <p>
+          <p className="text-lg text-gray-700">
             Recruiter: {data.recruiterName} {data.recruiterSurname}
           </p>
-          <p>Date: {new Date(data.date).toLocaleDateString()}</p>
-          <p>Technical Date: {data.dateTechnical ? new Date(data.dateTechnical).toLocaleDateString() : ''}</p>
-          <p>State: {data.state}</p>
-          <h3>Recruitment Tasks</h3>
-          <ul>
-            {data.recruitmentTasks.map((task) => (
-              <li key={task.idTask}>Task ID: {task.idTask}</li>
-            ))}
-          </ul>
-          <h3>Practical Tasks</h3>
+          <p className="text-lg text-gray-700">Date: {new Date(data.date).toLocaleDateString()}</p>
+          <p className="text-lg text-gray-700">
+            Technical Date: {data.dateTechnical ? new Date(data.dateTechnical).toLocaleDateString() : ''}
+          </p>
+          <p className="text-lg text-gray-700">Status: {getRecruitmentStateMessage(data.state)}</p>
+          <h3 className="text-dark">Practical Tasks</h3>
           <ul>
             {data.practicalTasks?.map((task) => (
               <li key={task.id}>
@@ -137,7 +133,7 @@ const RecruitmentPreviewRecruiter = () => {
               </li>
             ))}
           </ul>
-          <h3>Theoretical Tasks</h3>
+          <h3 className="text-dark">Theoretical Tasks</h3>
           <ul>
             {data.theoreticalTasks?.map((task) => (
               <li key={task.id}>
@@ -148,7 +144,7 @@ const RecruitmentPreviewRecruiter = () => {
               </li>
             ))}
           </ul>
-          {temporaryHasLink ? (
+          {data.meetingLink ? (
             <Button className="w-fit" onClick={() => setShowConfirmModal(true)}>
               End recruitment
             </Button>
@@ -175,7 +171,6 @@ const RecruitmentPreviewRecruiter = () => {
       )}
       {showFeedbackModal && (
         <FeedbackModal
-          isSendable={true}
           isLoading={sendFeedbackLoading}
           handleSendFeedback={handleSendFeedback}
           showSkipButton={() => {

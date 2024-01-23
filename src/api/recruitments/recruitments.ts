@@ -50,7 +50,7 @@ export const getRecruitmentLink = async (id: string) => {
   if (!data) {
     return undefined;
   }
-  RecruitmentLinkSchema.parse(data);
+  return RecruitmentLinkSchema.parse(data);
 };
 
 export const endRecruitment = async (id: string) => {
@@ -58,5 +58,5 @@ export const endRecruitment = async (id: string) => {
 };
 
 export const startRecruitment = async (id: string) => {
-  await axios.post(`/recruitments/${id}/generateLink`);
+  await axios.put(`/recruitments/${id}/generateLink`);
 };

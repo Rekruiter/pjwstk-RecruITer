@@ -21,6 +21,12 @@ const recruitmentSchema = z.object({
       message: 'Invalid date format',
     })
     .transform((date) => `${date}Z`),
+  dateTechnical: z
+    .string()
+    .refine((date) => !isNaN(Date.parse(date)), {
+      message: 'Invalid date format',
+    })
+    .transform((date) => `${date}Z`),
 });
 
 const recruiterApplicationsSchema = z.array(

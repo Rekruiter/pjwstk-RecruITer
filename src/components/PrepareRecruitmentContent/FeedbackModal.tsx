@@ -7,20 +7,13 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 interface FeedbackModalProps {
-  isSendable: boolean;
   isLoading: boolean;
   handleSendFeedback: (data: IRecruitmentFeedback) => void;
   handleCloseModal?: () => void;
   showSkipButton?: () => void;
 }
 
-const FeedbackModal = ({
-  isLoading,
-  isSendable,
-  handleCloseModal,
-  handleSendFeedback,
-  showSkipButton,
-}: FeedbackModalProps) => {
+const FeedbackModal = ({ isLoading, handleCloseModal, handleSendFeedback, showSkipButton }: FeedbackModalProps) => {
   const {
     register,
     formState: { errors },
@@ -31,7 +24,7 @@ const FeedbackModal = ({
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!isSendable || isLoading) return;
+    if (isLoading) return;
 
     handleSubmit(
       async (data) => {
