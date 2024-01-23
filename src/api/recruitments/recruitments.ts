@@ -39,7 +39,7 @@ export const updateRecruitmentTasks = async (inputData: IManageTasksForRecruitme
 };
 
 export const sendRecruitmentFeedback = async (inputData: { id: string; feedback: string }) => {
-  await axios.post(`/recruitments/${inputData.id}/feedback`, {
+  await axios.post(`/recruitments/${inputData.id}/sendFeedback`, {
     feedback: inputData.feedback,
   });
 };
