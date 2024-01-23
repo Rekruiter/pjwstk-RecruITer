@@ -67,7 +67,7 @@ const PrepareRecruitmentPage = () => {
         <p>Status: {getRecruitmentStateMessage(data.state)}</p>
         {data.dateTechnical && <p>Technical Interview Date: {formatISODateToDDMMYYYYHHMM(data.dateTechnical)}</p>}
         {(data.state === 2 || data.state === 3) && (
-          <Button className="w-fit p-2 text-sm" onClick={() => setShowManageTasksModal(true)}>
+          <Button className="w-fit rounded-md p-2 text-sm" onClick={() => setShowManageTasksModal(true)}>
             Manage tasks
           </Button>
         )}

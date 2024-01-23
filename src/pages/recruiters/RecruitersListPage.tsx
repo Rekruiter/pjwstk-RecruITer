@@ -24,7 +24,7 @@ const RecruitersListPage = () => {
       <Link to={Paths.addRecruiter.path} className={cn(defaultStyles.orangeButton, 'w-fit')}>
         Add new recruiter
       </Link>
-      <div className="flex flex-col gap-3">
+      <div className="mt-3 flex flex-col gap-3">
         {data?.map((recruiter) => (
           <div
             key={recruiter.id}
@@ -34,6 +34,7 @@ const RecruitersListPage = () => {
                 {recruiter.name} {recruiter.surname}
               </p>
               <p>{recruiter.email}</p>
+              <p>{recruiter.position}</p>
             </div>
             <Link to={GetPathsLinks.getEditRecruiter(recruiter.id)} className="flex items-center hover:scale-110">
               <CiEdit size={32} />

@@ -81,6 +81,7 @@ export const PathSearchParams = {
   location: 'location',
   seniorities: 'seniorities',
   isRemote: 'isRemote',
+  search: 'search',
 };
 
 export const Paths: Record<AllPathsType, PathType> = {

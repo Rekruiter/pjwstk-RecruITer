@@ -17,7 +17,7 @@ const JobOfferListPage = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const search = searchParams.get('search');
+  const search = searchParams.get(PathSearchParams.search);
   const location = searchParams.get(PathSearchParams.location);
   const seniorities = searchParams.get(PathSearchParams.seniorities);
   const isRemote = searchParams.get(PathSearchParams.isRemote);
@@ -82,8 +82,7 @@ const JobOfferListPage = () => {
     content = (
       <>
         <div className="container flex flex-col gap-1 rounded-b-xl p-8 md:px-12 lg:px-16">
-          <h3 className="mb-4 text-2xl font-semibold text-dark">Job offers</h3>
-          <h4 className="mb-4 text-base font-semibold text-dark"></h4>
+          <h3 className="mb-6 text-2xl font-semibold text-dark">Job offers</h3>
           {data.items.map((jobOffer) => (
             <JobOfferListElement handleOpenJobOffer={handleOpenJobOffer} jobOfferData={jobOffer} key={jobOffer.id} />
           ))}

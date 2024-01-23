@@ -17,6 +17,8 @@ import JobHistoryField from './JobHistory/JobHistoryField';
 import Button from '../UI/Button';
 import { MAX_DATE, MIN_DATE } from '@/constants/dateInputValues';
 import Spinner from '../UI/Spinner/Spinner';
+import { IoMdArrowBack } from 'react-icons/io';
+import { useNavigate } from 'react-router-dom';
 
 interface PersonalDataFormProps {
   handlePersonalDataPost: (inputData: IPersonalDataInput) => void;
@@ -25,6 +27,7 @@ interface PersonalDataFormProps {
 }
 
 const PersonalDataForm = ({ data, handlePersonalDataPost, mutationLoading }: PersonalDataFormProps) => {
+  const navigate = useNavigate();
   const { allForeignLanguages, allTechnologies, ...personalData } = data;
 
   const defaultValues = personalData;
@@ -91,8 +94,13 @@ const PersonalDataForm = ({ data, handlePersonalDataPost, mutationLoading }: Per
   });
 
   return (
-    <div className="container flex flex-col items-center gap-6 py-6 sm:p-6">
-      <h2 className="text-4xl font-medium text-dark">Fill up personal data</h2>
+    <div className="container flex flex-col gap-5 rounded-b-xl p-8 md:px-12 lg:px-16">
+      <div className="mb-4 flex items-center gap-2">
+        <button onClick={() => navigate(-1)}>
+          <IoMdArrowBack className="text-dark" size={24} />
+        </button>
+        <h3 className="text-2xl font-semibold text-dark">Fill up personal data</h3>
+      </div>
       <form
         onSubmit={onSubmit}
         className="flex min-h-[500px] w-full flex-col items-center justify-between gap-5 bg-dark_blue px-10 py-5 sm:rounded-xl xl:w-auto xl:min-w-[800px]">
