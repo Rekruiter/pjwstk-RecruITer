@@ -1,3 +1,4 @@
+import { PathSearchParams } from '@/constants/paths';
 import { ISupportedTechnology } from '@/types/tasksTypes';
 import { useEffect, useState } from 'react';
 import { IoIosSearch } from 'react-icons/io';
@@ -24,7 +25,8 @@ const Searchbox = ({ supportedTechnologies, setSearchParams, search }: Searchbox
   const handleSearchButton = (searchPhrase?: string) => {
     if (!searchInput.trim() && !searchPhrase) return;
     setSearchParams((prevParams) => {
-      prevParams.set('search', searchPhrase ?? searchInput);
+      prevParams.set(PathSearchParams.search, searchPhrase ?? searchInput);
+      prevParams.set(PathSearchParams.pageNumber, '1');
       return prevParams;
     });
   };
@@ -38,7 +40,8 @@ const Searchbox = ({ supportedTechnologies, setSearchParams, search }: Searchbox
   const handleRemoveSearchParam = () => {
     setSearchInput('');
     setSearchParams((prevParams) => {
-      prevParams.delete('search');
+      prevParams.delete(PathSearchParams.search);
+      prevParams.set(PathSearchParams.pageNumber, '1');
       return prevParams;
     });
   };

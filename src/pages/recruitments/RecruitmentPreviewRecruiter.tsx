@@ -5,16 +5,17 @@ import {
   startRecruitment,
 } from '@/api/recruitments/recruitments';
 import FeedbackModal from '@/components/PrepareRecruitmentContent/FeedbackModal';
+import ManageTasksModal from '@/components/PrepareRecruitmentContent/ManageTasksModal';
 import Button from '@/components/UI/Button';
 import ConfirmModal from '@/components/UI/ConfirmModal/ConfirmModal';
 import Spinner from '@/components/UI/Spinner/Spinner';
-import { Paths } from '@/constants/paths';
-import { getRecruitmentStateMessage } from '@/helpers';
+import { GetPathsLinks, Paths } from '@/constants/paths';
+import { formatISODateToDDMMYYYYHHMM, getRecruitmentStateMessage } from '@/helpers';
 import { IRecruitmentFeedback } from '@/types/recruitmentsTypes';
 import { useState } from 'react';
 import { IoMdArrowBack } from 'react-icons/io';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 const RecruitmentPreviewRecruiter = () => {
@@ -25,6 +26,7 @@ const RecruitmentPreviewRecruiter = () => {
 
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [showFeedbackModal, setShowFeedbackModal] = useState(false);
+  const [showManageTasksModal, setShowManageTasksModal] = useState(false);
 
   const queryClient = useQueryClient();
   const { data, isLoading, isError } = useQuery(`recruitment-${id}`, () => getRecruiterRecruitment(id));
@@ -96,8 +98,6 @@ const RecruitmentPreviewRecruiter = () => {
     return <p className="m-auto">An error occured, please try again later</p>;
   }
 
-  //TODO: DODAC SEARCH TASKS MODAL
-
   return (
     <div className="container flex flex-col gap-5 rounded-b-xl p-8 md:px-12 lg:px-16">
       <div className="mb-4 flex items-center gap-2">
@@ -111,39 +111,70 @@ const RecruitmentPreviewRecruiter = () => {
           <h2 className="text-xl font-semibold text-gray-700">
             {data.jobOfferTitle} at {data.companyName}
           </h2>
-          <p className="text-lg text-gray-700">
+          <p className="text-base text-gray-700">
             Candidate: {data.candidateName} {data.candidateSurname}
           </p>
-          <p className="text-lg text-gray-700">
+          <p className="text-base text-gray-700">
             Recruiter: {data.recruiterName} {data.recruiterSurname}
           </p>
-          <p className="text-lg text-gray-700">Date: {new Date(data.date).toLocaleDateString()}</p>
-          <p className="text-lg text-gray-700">
-            Technical Date: {data.dateTechnical ? new Date(data.dateTechnical).toLocaleDateString() : ''}
+          <p className="text-base text-gray-700">Date: {formatISODateToDDMMYYYYHHMM(data.date)}</p>
+          <p className="text-base text-gray-700">
+            Technical Date: {data.dateTechnical && formatISODateToDDMMYYYYHHMM(data.dateTechnical)}
           </p>
-          <p className="text-lg text-gray-700">Status: {getRecruitmentStateMessage(data.state)}</p>
+          <p className="text-base text-gray-700">Status: {getRecruitmentStateMessage(data.state)}</p>
+          <Button className="w-fit rounded-md p-2 text-sm" onClick={() => setShowManageTasksModal(true)}>
+            Manage tasks
+          </Button>
+          {showManageTasksModal && (
+            <ManageTasksModal
+              recruitmentId={data.id}
+              handleCloseModal={() => setShowManageTasksModal(false)}
+              defaultPracticalTasks={data.practicalTasks}
+              defaultTheoreticalTasks={data.theoreticalTasks}
+              isTasksEditable={data.state === 2 || data.state === 3}
+            />
+          )}
           <h3 className="text-dark">Practical Tasks</h3>
-          <ul>
+          <ul className="flex flex-col gap-2 text-sm text-dark">
             {data.practicalTasks?.map((task) => (
-              <li key={task.id}>
+              <Link
+                to={GetPathsLinks.getPracticalTaskSolve(task.id)}
+                key={task.id}
+                className="flex flex-col justify-between rounded-sm bg-dark/5 p-2 text-start shadow-md hover:bg-orange hover:text-light">
                 <p>Question: {task.question}</p>
                 <p>Difficulty Level: {task.difficultyLevel}</p>
                 <p>Tag: {task.tag}</p>
-                <p>Hint: {task.hint}</p>
-              </li>
+              </Link>
             ))}
           </ul>
+          {data.practicalTasks?.length === 0 && (
+            <p className="text-sm font-light text-dark">No practicalTasks tasks selected</p>
+          )}
           <h3 className="text-dark">Theoretical Tasks</h3>
-          <ul>
+          <ul className="flex flex-col gap-2 text-sm text-dark">
             {data.theoreticalTasks?.map((task) => (
-              <li key={task.id}>
+              <Link
+                to={GetPathsLinks.getTheoreticalTaskSolve(task.id)}
+                key={task.id}
+                className="flex flex-col justify-between rounded-sm bg-dark/5 p-2 text-start shadow-md hover:bg-orange hover:text-light">
                 <p>Question: {task.question}</p>
                 <p>Difficulty Level: {task.difficultyLevel}</p>
                 <p>Tag: {task.tag}</p>
-                <p>Hint: {task.hint}</p>
-              </li>
+              </Link>
             ))}
           </ul>
+          {data.theoreticalTasks?.length === 0 && (
+            <p className="text-sm font-light text-dark">No theoretical tasks selected</p>
+          )}
+
+          <p className="my-2 text-sm text-dark">
+            Recruitment Link :{' '}
+            {data.meetingLink ? (
+              <a className="text-orange underline">{data.meetingLink}</a>
+            ) : (
+              <span>This recruitment has not started yet</span>
+            )}
+          </p>
           {data.meetingLink ? (
             <Button className="w-fit" onClick={() => setShowConfirmModal(true)}>
               End recruitment
