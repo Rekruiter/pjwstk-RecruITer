@@ -7,11 +7,11 @@ import { IRecruitmentFeedback } from '@/types/recruitmentsTypes';
 import FeedbackModal from './FeedbackModal';
 
 interface SendFeedbackComponentProps {
-  isSendable: boolean;
   recruitmentId: string;
+  isFeedbackSent: boolean | null;
 }
 
-const SendFeedbackComponent = ({ isSendable, recruitmentId }: SendFeedbackComponentProps) => {
+const SendFeedbackComponent = ({ recruitmentId, isFeedbackSent }: SendFeedbackComponentProps) => {
   const [showSendFeedbackModal, setShowSendFeedbackModal] = useState(false);
 
   const queryClient = useQueryClient();
@@ -36,13 +36,15 @@ const SendFeedbackComponent = ({ isSendable, recruitmentId }: SendFeedbackCompon
 
   return (
     <>
-      <Button type="button" onClick={() => setShowSendFeedbackModal(true)}>
-        Send feedback
+      <Button
+        type="button"
+        onClick={isFeedbackSent ? () => {} : () => setShowSendFeedbackModal(true)}
+        disabled={!!isFeedbackSent}>
+        {isFeedbackSent ? 'Feedback was already sent' : 'Send feedback'}
       </Button>
       {showSendFeedbackModal && (
         <FeedbackModal
           handleCloseModal={() => setShowSendFeedbackModal(false)}
-          isSendable={isSendable}
           handleSendFeedback={handleSendFeedback}
           isLoading={isLoading}
         />

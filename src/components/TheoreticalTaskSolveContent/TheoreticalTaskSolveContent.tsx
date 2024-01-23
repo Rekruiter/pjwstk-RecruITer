@@ -121,7 +121,7 @@ const TheoreticalTaskSolveContent = ({ task }: TheoreticalTaskSolveContentProps)
           </Button>
         ))}
       {task.answer && <p className="text-dark">Answer: {getAnswer(task.answer)}</p>}
-      <p className="mt-10 text-dark">Your solution</p>
+      {!isCompanyRole && <p className="mt-10 text-dark">Your solution</p>}
       <div className="flex flex-wrap">
         {options.map((answer, idx) => (
           <AnswerButton key={idx} answer={answer} index={idx} />

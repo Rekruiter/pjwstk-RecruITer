@@ -3,6 +3,7 @@ import { formatISODateToDDMMYYYYHHMM, formatISODateTODDMMYYYY, formatISODateTOYY
 import { safeJSONParse } from './safeJsonParse';
 import { capitalizeFirstLetter } from './stringFormatHelpers';
 import { getStatusMessage } from './getStatusMessage';
+import { getRecruitmentStateMessage } from './recruitmentStateMessages';
 
 export {
   wrapInLayout,
@@ -13,4 +14,5 @@ export {
   safeJSONParse,
   capitalizeFirstLetter,
   getStatusMessage,
+  getRecruitmentStateMessage,
 };

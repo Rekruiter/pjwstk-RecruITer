@@ -1,6 +1,7 @@
 import { getRecruitmentPreviewCandidate } from '@/api/recruitments/recruitmentPreviews';
 import { getRecruitmentLink } from '@/api/recruitments/recruitments';
 import Spinner from '@/components/UI/Spinner/Spinner';
+import { formatISODateToDDMMYYYYHHMM, getRecruitmentStateMessage } from '@/helpers';
 import { useEffect } from 'react';
 import { IoMdArrowBack } from 'react-icons/io';
 import { useQuery } from 'react-query';
@@ -67,14 +68,22 @@ const RecruitmentPreviewCandidate = () => {
           <h2 className="text-2xl font-bold text-blue-600">
             {data.jobOfferTitle} at {data.companyName}
           </h2>
-          <p className="text-lg text-gray-700">ID: {data.id}</p>
-          <p className="text-lg text-gray-700">Application ID: {data.applicationId}</p>
-          <p className="text-lg text-gray-700">Date: {new Date(data.date).toLocaleDateString()}</p>
+          <p className="font-semibold text-orange">{data.companyName}</p>
+          <p className="text-lg text-gray-700">Recuritment started: {formatISODateToDDMMYYYYHHMM(data.date)}</p>
+          <p className="text-lg text-gray-700">Status: {getRecruitmentStateMessage(data.state)}</p>
           <p className="text-lg text-gray-700">
-            Technical Date: {data.dateTechnical ? new Date(data.dateTechnical).toLocaleDateString() : ''}
+            Technical Meeting Date: {data.dateTechnical ? formatISODateToDDMMYYYYHHMM(data.dateTechnical) : ''}
           </p>
           <p className="text-lg text-gray-700">
             Recruiter: {data.recruiterName} {data.recruiterSurname}
+          </p>
+          <p className="text-lg text-gray-700">
+            Recruitment Link :{' '}
+            {meetingLink ? (
+              <a className="text-orange underline">{meetingLink.meetingLink}</a>
+            ) : (
+              <span>This recruitment has not started yet</span>
+            )}
           </p>
         </div>
       )}
