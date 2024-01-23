@@ -51,6 +51,7 @@ const recruiterUpcomingRecruitmentsSchema = z.array(
   recruitmentSchema.extend({
     candidateName: z.string(),
     candidateSurname: z.string(),
+    jobOfferTitle: z.string().nullable(),
   }),
 );
 
