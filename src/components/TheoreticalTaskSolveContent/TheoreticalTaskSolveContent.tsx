@@ -23,7 +23,7 @@ const TheoreticalTaskSolveContent = ({ task }: TheoreticalTaskSolveContentProps)
   const navigate = useNavigate();
 
   const options: string[] = [task.optionA, task.optionB, task.optionC, task.optionD].filter(
-    (opt): opt is string => !!opt,
+    (opt): opt is string => opt !== null,
   );
 
   const { mutateAsync, isLoading } = useMutation<
@@ -67,6 +67,10 @@ const TheoreticalTaskSolveContent = ({ task }: TheoreticalTaskSolveContentProps)
       await handleSolveTask(index + 1);
       setIsSubmitting(false);
     };
+
+    if (!answer) {
+      return null;
+    }
 
     return (
       <div className="flex basis-1/2 justify-center p-2">

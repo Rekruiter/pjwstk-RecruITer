@@ -166,6 +166,7 @@ const NewTheoreticalTaskForm = ({ mutationLoading, onSubmit, defaultValues }: Ne
             Correct answer
           </button>
         </div>
+        {errors.answer && <div className="text-error_color">{errors.answer.message}</div>}
         {mutationLoading ? (
           <Spinner isLight />
         ) : (
