@@ -15,7 +15,7 @@ const AddRecruiterPage = () => {
 
   const { isLoading: mutationLoading, mutate } = useMutation(['add', id], createRecruiter, {
     onSuccess: () => {
-      toast.success('Practical task edited successfully');
+      toast.success('Recruiter added successfully');
       navigate(Paths.recruiters.path);
       queryClient.refetchQueries('recruiters');
     },

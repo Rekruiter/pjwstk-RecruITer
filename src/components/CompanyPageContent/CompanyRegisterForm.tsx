@@ -141,6 +141,7 @@ const CompanyRegisterForm = ({ handlePreviousSection }: CompanyRegisterFormProps
             />
             <FormFieldWrapper<IRegisterCompanyFormInput>
               field="phoneNumber"
+              label="Phone number"
               register={register}
               error={errors.phoneNumber}
               autocomplete="tel"
@@ -156,6 +157,7 @@ const CompanyRegisterForm = ({ handlePreviousSection }: CompanyRegisterFormProps
             />
             <FormFieldWrapper<IRegisterCompanyFormInput>
               field="confirmPassword"
+              label="Confirm password"
               register={register}
               error={errors.confirmPassword}
               type="password"
