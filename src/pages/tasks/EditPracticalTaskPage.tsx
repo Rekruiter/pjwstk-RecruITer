@@ -18,7 +18,7 @@ const EditPracticalTaskPage = () => {
     onSuccess: () => {
       toast.success('Practical task edited successfully');
       navigate(GetPathsLinks.getCompanyPracticalTasksList());
-      queryClient.refetchQueries('companyPracticalTasks');
+      queryClient.refetchQueries('companyPracticalTasks-1');
     },
     onError: () => {
       toast.error('Error while editing practical task');
