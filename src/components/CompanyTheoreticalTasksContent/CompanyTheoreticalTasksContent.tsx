@@ -23,7 +23,7 @@ const CompanyTheoreticalTasksContent = () => {
 
   const queryPage = parseInt(currentPage ?? '1');
 
-  const { data, isLoading, isError, isFetching } = useQuery(['companyTheoreticalTasks', queryPage], () =>
+  const { data, isLoading, isError, isFetching } = useQuery(`companyTheoreticalTasks-${queryPage}`, () =>
     getPrivateTheoreticalTasks(queryPage),
   );
 
@@ -46,7 +46,7 @@ const CompanyTheoreticalTasksContent = () => {
   return (
     data && (
       <div className="container flex flex-grow flex-col gap-10 bg-light px-0 md:px-6">
-        <CompanyTheoreticalTasksList tasks={data.items} isFetching={isFetching} />
+        <CompanyTheoreticalTasksList tasks={data.items} isFetching={isFetching} currPage={queryPage} />
         <PaginationFooter totalPageNumber={data.totalPages} currPage={queryPage} callback={handleChangePage} />
       </div>
     )

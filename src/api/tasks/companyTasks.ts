@@ -42,3 +42,11 @@ export const editTheoreticalTaskPut = async ({
 }) => {
   await axios.put(`/theoreticalTasks/${id}`, inputData);
 };
+
+export const deletePracticalTask = async (id: number) => {
+  await axios.delete(`/practicalTasks/${id}`);
+};
+
+export const deleteTheoreticalTask = async (id: number) => {
+  await axios.delete(`/theoreticalTasks/${id}`);
+};

@@ -15,7 +15,7 @@ const AddPracticalTaskPage = () => {
     onSuccess: () => {
       toast.success('Practical task added successfully');
       navigate(GetPathsLinks.getCompanyPracticalTasksList());
-      queryClient.refetchQueries('companyPracticalTasks');
+      queryClient.refetchQueries('companyPracticalTasks-1');
     },
     onError: () => {
       // TODO: Add erorr handling

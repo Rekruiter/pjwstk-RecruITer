@@ -18,7 +18,7 @@ const EditTheoreticalTaskPage = () => {
     onSuccess: () => {
       toast.success('Theoretical task edited successfully');
       navigate(GetPathsLinks.getCompanyTheoreticalTasksList());
-      queryClient.refetchQueries('companyTheoreticalTasks');
+      queryClient.refetchQueries('companyTheoreticalTasks-1');
     },
     onError: () => {
       toast.error('Error while editing theoretical task');

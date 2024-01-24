@@ -32,3 +32,7 @@ export const updateRecruiter = async (inputData: IRecruiterInputForm & { id: str
 
   await axios.put(`/recruiters/${id}`, { newDate, ...input });
 };
+
+export const deactivateRecruiter = async (id: number) => {
+  await axios.put(`/deactivateRecruiter/${id}`);
+};
