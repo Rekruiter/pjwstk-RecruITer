@@ -1,8 +1,8 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { formatISODateToDDMMYYYYHHMM } from '../../helpers';
 import { IRecruiterPanel } from '../../types/panelPageTypes';
 import PanelSectionWrapper from '../UI/PanelSectionWrapper';
-import { GetPathsLinks } from '@/constants/paths';
+import { GetPathsLinks, Paths } from '@/constants/paths';
 import { useContext } from 'react';
 import AuthContext from '@/context/auth-context';
 
@@ -12,9 +12,12 @@ interface RecruitmentsPanelSectionProps {
 
 const RecruitmentsPanelSection = ({ recruitments }: RecruitmentsPanelSectionProps) => {
   const { role } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   return (
-    <PanelSectionWrapper headerTitle={role === 'admin' ? 'Company recruitments' : 'Your Recruitments'}>
+    <PanelSectionWrapper
+      headerTitle={role === 'admin' ? 'Company recruitments' : 'Your Recruitments'}
+      headerClickHandler={() => navigate(Paths.recruiterRecruitments.path)}>
       {recruitments.map((recruitment) => (
         <Link
           to={GetPathsLinks.getRecruitmentPreviewRecruiter(recruitment.id)}

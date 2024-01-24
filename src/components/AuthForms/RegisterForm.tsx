@@ -77,6 +77,7 @@ const RegisterForm = ({ changeAuthMethod }: RegisterFormsProps) => {
           autocomplete="username"
         />
         <FormFieldWrapper<IRegisterFormInput>
+          label="Phone number"
           field="phoneNumber"
           register={register}
           error={errors.phoneNumber}
@@ -91,6 +92,7 @@ const RegisterForm = ({ changeAuthMethod }: RegisterFormsProps) => {
         />
         <FormFieldWrapper<IRegisterFormInput>
           field="confirmPassword"
+          label="Confirm password"
           register={register}
           error={errors.confirmPassword}
           type="password"
