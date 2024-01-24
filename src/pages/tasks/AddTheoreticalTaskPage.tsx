@@ -15,7 +15,7 @@ const AddTheoreticalTaskPage = () => {
     onSuccess: () => {
       toast.success('Theoretical task added successfully');
       navigate(GetPathsLinks.getCompanyTheoreticalTasksList());
-      queryClient.refetchQueries('companyTheoreticalTasks');
+      queryClient.refetchQueries('companyTheoreticalTasks-1');
     },
     onError: () => {
       // TODO: Add erorr handling

@@ -1,9 +1,9 @@
 import { getRecruiters } from '@/api/recruiters/recruiters';
+import RecruiterListItem from '@/components/RecruitersListContent/RecruiterListItem';
 import Spinner from '@/components/UI/Spinner/Spinner';
 import { defaultStyles } from '@/constants/defaultStyles';
-import { GetPathsLinks, Paths } from '@/constants/paths';
+import { Paths } from '@/constants/paths';
 import { cn } from '@/lib/utils';
-import { CiEdit } from 'react-icons/ci';
 import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
 
@@ -25,22 +25,7 @@ const RecruitersListPage = () => {
         Add new recruiter
       </Link>
       <div className="mt-3 flex flex-col gap-3">
-        {data?.map((recruiter) => (
-          <div
-            key={recruiter.id}
-            className="flex w-full justify-between rounded-md bg-dark/10 p-3 pl-5 text-xl text-dark shadow-md hover:border-none hover:bg-orange hover:text-light">
-            <div className="flex flex-col gap-2">
-              <p>
-                {recruiter.name} {recruiter.surname}
-              </p>
-              <p>{recruiter.email}</p>
-              <p>{recruiter.position}</p>
-            </div>
-            <Link to={GetPathsLinks.getEditRecruiter(recruiter.id)} className="flex items-center hover:scale-110">
-              <CiEdit size={32} />
-            </Link>
-          </div>
-        ))}
+        {data?.map((recruiter) => <RecruiterListItem key={recruiter.id} recruiter={recruiter} />)}
       </div>
     </div>
   );
