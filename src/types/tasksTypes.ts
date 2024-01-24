@@ -108,10 +108,8 @@ export const TheoreticalTaskFormInputSchema = z
   })
   .refine(
     (data) => {
-      console.log(data.answer);
       if (data.answer === 3) {
         return data.optionC;
-        // TODO: Check czemu to nie dziala
       }
       if (data.answer === 4) {
         return data.optionD;

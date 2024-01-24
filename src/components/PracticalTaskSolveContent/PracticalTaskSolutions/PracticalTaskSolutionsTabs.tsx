@@ -10,6 +10,17 @@ const PracticalTaskSolutionsTabs = ({ selected }: PracticalTaskSolutionsTabsProp
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { compilationLanguage, ...categories } = selected;
 
+  const getCategoryName = (category: string) => {
+    switch (category) {
+      case 'bruteForceSolution':
+        return 'Brute Force Solution';
+      case 'mediumSolution':
+        return 'Medium Solution';
+      case 'bestSolution':
+        return 'Best Solution';
+    }
+  };
+
   return (
     <div className="w-full px-2 py-16 sm:px-0">
       <Tab.Group>
@@ -25,14 +36,20 @@ const PracticalTaskSolutionsTabs = ({ selected }: PracticalTaskSolutionsTabsProp
                     : 'bg-dark/5 text-light hover:bg-white/[0.12] hover:text-white',
                 )
               }>
-              {category}
+              {getCategoryName(category)}
             </Tab>
           ))}
         </Tab.List>
         <Tab.Panels className="mt-2">
           {Object.values(categories).map((categoryData, idx) => (
             <Tab.Panel key={idx} className={cn('rounded-md p-3', 'shadow-m bg-dark/5')}>
-              <p className="text-dark">{categoryData ?? `There is no ${Object.keys(categories)[idx]}`}</p>
+              {categoryData ? (
+                <textarea className="w-full text-dark" disabled rows={categoryData.split('\n').length}>
+                  {categoryData}
+                </textarea>
+              ) : (
+                <p className="w-full text-dark">There is no {getCategoryName(Object.keys(categories)[idx])}</p>
+              )}
             </Tab.Panel>
           ))}
         </Tab.Panels>
