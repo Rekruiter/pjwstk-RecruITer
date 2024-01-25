@@ -79,8 +79,10 @@ const RecruitmentPreviewCandidate = () => {
           </p>
           <p className="text-lg text-gray-700">
             Recruitment Link :{' '}
-            {meetingLink ? (
-              <a className="text-orange underline">{meetingLink.meetingLink}</a>
+            {meetingLink && meetingLink.meetingLink ? (
+              <a className="text-orange underline" href={meetingLink.meetingLink} target="_blank">
+                {meetingLink.meetingLink}
+              </a>
             ) : (
               <span>This recruitment has not started yet</span>
             )}
