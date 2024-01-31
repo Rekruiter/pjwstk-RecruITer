@@ -32,7 +32,7 @@ const JobOfferListElement = ({ handleOpenJobOffer, jobOfferData }: JobOfferListE
         {jobOfferData.maxSalary !== null && `-${jobOfferData.maxSalary}`} {jobOfferData.currency}
       </p>
       <p className="min-w-4.25 basis-1/2 text-center group-hover:text-light sm:mx-2 sm:basis-1/6">
-        {jobOfferData.location}
+        {jobOfferData.location ? jobOfferData.location : jobOfferData.isRemote ? 'Remote' : 'No location specified'}
       </p>
     </div>
   );

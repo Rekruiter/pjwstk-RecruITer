@@ -38,6 +38,8 @@ const RecruitmentPreviewRecruiter = () => {
       onSuccess: () => {
         toast.success('Recruitment ended');
         setShowFeedbackModal(true);
+        queryClient.invalidateQueries('adminPanel');
+        queryClient.invalidateQueries('recruiterPanel');
       },
       onError: () => {
         toast.error('An error occured, please try again later');
@@ -170,7 +172,9 @@ const RecruitmentPreviewRecruiter = () => {
           <p className="my-2 text-sm text-dark">
             Recruitment Link :{' '}
             {data.meetingLink ? (
-              <a className="text-orange underline">{data.meetingLink}</a>
+              <a className="text-orange underline" href={data.meetingLink}>
+                {data.meetingLink}
+              </a>
             ) : (
               <span>This recruitment has not started yet</span>
             )}

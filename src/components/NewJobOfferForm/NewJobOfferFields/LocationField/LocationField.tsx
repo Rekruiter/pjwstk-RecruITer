@@ -1,13 +1,14 @@
 import FormFieldWrapper from '@/components/FormHelpers/FormFieldWrapper';
 import { IJobOfferInput } from '@/types/jobOfferTypes';
-import { FieldErrors, UseFormRegister } from 'react-hook-form';
+import { FieldErrors, UseFormRegister, UseFormTrigger } from 'react-hook-form';
 
 interface LocationFieldProps {
   register: UseFormRegister<IJobOfferInput>;
   errors: FieldErrors<IJobOfferInput>;
+  trigger: UseFormTrigger<IJobOfferInput>;
 }
 
-const LocationField = ({ register, errors }: LocationFieldProps) => {
+const LocationField = ({ register, errors, trigger }: LocationFieldProps) => {
   return (
     <div className="flex items-center gap-10">
       <FormFieldWrapper<IJobOfferInput>
@@ -21,7 +22,15 @@ const LocationField = ({ register, errors }: LocationFieldProps) => {
         <label htmlFor="isRemote" className="font-semibold text-light">
           isRemote
         </label>
-        <input {...register('isRemote')} type="checkbox" className="h-6 w-6" />
+        <input
+          {...register('isRemote', {
+            onChange: () => {
+              trigger('location');
+            },
+          })}
+          type="checkbox"
+          className="h-6 w-6"
+        />
       </div>
     </div>
   );
