@@ -24,7 +24,7 @@ const RecruitmentPreviewCandidate = () => {
   } = useQuery(`meetingLink-${id}`, () => getRecruitmentLink(id));
 
   useEffect(() => {
-    if (!data || !data.dateTechnical || meetingLink) return;
+    if (!data || !data.dateTechnical || meetingLink?.meetingLink) return;
 
     const dateTechnical = data.dateTechnical;
     if (!dateTechnical) return;

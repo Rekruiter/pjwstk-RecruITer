@@ -77,7 +77,7 @@ const NewJobOfferForm = ({ onSubmit, mutationLoading, defaultValues }: NewJobOff
           placeholder="Your job offer title here"
         />
         <DescriptionField register={register} error={errors.description} />
-        <LocationField register={register} errors={errors} />
+        <LocationField register={register} errors={errors} trigger={trigger} />
         <SalaryField
           register={register}
           errors={errors}
