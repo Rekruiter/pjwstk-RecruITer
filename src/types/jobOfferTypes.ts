@@ -7,9 +7,7 @@ export const JobOfferInputSchema = z
     title: z.string().min(3, {
       message: 'Title must be at least 3 characters long',
     }),
-    location: z.string().min(3, {
-      message: 'Location must be at least 3 characters long',
-    }),
+    location: z.string().optional(),
     isRemote: z.boolean({
       required_error: 'Remote field is required',
     }),
@@ -71,6 +69,18 @@ export const JobOfferInputSchema = z
     {
       message: 'Min Salary must be lower than max salary',
       path: ['maxSalary'],
+    },
+  )
+  .refine(
+    (data) => {
+      if (!data.location && !data.isRemote) {
+        return false;
+      }
+      return true;
+    },
+    {
+      message: 'You must either pick location or remote',
+      path: ['location'],
     },
   );
 

@@ -7,7 +7,7 @@ import { getStatusMessage } from '@/helpers';
 import { useState } from 'react';
 import { FaStar } from 'react-icons/fa';
 import { IoMdArrowBack } from 'react-icons/io';
-import { useMutation, useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
@@ -28,9 +28,13 @@ const RecruiterApplicationPreviewPage = () => {
   const { data, error, isLoading } = useQuery(['recruiterApplication', id], () => getRecruiterApplication(id), {
     cacheTime: 1,
   });
+
+  const queryClient = useQueryClient();
+
   const { mutate, isLoading: mutationLoading } = useMutation('acceptOrRejectApplication', acceptOrRejectApplication, {
     onSuccess(_, variables) {
       toast.success(`Application ${variables.isAccepted ? 'accepted' : 'rejected'} successfully`);
+      queryClient.refetchQueries('applicationList');
       navigate(Paths.recruiterApplications.path);
     },
     onError: () => {
