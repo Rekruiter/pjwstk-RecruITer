@@ -3,9 +3,11 @@ import { personalDataGet, personalDataPost } from '@/api/personalData/personalDa
 import PersonalDataForm from '@/components/FillPersonalDataForm/PersonalDataForm';
 import Spinner from '@/components/UI/Spinner/Spinner';
 import { Paths } from '@/constants/paths';
+import AuthContext from '@/context/auth-context';
 import { IPersonalDataFetch, IPersonalDataInput } from '@/types/personalDataFormTypes';
+import { useContext } from 'react';
 import { useMutation, useQuery } from 'react-query';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 const FillUpPersonalDataPage = () => {
@@ -14,11 +16,25 @@ const FillUpPersonalDataPage = () => {
   });
   const navigate = useNavigate();
 
+  const { role, logout } = useContext(AuthContext);
+  const [, setSearchParams] = useSearchParams();
+
   const { mutate, isLoading: mutationLoading } = useMutation<any, IError, IPersonalDataInput>(
     'personalDataPost',
     personalDataPost,
     {
       onSuccess: () => {
+        if (role === 'user') {
+          logout();
+          navigate(Paths.home.path);
+          setSearchParams((prevParams) => {
+            return new URLSearchParams({ ...prevParams, authorization: 'login' });
+          });
+          toast('Personal data updated successfully, you need to sign in again', {
+            type: 'info',
+          });
+          return;
+        }
         toast('Personal data updated successfully', {
           type: 'success',
         });

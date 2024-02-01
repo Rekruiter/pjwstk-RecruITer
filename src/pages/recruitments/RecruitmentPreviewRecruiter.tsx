@@ -100,6 +100,14 @@ const RecruitmentPreviewRecruiter = () => {
     return <p className="m-auto">An error occured, please try again later</p>;
   }
 
+  if (!data) {
+    return null;
+  }
+
+  const dateTechnical = data.dateTechnical ? new Date(data.dateTechnical) : null;
+
+  const isRecruitmentStartable = dateTechnical ? Date.now() + 30 * 60 * 1000 >= dateTechnical.getTime() : false;
+
   return (
     <div className="container flex flex-col gap-5 rounded-b-xl p-8 md:px-12 lg:px-16">
       <div className="mb-4 flex items-center gap-2">
@@ -108,102 +116,103 @@ const RecruitmentPreviewRecruiter = () => {
         </button>
         <h3 className="text-2xl font-semibold text-dark">Recruitment preview</h3>
       </div>
-      {data && (
-        <div className="flex flex-col gap-2">
-          <h2 className="text-xl font-semibold text-gray-700">
-            {data.jobOfferTitle} at {data.companyName}
-          </h2>
-          <p className="text-base text-gray-700">
-            Candidate: {data.candidateName} {data.candidateSurname}
-          </p>
-          <p className="text-base text-gray-700">
-            Recruiter: {data.recruiterName} {data.recruiterSurname}
-          </p>
-          <p className="text-base text-gray-700">Date: {formatISODateToDDMMYYYYHHMM(data.date)}</p>
-          <p className="text-base text-gray-700">
-            Technical Date: {data.dateTechnical && formatISODateToDDMMYYYYHHMM(data.dateTechnical)}
-          </p>
-          <p className="text-base text-gray-700">Status: {getRecruitmentStateMessage(data.state)}</p>
-          <Button className="w-fit rounded-md p-2 text-sm" onClick={() => setShowManageTasksModal(true)}>
-            Manage tasks
-          </Button>
-          {showManageTasksModal && (
-            <ManageTasksModal
-              recruitmentId={data.id}
-              handleCloseModal={() => setShowManageTasksModal(false)}
-              defaultPracticalTasks={data.practicalTasks}
-              defaultTheoreticalTasks={data.theoreticalTasks}
-              isTasksEditable={data.state === 2 || data.state === 3}
-            />
-          )}
-          <h3 className="text-dark">Practical Tasks</h3>
-          <ul className="flex flex-col gap-2 text-sm text-dark">
-            {data.practicalTasks?.map((task) => (
-              <Link
-                to={GetPathsLinks.getPracticalTaskSolve(task.id)}
-                key={task.id}
-                className="flex flex-col justify-between rounded-sm bg-dark/5 p-2 text-start shadow-md hover:bg-orange hover:text-light">
-                <p>Question: {task.question}</p>
-                <p>Difficulty Level: {task.difficultyLevel}</p>
-                <p>Tag: {task.tag}</p>
-              </Link>
-            ))}
-          </ul>
-          {data.practicalTasks?.length === 0 && (
-            <p className="text-sm font-light text-dark">No practicalTasks tasks selected</p>
-          )}
-          <h3 className="text-dark">Theoretical Tasks</h3>
-          <ul className="flex flex-col gap-2 text-sm text-dark">
-            {data.theoreticalTasks?.map((task) => (
-              <Link
-                to={GetPathsLinks.getTheoreticalTaskSolve(task.id)}
-                key={task.id}
-                className="flex flex-col justify-between rounded-sm bg-dark/5 p-2 text-start shadow-md hover:bg-orange hover:text-light">
-                <p>Question: {task.question}</p>
-                <p>Difficulty Level: {task.difficultyLevel}</p>
-                <p>Tag: {task.tag}</p>
-              </Link>
-            ))}
-          </ul>
-          {data.theoreticalTasks?.length === 0 && (
-            <p className="text-sm font-light text-dark">No theoretical tasks selected</p>
-          )}
+      <div className="flex flex-col gap-2">
+        <h2 className="text-xl font-semibold text-gray-700">
+          {data.jobOfferTitle} at {data.companyName}
+        </h2>
+        <p className="text-base text-gray-700">
+          Candidate: {data.candidateName} {data.candidateSurname}
+        </p>
+        <p className="text-base text-gray-700">
+          Recruiter: {data.recruiterName} {data.recruiterSurname}
+        </p>
+        <p className="text-base text-gray-700">Date: {formatISODateToDDMMYYYYHHMM(data.date)}</p>
+        <p className="text-base text-gray-700">
+          Technical Date: {data.dateTechnical && formatISODateToDDMMYYYYHHMM(data.dateTechnical)}
+        </p>
+        <p className="text-base text-gray-700">Status: {getRecruitmentStateMessage(data.state)}</p>
+        <Button className="w-fit rounded-md p-2 text-sm" onClick={() => setShowManageTasksModal(true)}>
+          Manage tasks
+        </Button>
+        {showManageTasksModal && (
+          <ManageTasksModal
+            recruitmentId={data.id}
+            handleCloseModal={() => setShowManageTasksModal(false)}
+            defaultPracticalTasks={data.practicalTasks}
+            defaultTheoreticalTasks={data.theoreticalTasks}
+            isTasksEditable={data.state === 2 || data.state === 3}
+          />
+        )}
+        <h3 className="text-dark">Practical Tasks</h3>
+        <ul className="flex flex-col gap-2 text-sm text-dark">
+          {data.practicalTasks?.map((task) => (
+            <Link
+              to={GetPathsLinks.getPracticalTaskSolve(task.id)}
+              key={task.id}
+              className="flex flex-col justify-between rounded-sm bg-dark/5 p-2 text-start shadow-md hover:bg-orange hover:text-light">
+              <p>Question: {task.question}</p>
+              <p>Difficulty Level: {task.difficultyLevel}</p>
+              <p>Tag: {task.tag}</p>
+            </Link>
+          ))}
+        </ul>
+        {data.practicalTasks?.length === 0 && (
+          <p className="text-sm font-light text-dark">No practicalTasks tasks selected</p>
+        )}
+        <h3 className="text-dark">Theoretical Tasks</h3>
+        <ul className="flex flex-col gap-2 text-sm text-dark">
+          {data.theoreticalTasks?.map((task) => (
+            <Link
+              to={GetPathsLinks.getTheoreticalTaskSolve(task.id)}
+              key={task.id}
+              className="flex flex-col justify-between rounded-sm bg-dark/5 p-2 text-start shadow-md hover:bg-orange hover:text-light">
+              <p>Question: {task.question}</p>
+              <p>Difficulty Level: {task.difficultyLevel}</p>
+              <p>Tag: {task.tag}</p>
+            </Link>
+          ))}
+        </ul>
+        {data.theoreticalTasks?.length === 0 && (
+          <p className="text-sm font-light text-dark">No theoretical tasks selected</p>
+        )}
 
-          <p className="my-2 text-sm text-dark">
-            Recruitment Link :{' '}
-            {data.meetingLink ? (
-              <a className="text-orange underline" href={data.meetingLink}>
-                {data.meetingLink}
-              </a>
-            ) : (
-              <span>This recruitment has not started yet</span>
-            )}
-          </p>
+        <p className="my-2 text-sm text-dark">
+          Recruitment Link :{' '}
           {data.meetingLink ? (
-            <Button className="w-fit" onClick={() => setShowConfirmModal(true)}>
-              End recruitment
-            </Button>
+            <a className="text-orange underline" href={data.meetingLink} target="_blank">
+              {data.meetingLink}
+            </a>
           ) : (
-            <Button className="w-fit" onClick={handleStartRecruitment}>
-              {startRecruitmentLoading ? <Spinner isLight className="h-6 w-6 border-4" /> : 'Start recruitment'}
-            </Button>
+            <span>This recruitment has not started yet</span>
           )}
-          {showConfirmModal && (
-            <ConfirmModal
-              handleCloseModal={() => setShowConfirmModal(false)}
-              title={`Are you sure you want to end recruitment?`}>
-              <div className="mt-10 flex justify-center gap-5">
-                <Button className="bg-success_color" disabled={endRecruitmentLoading} onClick={handleEndRecruitment}>
-                  {endRecruitmentLoading ? <Spinner isLight className="h-6 w-6 border-4" /> : 'Confirm'}
-                </Button>
-                <Button className="bg-error_color" onClick={() => setShowConfirmModal(false)}>
-                  Cancel
-                </Button>
-              </div>
-            </ConfirmModal>
-          )}
-        </div>
-      )}
+        </p>
+        {data.meetingLink ? (
+          <Button className="w-fit" onClick={() => setShowConfirmModal(true)}>
+            End recruitment
+          </Button>
+        ) : (
+          <Button
+            className="w-fit disabled:opacity-70"
+            onClick={handleStartRecruitment}
+            disabled={!isRecruitmentStartable}>
+            {startRecruitmentLoading ? <Spinner isLight className="h-6 w-6 border-4" /> : 'Start recruitment'}
+          </Button>
+        )}
+        {showConfirmModal && (
+          <ConfirmModal
+            handleCloseModal={() => setShowConfirmModal(false)}
+            title={`Are you sure you want to end recruitment?`}>
+            <div className="mt-10 flex justify-center gap-5">
+              <Button className="bg-success_color" disabled={endRecruitmentLoading} onClick={handleEndRecruitment}>
+                {endRecruitmentLoading ? <Spinner isLight className="h-6 w-6 border-4" /> : 'Confirm'}
+              </Button>
+              <Button className="bg-error_color" onClick={() => setShowConfirmModal(false)}>
+                Cancel
+              </Button>
+            </div>
+          </ConfirmModal>
+        )}
+      </div>
       {showFeedbackModal && (
         <FeedbackModal
           isLoading={sendFeedbackLoading}

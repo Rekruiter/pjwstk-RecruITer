@@ -42,16 +42,6 @@ const AuthorizedDropdownMenu = ({ onLogout, name }: AuthorizedDropdownMenuProps)
         leaveTo="transform opacity-0 scale-95">
         <Menu.Items className="absolute right-0 mt-2 w-full origin-top divide-y divide-gray-100 rounded-md bg-light ring-1 focus:outline-none">
           <div className="flex flex-col gap-2 px-1 py-1">
-            {/* <Menu.Item as={'div'} className="flex justify-center ">
-              {({ active }) => (
-                <button
-                  className={`${
-                    active ? 'bg-orange text-white' : 'text-dark'
-                  } w-11/12 rounded-md py-2 text-sm hover:scale-105`}>
-                  Your profile
-                </button>
-              )}
-            </Menu.Item> */}
             {(role === 'candidate' || role === 'user') && (
               <Menu.Item as={'div'} className="flex justify-center">
                 {({ active }) => (

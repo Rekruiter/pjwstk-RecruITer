@@ -132,7 +132,7 @@ const PersonalDataForm = ({ data, handlePersonalDataPost, mutationLoading }: Per
         {mutationLoading ? (
           <Spinner isLight />
         ) : (
-          <Button type="submit" className="mx-auto" disabled={mutationLoading}>
+          <Button type="submit" className="mx-auto">
             Submit
           </Button>
         )}
